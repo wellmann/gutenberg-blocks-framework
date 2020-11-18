@@ -8,7 +8,6 @@ final class FrameworkLoader
     private TemplateCollector $templateCollector;
     private string $dirPath = '';
     private string $namespace = '';
-    private string $prefix = '';
 
     public function __construct()
     {
@@ -26,7 +25,6 @@ final class FrameworkLoader
     public function setNamespace(string $namespace): FrameworkLoader
     {
         $this->namespace = $namespace;
-        $this->prefix = explode('\\', $this->namespace)[0];
 
         return $this;
     }
@@ -43,7 +41,7 @@ final class FrameworkLoader
     {
         $this->blockCollector->setDirPath($this->dirPath);
         $this->blockCollector->setNamespace($this->namespace);
-        $this->blockCollector->setPrefix($this->prefix);
+        $this->blockCollector->setPrefix($this->getPrefix());
 
         $blocks = glob($this->dirPath . '/src/*', GLOB_ONLYDIR);
         foreach ($blocks as $block) {
@@ -54,7 +52,7 @@ final class FrameworkLoader
 
     public function registerTemplates(): void
     {
-        $this->templateCollector->setPrefix($this->prefix);
+        $this->templateCollector->setPrefix($this->getPrefix());
 
         $templates = glob($this->dirPath . '/templates/*.php');
         foreach ($templates as $template) {
@@ -85,13 +83,20 @@ final class FrameworkLoader
     {
         return array_merge($categories, [
             [
-                'slug' => $this->prefix,
-                'title' => ucwords($this->prefix)
+                'slug' => sanitize_title($this->getPrefix()),
+                'title' => $this->getPrefix()
             ],
             [
                 'slug' => 'wordpress-default',
                 'title' => 'WordPress'
             ]
         ]);
+    }
+
+    private function getPrefix(): string
+    {
+        $pascalCasePrefix = explode('\\', $this->namespace)[0];
+
+        return preg_replace('%([a-z])([A-Z])%', "$1 $2", $pascalCasePrefix);
     }
 }
