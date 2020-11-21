@@ -48,7 +48,7 @@ class BlockCollector
             throw new Exception($className . ' must be an instance of ' . BaseBlock::class);
         }
 
-        $name = sanitize_title($this->prefix) . '/' . $block;
+        $name = $this->prefix . '/' . $block;
         $args = ['render_callback' => [$classInstance, 'render']];
 
         if (!empty($classInstance->getAttributes())) {

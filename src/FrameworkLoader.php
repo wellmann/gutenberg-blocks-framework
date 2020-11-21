@@ -83,8 +83,8 @@ final class FrameworkLoader
     {
         return array_merge($categories, [
             [
-                'slug' => sanitize_title($this->getPrefix()),
-                'title' => $this->getPrefix()
+                'slug' => $this->getPrefix(),
+                'title' => ucwords($this->getPrefix(), '-')
             ],
             [
                 'slug' => 'wordpress-default',
@@ -95,8 +95,8 @@ final class FrameworkLoader
 
     private function getPrefix(): string
     {
-        $pascalCasePrefix = explode('\\', $this->namespace)[0];
+        $pluginDirName = basename($this->dirPath);
 
-        return preg_replace('%([a-z])([A-Z])%', "$1 $2", $pascalCasePrefix);
+        return str_replace('-gutenberg-blocks', '', $pluginDirName);
     }
 }
