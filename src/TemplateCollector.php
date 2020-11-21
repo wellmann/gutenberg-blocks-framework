@@ -4,14 +4,24 @@ namespace KWIO\GutenbergBlocksFramework;
 
 class TemplateCollector
 {
+    private string $dirPath = '';
     private string $prefix = '';
 
-    public function setPrefix(string $prefix)
+    public function __construct(string $dirPath, string $prefix)
     {
+        $this->dirPath = $dirPath;
         $this->prefix = $prefix;
     }
 
-    public function register(string $template): void
+    public function registerTemplates(): void
+    {
+        $templates = glob($this->dirPath . '/templates/*.php');
+        foreach ($templates as $template) {
+            $this->registerTemplate($template);
+        }
+    }
+
+    protected function registerTemplate(string $template): void
     {
         if (basename($_SERVER['SCRIPT_FILENAME']) !== 'post-new.php') {
             return;
@@ -32,7 +42,7 @@ class TemplateCollector
         }
     }
 
-    private function addNamespaceToBlockName(array $template): array
+    protected function addNamespaceToBlockName(array $template): array
     {
         return array_map(function (array $block): array {
             $block[0] = strpos($block[0], '/') === false ? $this->prefix . '/' . $block[0] : $block[0];

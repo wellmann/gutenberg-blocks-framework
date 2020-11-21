@@ -5,95 +5,45 @@ namespace KWIO\GutenbergBlocksFramework;
 final class FrameworkLoader
 {
     private BlockCollector $blockCollector;
-    private TemplateCollector $templateCollector;
+    private array $blockWhitelist = [
+        'core/image',
+        'core/heading',
+        'core/list',
+        'core/video',
+        'core/table',
+        'core/code',
+        'core/paragraph',
+        'core/column',
+        'core/columns',
+        'core/group',
+        'core/shortcode'
+    ];
     private string $dirPath = '';
-    private string $namespace = '';
+    private TemplateCollector $templateCollector;
 
-    public function __construct()
-    {
-        $this->blockCollector = new BlockCollector();
-        $this->templateCollector = new TemplateCollector();
-    }
-
-    public function setDirPath(string $dirPath): FrameworkLoader
+    public function __construct(string $dirPath, string $namespace)
     {
         $this->dirPath = $dirPath;
-
-        return $this;
+        $this->blockCollector = new BlockCollector($dirPath, $namespace, $this->getPrefix(), $this->blockWhitelist);
+        $this->templateCollector = new TemplateCollector($dirPath, $this->getPrefix());
     }
 
-    public function setNamespace(string $namespace): FrameworkLoader
+    public function setBlockWhitelist(array $blockWhitelist): FrameworkLoader
     {
-        $this->namespace = $namespace;
+        $this->blockWhitelist = $blockWhitelist;
 
         return $this;
     }
 
     public function init(): void
     {
-        add_action('init', [$this, 'registerBlocks']);
-        add_action('admin_init', [$this, 'registerTemplates']);
-        add_filter('allowed_block_types', [$this, 'filterBlocks']);
-        add_filter('block_categories', [$this, 'groupBlocks']);
+        add_action('admin_init', [$this->templateCollector, 'registerTemplates']);
+        add_filter('allowed_block_types', [$this->blockCollector, 'filterBlocks']);
+        add_filter('block_categories', [$this->blockCollector, 'groupBlocks']);
+        add_action('init', [$this->blockCollector, 'registerBlocks']);
     }
 
-    public function registerBlocks(): void
-    {
-        $this->blockCollector->setDirPath($this->dirPath);
-        $this->blockCollector->setNamespace($this->namespace);
-        $this->blockCollector->setPrefix($this->getPrefix());
-
-        $blocks = glob($this->dirPath . '/src/*', GLOB_ONLYDIR);
-        foreach ($blocks as $block) {
-            $block = basename($block);
-            $this->blockCollector->register($block);
-        }
-    }
-
-    public function registerTemplates(): void
-    {
-        $this->templateCollector->setPrefix($this->getPrefix());
-
-        $templates = glob($this->dirPath . '/templates/*.php');
-        foreach ($templates as $template) {
-            $this->tempateCollector->register($template);
-        }
-    }
-
-    public function filterBlocks(): array
-    {
-        $coreBlockWhitelist = [
-            'core/image',
-            'core/heading',
-            'core/list',
-            'core/video',
-            'core/table',
-            'core/code',
-            'core/paragraph',
-            'core/column',
-            'core/columns',
-            'core/group',
-            'core/shortcode'
-        ];
-
-        return array_merge($coreBlockWhitelist, $this->blockCollector->getBlocks());
-    }
-
-    public function groupBlocks(array $categories): array
-    {
-        return array_merge($categories, [
-            [
-                'slug' => $this->getPrefix(),
-                'title' => ucwords($this->getPrefix(), '-')
-            ],
-            [
-                'slug' => 'wordpress-default',
-                'title' => 'WordPress'
-            ]
-        ]);
-    }
-
-    private function getPrefix(): string
+    protected function getPrefix(): string
     {
         $pluginDirName = basename($this->dirPath);
 

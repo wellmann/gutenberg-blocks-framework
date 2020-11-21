@@ -11,12 +11,12 @@ class BaseBlock
 
     private array $tagAttr = [];
     private array $data = [];
-    private bool $hideMobile = false;
-    private bool $hideDesktop = false;
+    private ?bool $hideMobile = null;
+    private ?bool $hideDesktop = null;
 
     public function __construct(string $blockName, string $dirPath)
     {
-        $this->dirPath = $dirPath . '/src/blocks/' . $blockName;
+        $this->dirPath = $dirPath . 'src/' . $blockName;
         $this->baseClass = 'block-' . $blockName;
         $this->tagAttr['class'] = ['block', $this->baseClass];
         $this->data['baseClass'] = $this->baseClass;
