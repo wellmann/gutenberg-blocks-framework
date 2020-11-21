@@ -38,7 +38,7 @@ final class FrameworkLoader
     public function init(): void
     {
         add_action('admin_init', [$this->templateCollector, 'registerTemplates']);
-        add_filter('allowed_block_types', [$this->blockCollector, 'filterBlocks']);
+        add_filter('allowed_block_types', [$this->blockCollector, 'filterBlocks'], 10, 2);
         add_filter('block_categories', [$this->blockCollector, 'groupBlocks']);
         add_action('init', [$this->blockCollector, 'registerBlocks']);
     }
