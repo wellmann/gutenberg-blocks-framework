@@ -5,3 +5,4 @@ node_modules
 vendor
 Thumbs.db
 .DS_Store
+*.cache
