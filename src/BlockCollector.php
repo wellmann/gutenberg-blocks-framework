@@ -3,7 +3,6 @@
 namespace KWIO\GutenbergBlocksFramework;
 
 use Exception;
-use WP_Post;
 
 class BlockCollector
 {
@@ -12,7 +11,6 @@ class BlockCollector
     private string $dirPath = '';
     private string $namespace = '';
     private string $prefix = '';
-    private array $restrictedBlocks = [];
 
     public function __construct(string $dirPath, string $namespace, string $prefix, array $blockWhitelist)
     {
@@ -22,25 +20,9 @@ class BlockCollector
         $this->prefix = $prefix;
     }
 
-    /**
-     * @param bool|array $allowedBlocks
-     */
-    public function filterBlocks($allowedBlocks, WP_Post $post): array
+    public function filterBlocks(): array
     {
-        $allowedBlocks = array_merge($this->blockWhitelist, $this->blocks);
-
-        foreach ($this->restrictedBlocks as $postType => $blocks) {
-            if ($post->post_type === $postType) { // phpcs:ignore
-                continue;
-            }
-
-            foreach ($blocks as $block) {
-                $key = array_search($block, $allowedBlocks);
-                unset($allowedBlocks[$key]);
-            }
-        }
-
-        return $allowedBlocks;
+        return array_merge($this->blockWhitelist, $this->blocks);
     }
 
     public function groupBlocks(array $categories): array

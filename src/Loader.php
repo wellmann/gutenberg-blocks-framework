@@ -2,9 +2,8 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
-final class FrameworkLoader
+final class Loader
 {
-    private BlockCollector $blockCollector;
     private array $blockWhitelist = [
         'core/image',
         'core/heading',
@@ -19,16 +18,15 @@ final class FrameworkLoader
         'core/shortcode'
     ];
     private string $dirPath = '';
-    private TemplateCollector $templateCollector;
+    private string $namespace = '';
 
     public function __construct(string $dirPath, string $namespace)
     {
         $this->dirPath = $dirPath;
-        $this->blockCollector = new BlockCollector($dirPath, $namespace, $this->getPrefix(), $this->blockWhitelist);
-        $this->templateCollector = new TemplateCollector($dirPath, $this->getPrefix());
+        $this->namespace = $namespace;
     }
 
-    public function setBlockWhitelist(array $blockWhitelist): FrameworkLoader
+    public function setBlockWhitelist(array $blockWhitelist): Loader
     {
         $this->blockWhitelist = $blockWhitelist;
 
@@ -37,10 +35,13 @@ final class FrameworkLoader
 
     public function init(): void
     {
-        add_action('admin_init', [$this->templateCollector, 'registerTemplates']);
-        add_filter('allowed_block_types', [$this->blockCollector, 'filterBlocks'], 10, 2);
-        add_filter('block_categories', [$this->blockCollector, 'groupBlocks']);
-        add_action('init', [$this->blockCollector, 'registerBlocks']);
+        $blockCollector = new BlockCollector($this->dirPath, $this->namespace, $this->getPrefix(), $this->blockWhitelist);
+        $templateCollector = new TemplateCollector($this->dirPath, $this->getPrefix());
+
+        add_action('admin_init', [$templateCollector, 'registerTemplates']);
+        add_filter('allowed_block_types', [$blockCollector, 'filterBlocks']);
+        add_filter('block_categories', [$blockCollector, 'groupBlocks']);
+        add_action('init', [$blockCollector, 'registerBlocks']);
     }
 
     protected function getPrefix(): string
