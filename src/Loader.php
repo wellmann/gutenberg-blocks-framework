@@ -4,7 +4,7 @@ namespace KWIO\GutenbergBlocksFramework;
 
 final class Loader
 {
-    private array $blockWhitelist = [
+    public const CORE_BLOCK_WHITELIST = [
         'core/image',
         'core/heading',
         'core/list',
@@ -15,13 +15,17 @@ final class Loader
         'core/column',
         'core/columns',
         'core/group',
-        'core/shortcode'
+        'core/shortcode',
+        'core-embed/youtube'
     ];
+
+    private array $blockWhitelist = [];
     private string $dirPath = '';
     private string $namespace = '';
 
     public function __construct(string $dirPath, string $dirUrl, string $namespace)
     {
+        $this->blockWhitelist = self::CORE_BLOCK_WHITELIST;
         $this->dirPath = $dirPath;
         $this->dirUrl = $dirUrl;
         $this->namespace = $namespace;
