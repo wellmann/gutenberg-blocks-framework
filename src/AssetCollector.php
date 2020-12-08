@@ -22,7 +22,8 @@ class AssetCollector
         wp_enqueue_style(
             $this->prefix . '-blocks',
             $this->dirUrl . self::DIST_DIR . '/blocks.css',
-            $this->getVersionHash('blocks.css')
+            [],
+            $this->shortenVersionHash($this->getVersionHash('blocks.css'))
         );
 
         if (!empty($this->getCriticalCss())) {
@@ -38,14 +39,14 @@ class AssetCollector
             $this->prefix . '-blocks-editor',
             $this->dirUrl . self::DIST_DIR . '/editor.js',
             $manifest['dependencies'],
-            $manifest['version'],
+            $this->shortenVersionHash($manifest['version']),
             true
         );
         wp_enqueue_style(
             $this->prefix . '-blocks-editor',
             $this->dirUrl . self::DIST_DIR . '/editor.css',
             ['wp-edit-blocks'],
-            $this->getVersionHash('editor.css')
+            $this->shortenVersionHash($this->getVersionHash('editor.css'))
         );
     }
 
@@ -57,7 +58,7 @@ class AssetCollector
             $this->prefix . '-blocks',
             $this->dirUrl . self::DIST_DIR . '/blocks.js',
             $manifest['dependencies'],
-            $manifest['version'],
+            $this->shortenVersionHash($manifest['version']),
             true
         );
     }
@@ -96,5 +97,10 @@ class AssetCollector
         }
 
         return md5(filemtime($assetPath));
+    }
+
+    private function shortenVersionHash(string $hash): string
+    {
+        return substr($hash, 0, 12);
     }
 }
