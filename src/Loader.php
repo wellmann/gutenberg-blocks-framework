@@ -16,6 +16,7 @@ final class Loader
         'core/columns',
         'core/group',
         'core/shortcode',
+        'core/cover',
         'core-embed/youtube'
     ];
 
