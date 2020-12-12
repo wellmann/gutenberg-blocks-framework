@@ -18,7 +18,6 @@ class BaseBlock
     {
         $this->dirPath = $dirPath . 'src/' . $blockName;
         $this->baseClass = 'block-' . $blockName;
-        $this->tagAttr['class'] = ['block', $this->baseClass];
         $this->data['baseClass'] = $this->baseClass;
     }
 
@@ -40,6 +39,8 @@ class BaseBlock
     public function render(array $attributes, string $content): string
     {
         $this->data = array_merge($this->data, $attributes, compact('content'));
+        $this->tagAttr = []; // Reset.
+        $this->tagAttr['class'] = ['block', $this->baseClass];
         $this->hideMobile = $this->extractAttr('hideMobile');
         $this->hideDesktop = $this->extractAttr('hideDesktop');
 
