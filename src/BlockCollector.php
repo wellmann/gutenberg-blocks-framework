@@ -69,12 +69,6 @@ class BlockCollector
             unregister_block_type($name);
         }
 
-        if (property_exists($classInstance, 'showOn')) {
-            foreach ($classInstance->showOn as $postType) {
-                $this->restrictedBlocks[$postType][] = $name;
-            }
-        }
-
         $args = ['render_callback' => [$classInstance, 'render']];
 
         if (!empty($classInstance->getAttributes())) {
