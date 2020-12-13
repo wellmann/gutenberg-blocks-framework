@@ -4,30 +4,24 @@ namespace KWIO\GutenbergBlocksFramework;
 
 class AssetCollector
 {
-    private const DIST_DIR = 'dist';
+    private ?object $pluginConfig = null;
 
-    private string $dirPath = '';
-    private string $dirUrl = '';
-    private string $prefix = '';
-
-    public function __construct(string $dirPath, string $dirUrl, string $prefix)
+    public function __construct(object $pluginConfig)
     {
-        $this->dirPath = $dirPath;
-        $this->dirUrl = $dirUrl;
-        $this->prefix = $prefix;
+        $this->pluginConfig = $pluginConfig;
     }
 
     public function enqueueAssets(): void
     {
         wp_enqueue_style(
-            $this->prefix . '-blocks',
-            $this->dirUrl . self::DIST_DIR . '/blocks.css',
+            $this->pluginConfig->prefix . '-blocks',
+            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'blocks.css',
             [],
             $this->shortenVersionHash($this->getVersionHash('blocks.css'))
         );
 
         if (!empty($this->getCriticalCss())) {
-            wp_add_inline_style($this->prefix . '-blocks', $this->getCriticalCss());
+            wp_add_inline_style($this->pluginConfig->prefix . '-blocks', $this->getCriticalCss());
         }
     }
 
@@ -36,15 +30,15 @@ class AssetCollector
         $manifest = $this->getAssetManifest('editor');
 
         wp_enqueue_script(
-            $this->prefix . '-blocks-editor',
-            $this->dirUrl . self::DIST_DIR . '/editor.js',
+            $this->pluginConfig->prefix . '-blocks-editor',
+            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.js',
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
         );
         wp_enqueue_style(
-            $this->prefix . '-blocks-editor',
-            $this->dirUrl . self::DIST_DIR . '/editor.css',
+            $this->pluginConfig->prefix . '-blocks-editor',
+            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
             ['wp-edit-blocks'],
             $this->shortenVersionHash($this->getVersionHash('editor.css'))
         );
@@ -55,8 +49,8 @@ class AssetCollector
         $manifest = $this->getAssetManifest('blocks');
 
         wp_enqueue_script(
-            $this->prefix . '-blocks',
-            $this->dirUrl . self::DIST_DIR . '/blocks.js',
+            $this->pluginConfig->prefix . '-blocks',
+            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'blocks.js',
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
@@ -65,11 +59,11 @@ class AssetCollector
 
     private function getAssetManifest(string $entry): array
     {
-        $manifestPath = $this->dirPath . self::DIST_DIR . "/{$entry}.asset.php";
+        $manifestPath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . "{$entry}.asset.php";
         if (!file_exists($manifestPath)) {
             return [
                 'dependencies' => [],
-                'version' => ''
+                'version' => $this->getVersionHash($entry . '.js')
             ];
         }
 
@@ -78,7 +72,7 @@ class AssetCollector
 
     private function getCriticalCss(): string
     {
-        $criticalCssPath = $this->dirPath . self::DIST_DIR . '/critical.css';
+        $criticalCssPath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . 'critical.css';
         if (!is_readable($criticalCssPath)) {
             return '';
         }
@@ -91,7 +85,7 @@ class AssetCollector
 
     private function getVersionHash(string $asset): string
     {
-        $assetPath = $this->dirPath . self::DIST_DIR . "/{$asset}";
+        $assetPath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $asset;
         if (!is_readable($assetPath)) {
             return '';
         }

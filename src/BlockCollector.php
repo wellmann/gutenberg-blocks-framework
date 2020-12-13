@@ -7,30 +7,26 @@ use Exception;
 class BlockCollector
 {
     private array $blocks = [];
-    private array $blockWhitelist = [];
-    private string $dirPath = '';
-    private string $namespace = '';
-    private string $prefix = '';
+    private string $blockDirPath = '';
+    private ?object $pluginConfig = null;
 
-    public function __construct(string $dirPath, string $namespace, string $prefix, array $blockWhitelist)
+    public function __construct(object $pluginConfig)
     {
-        $this->blockWhitelist = $blockWhitelist;
-        $this->dirPath = $dirPath;
-        $this->namespace = $namespace;
-        $this->prefix = $prefix;
+        $this->blockDirPath = $pluginConfig->dirPath . $pluginConfig->blockDir;
+        $this->pluginConfig = $pluginConfig;
     }
 
     public function filterBlocks(): array
     {
-        return array_merge($this->blockWhitelist, $this->blocks);
+        return array_merge($this->pluginConfig->blockWhitelist, $this->blocks);
     }
 
     public function groupBlocks(array $categories): array
     {
         return array_merge($categories, [
             [
-                'slug' => $this->prefix,
-                'title' => ucwords($this->prefix, '-')
+                'slug' => $this->pluginConfig->prefix,
+                'title' => ucwords($this->pluginConfig->prefix, '-')
             ],
             [
                 'slug' => 'wordpress-default',
@@ -41,7 +37,7 @@ class BlockCollector
 
     public function registerBlocks(): void
     {
-        $blocks = glob($this->dirPath . 'src/*', GLOB_ONLYDIR);
+        $blocks = glob($this->blockDirPath . '*', GLOB_ONLYDIR);
         foreach ($blocks as $block) {
             $block = basename($block);
             $this->registerBlock($block);
@@ -53,18 +49,18 @@ class BlockCollector
         $className = BaseBlock::class;
 
         // Check if block has a dedicated PHP class.
-        $classPath = $this->dirPath . "src/{$block}/block.php";
+        $classPath = $this->blockDirPath . $block . '/block.php';
         if (file_exists($classPath)) {
             require_once $classPath;
-            $className = $this->namespace . '\\' . str_replace('-', '', ucwords($block, '-'));
+            $className = $this->pluginConfig->blockNamespace . '\\' . str_replace('-', '', ucwords($block, '-'));
         }
 
-        $classInstance = new $className($block, $this->dirPath);
+        $classInstance = new $className($block, $this->blockDirPath);
         if (!$classInstance instanceof BaseBlock) {
             throw new Exception($className . ' must be an instance of ' . BaseBlock::class);
         }
 
-        $name = $this->prefix . '/' . $block;
+        $name = $this->pluginConfig->prefix . '/' . $block;
 
         // Override core blocks render output.
         if (strpos($block, 'core-') === 0) {

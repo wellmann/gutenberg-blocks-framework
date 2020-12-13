@@ -16,14 +16,14 @@ class BaseBlock
 
     public function __construct(string $blockName, string $dirPath)
     {
-        $this->dirPath = $dirPath . 'src/' . $blockName;
+        $this->dirPath = trailingslashit($dirPath . $blockName);
         $this->baseClass = 'block-' . $blockName;
         $this->data['baseClass'] = $this->baseClass;
     }
 
     public function getAttributes(): array
     {
-        $attributesJson = $this->dirPath . '/attributes.json';
+        $attributesJson = $this->dirPath . 'attributes.json';
         if (!is_readable($attributesJson)) {
             return [];
         }
@@ -48,7 +48,7 @@ class BaseBlock
         $this->extractAttr('align', 'class');
         $this->extractAttr('anchor', 'id');
 
-        return $this->setView($this->dirPath . '/view.php');
+        return $this->setView($this->dirPath . 'view.php');
     }
 
     /**
