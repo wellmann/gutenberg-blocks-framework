@@ -41,3 +41,7 @@ Pass a directory relative to the plugin dir path to customize the block assets d
 ### setViewClass(ViewInterface $viewClass)
 
 Implement custom template engine.
+
+* `KWIO\GutenbergBlocksFramework\View\PhpView` (default)
+* `KWIO\GutenbergBlocksFramework\View\TwigView` (requires `twig/twig`)
+* `KWIO\GutenbergBlocksFramework\View\TimberView` (requires `timber/timber`)
