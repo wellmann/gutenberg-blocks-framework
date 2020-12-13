@@ -46,18 +46,19 @@ class BlockCollector
 
     protected function registerBlock(string $block): void
     {
-        $className = BaseBlock::class;
+        $blockClassName = str_replace('-', '', ucwords($block, '-'));
+        $blockFullClassName = BaseBlock::class;
+        $blockPath = trailingslashit($this->blockDirPath . $block);
 
         // Check if block has a dedicated PHP class.
-        $classPath = $this->blockDirPath . $block . '/block.php';
-        if (file_exists($classPath)) {
-            require_once $classPath;
-            $className = $this->pluginConfig->blockNamespace . '\\' . str_replace('-', '', ucwords($block, '-'));
+        if (file_exists($blockPath . $blockClassName . '.php') || file_exists($blockPath . 'block.php')) {
+            require_once file_exists($blockPath . 'block.php') ? $blockPath . 'block.php' : $blockPath . $blockClassName . '.php';
+            $blockFullClassName = $this->pluginConfig->blockNamespace . '\\' . $blockClassName;
         }
 
-        $classInstance = new $className($block, $this->blockDirPath);
+        $classInstance = new $blockFullClassName($block, $this->blockDirPath);
         if (!$classInstance instanceof BaseBlock) {
-            throw new Exception($className . ' must be an instance of ' . BaseBlock::class);
+            throw new Exception($blockFullClassName . ' must be an instance of ' . BaseBlock::class);
         }
 
         $name = $this->pluginConfig->prefix . '/' . $block;
