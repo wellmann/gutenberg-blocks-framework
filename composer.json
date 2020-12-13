@@ -1,6 +1,6 @@
 {
     "name": "kwio/gutenberg-blocks-framework",
-    "description": "Foundation to develop custom blocks for Gutenberg.",
+    "description": "Library to load custom Gutenberg blocks.",
     "authors": [
         {
             "name": "Kevin Wellmann",
@@ -16,11 +16,12 @@
       "test": "phpunit"
   },
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "twig/twig": "^3.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
-        "phpunit/phpunit": "^9.4"
+        "phpunit/phpunit": "^9.4",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0"
     }
 }

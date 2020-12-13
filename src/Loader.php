@@ -2,6 +2,8 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
+use KWIO\GutenbergBlocksFramework\View\PhpView;
+use KWIO\GutenbergBlocksFramework\View\ViewInterface;
 use stdClass;
 
 final class Loader
@@ -32,6 +34,7 @@ final class Loader
         $this->pluginConfig->dirUrl = plugin_dir_url($file);
         $this->pluginConfig->distDir = 'dist/';
         $this->pluginConfig->prefix = str_replace('-gutenberg-blocks', '', basename(dirname($file)));
+        $this->pluginConfig->viewClass = new PhpView();
     }
 
     public function loadBlocks(string $dir, string $namespace): Loader
@@ -52,6 +55,13 @@ final class Loader
     public function setDistDir(string $distDir): Loader
     {
         $this->pluginConfig->distDir = trailingslashit($distDir);
+
+        return $this;
+    }
+
+    public function setViewClass(ViewInterface $viewClass): Loader
+    {
+        $this->pluginConfig->viewClass = $viewClass;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
+use KWIO\GutenbergBlocksFramework\View\ViewInterface;
+
 class BaseBlock
 {
     use BlockUtilsTrait;
@@ -9,16 +11,18 @@ class BaseBlock
     protected string $dirPath = '';
     protected string $baseClass = '';
 
-    private array $tagAttr = [];
     private array $data = [];
     private ?bool $hideMobile = null;
     private ?bool $hideDesktop = null;
+    private ?ViewInterface $viewClass = null;
+    private array $tagAttr = [];
 
-    public function __construct(string $blockName, string $dirPath)
+    public function __construct(string $blockName, string $dirPath, ViewInterface $viewClass)
     {
-        $this->dirPath = trailingslashit($dirPath . $blockName);
         $this->baseClass = 'block-' . $blockName;
         $this->data['baseClass'] = $this->baseClass;
+        $this->dirPath = trailingslashit($dirPath . $blockName);
+        $this->viewClass = $viewClass;
     }
 
     public function getAttributes(): array
@@ -39,7 +43,7 @@ class BaseBlock
     public function render(array $attributes, string $content): string
     {
         $this->data = array_merge($this->data, $attributes, compact('content'));
-        $this->tagAttr = []; // Reset.
+        $this->tagAttr = []; // Reset for each render.
         $this->tagAttr['class'] = ['block', $this->baseClass];
         $this->hideMobile = $this->extractAttr('hideMobile');
         $this->hideDesktop = $this->extractAttr('hideDesktop');
@@ -48,7 +52,7 @@ class BaseBlock
         $this->extractAttr('align', 'class');
         $this->extractAttr('anchor', 'id');
 
-        return $this->setView($this->dirPath . 'view.php');
+        return $this->setView($this->dirPath . $this->viewClass->defaultView);
     }
 
     /**
@@ -70,11 +74,12 @@ class BaseBlock
 
         $this->tagAttr['class'] = $this->convertIsStyleToBem($this->tagAttr['class']);
         $tagAttrString = $this->buildTagAttrString($this->tagAttr);
-        $data = array_merge($this->data, $data);
-        $blockView = new BlockView($data);
-        $blockHtml = $blockView->load($file);
 
-        return "<div{$tagAttrString}>{$blockHtml}</div>";
+        $this->viewClass
+            ->setData(array_merge($this->data, $data))
+            ->setFile($file);
+
+        return "<div{$tagAttrString}>{$this->viewClass->render()}</div>";
     }
 
     /**
