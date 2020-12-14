@@ -26,7 +26,7 @@ class BlockCollector
         return array_merge($categories, [
             [
                 'slug' => $this->pluginConfig->prefix,
-                'title' => ucwords($this->pluginConfig->prefix, '-')
+                'title' => str_replace('-', ' ', ucwords($this->pluginConfig->prefix, '-'))
             ],
             [
                 'slug' => 'wordpress-default',

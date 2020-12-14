@@ -33,7 +33,7 @@ final class Loader
         $this->pluginConfig->dirPath = plugin_dir_path($file);
         $this->pluginConfig->dirUrl = plugin_dir_url($file);
         $this->pluginConfig->distDir = 'dist/';
-        $this->pluginConfig->prefix = str_replace('-gutenberg-blocks', '', basename(dirname($file)));
+        $this->pluginConfig->prefix = preg_replace('/-gutenberg-blocks$/', '', basename(dirname($file)));
         $this->pluginConfig->viewClass = new PhpView();
     }
 

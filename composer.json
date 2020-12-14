@@ -12,6 +12,11 @@
             "KWIO\\GutenbergBlocksFramework\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+          "KWIO\\GutenbergBlocksFramework\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "test": "phpunit"
     },
@@ -21,6 +26,7 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
         "phpunit/phpunit": "^9.4",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0"
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+        "brain/monkey": "^2.6"
     }
 }
