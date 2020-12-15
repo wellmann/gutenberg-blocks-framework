@@ -7,6 +7,7 @@ use KWIO\GutenbergBlocksFramework\View\PhpView;
 use ReflectionClass;
 use stdClass;
 
+use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;
 
 class BlockCollectorTest extends TestCase
@@ -54,6 +55,26 @@ class BlockCollectorTest extends TestCase
         $blockCollectorBlocks->setAccessible(true);
 
         $this->assertContains('prefix/example-block', $blockCollectorBlocks->getValue($blockCollector));
+    }
+
+    public function testOverrideCoreBlock()
+    {
+        when('register_block_type')->justReturn(true);
+
+        expect('unregister_block_type')
+            ->once()
+            ->with('core/image');
+
+        $this->pluginConfig->prefix = 'prefix';
+        $this->pluginConfig->namespace = 'Namespace';
+        $this->pluginConfig->viewClass = new PhpView();
+
+        $blockCollector = new BlockCollector($this->pluginConfig);
+        $blockCollectorReflection = new ReflectionClass($blockCollector);
+
+        $blockCollectorRegisterBlock = $blockCollectorReflection->getMethod('registerBlock');
+        $blockCollectorRegisterBlock->setAccessible(true);
+        $blockCollectorRegisterBlock->invokeArgs($blockCollector, ['core-image']);
     }
 
     public function dataProviderForTestValidGroupTitle()
