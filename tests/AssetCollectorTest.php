@@ -3,19 +3,19 @@
 namespace KWIO\GutenbergBlocksFramework\Tests;
 
 use KWIO\GutenbergBlocksFramework\AssetCollector;
-use stdClass;
+use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
 
 use function Brain\Monkey\Functions\expect;
 
 class AssetCollectorTest extends TestCase
 {
-    protected ?object $pluginConfig = null;
+    protected ?PluginConfigDTO $pluginConfig = null;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->pluginConfig = new stdClass();
+        $this->pluginConfig = new PluginConfigDTO();
         $this->pluginConfig->dirPath = '/';
         $this->pluginConfig->dirUrl = '/';
         $this->pluginConfig->distDir = 'dist/';

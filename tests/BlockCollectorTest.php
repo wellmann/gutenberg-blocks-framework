@@ -4,21 +4,21 @@ namespace KWIO\GutenbergBlocksFramework\Tests;
 
 use KWIO\GutenbergBlocksFramework\BlockCollector;
 use KWIO\GutenbergBlocksFramework\View\PhpView;
+use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
 use ReflectionClass;
-use stdClass;
 
 use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;
 
 class BlockCollectorTest extends TestCase
 {
-    protected ?object $pluginConfig = null;
+    protected ?PluginConfigDTO $pluginConfig = null;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->pluginConfig = new stdClass();
+        $this->pluginConfig = new PluginConfigDTO();
         $this->pluginConfig->blockDir = 'src/';
         $this->pluginConfig->dirPath = '/';
     }

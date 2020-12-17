@@ -2,15 +2,15 @@
 
 namespace KWIO\GutenbergBlocksFramework\Tests;
 
+use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
 use ReflectionClass;
-use stdClass;
 use KWIO\GutenbergBlocksFramework\TemplateCollector;
 
 class TemplateCollectorTest extends TestCase
 {
     public function testAddNamespaceToBlockName()
     {
-        $this->pluginConfig = new stdClass();
+        $this->pluginConfig = new PluginConfigDTO();
         $this->pluginConfig->prefix = 'prefix';
 
         $templateCollector = new TemplateCollector($this->pluginConfig);

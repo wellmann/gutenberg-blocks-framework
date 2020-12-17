@@ -8,9 +8,9 @@ class BlockCollector
 {
     private array $blocks = [];
     private string $blockDirPath = '';
-    private ?object $pluginConfig = null;
+    private ?PluginConfigDTO $pluginConfig = null;
 
-    public function __construct(object $pluginConfig)
+    public function __construct(PluginConfigDTO $pluginConfig)
     {
         $this->blockDirPath = $pluginConfig->dirPath . $pluginConfig->blockDir;
         $this->pluginConfig = $pluginConfig;

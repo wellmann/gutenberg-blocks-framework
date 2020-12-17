@@ -4,7 +4,6 @@ namespace KWIO\GutenbergBlocksFramework;
 
 use KWIO\GutenbergBlocksFramework\View\PhpView;
 use KWIO\GutenbergBlocksFramework\View\ViewInterface;
-use stdClass;
 
 final class Loader
 {
@@ -24,11 +23,11 @@ final class Loader
         'core-embed/youtube'
     ];
 
-    private ?object $pluginConfig = null;
+    private ?PluginConfigDTO $pluginConfig = null;
 
     public function __construct(string $file)
     {
-        $this->pluginConfig = new stdClass();
+        $this->pluginConfig = new PluginConfigDTO();
         $this->pluginConfig->blockWhitelist = self::CORE_BLOCK_WHITELIST;
         $this->pluginConfig->dirPath = plugin_dir_path($file);
         $this->pluginConfig->dirUrl = plugin_dir_url($file);
