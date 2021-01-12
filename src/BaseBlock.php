@@ -10,12 +10,12 @@ class BaseBlock
 
     protected string $dirPath = '';
     protected string $baseClass = '';
+    protected array $tagAttr = [];
 
     private array $data = [];
     private ?bool $hideMobile = null;
     private ?bool $hideDesktop = null;
     private ?ViewInterface $viewClass = null;
-    private array $tagAttr = [];
 
     public function __construct(string $blockName, string $dirPath, ViewInterface $viewClass)
     {
