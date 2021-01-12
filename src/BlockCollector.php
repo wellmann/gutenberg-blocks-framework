@@ -66,7 +66,6 @@ class BlockCollector
         // Override core blocks render output.
         if (strpos($block, 'core-') === 0) {
             $name = 'core/' . preg_replace('/^core-/', '', $block);
-            unregister_block_type($name);
         }
 
         $args = ['render_callback' => [$classInstance, 'render']];
