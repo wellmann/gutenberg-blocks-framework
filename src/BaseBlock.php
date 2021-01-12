@@ -60,10 +60,6 @@ class BaseBlock
      */
     protected function setView(string $file, array $data = []): string
     {
-        if (!file_exists($file)) {
-            return '';
-        }
-
         if (wp_is_mobile() && $this->hideMobile) {
             return '';
         }
@@ -74,6 +70,10 @@ class BaseBlock
 
         $this->tagAttr['class'] = $this->convertIsStyleToBem($this->tagAttr['class']);
         $tagAttrString = $this->buildTagAttrString($this->tagAttr);
+
+        if (!file_exists($file)) {
+            return "<div{$tagAttrString}>{$data['content']}</div>";
+        }
 
         $this->viewClass
             ->setData(array_merge($this->data, $data))
