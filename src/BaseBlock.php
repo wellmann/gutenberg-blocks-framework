@@ -72,7 +72,11 @@ class BaseBlock
         $tagAttrString = $this->buildTagAttrString($this->tagAttr);
 
         if (!file_exists($file)) {
-            return "<div{$tagAttrString}>{$data['content']}</div>";
+            if (!empty($data['content'])) {
+                return "<div{$tagAttrString}>{$data['content']}</div>";
+            }
+
+            return '';
         }
 
         $this->viewClass
