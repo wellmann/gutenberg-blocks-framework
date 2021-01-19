@@ -48,6 +48,8 @@ Implement custom template engine.
 
 ## Defer loading of non-critical CSS
 
+To load the non-critical CSS you have to include the following filter in your functions.php.
+
 ```
 add_filter('style_loader_tag', function (string $html, string $handle, string $href, string $media): string {
     if ($media !== 'nonblocking') {
@@ -60,5 +62,4 @@ add_filter('style_loader_tag', function (string $html, string $handle, string $h
 
     return $link;
 }, 10, 4);
-```
 ```
