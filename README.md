@@ -45,3 +45,20 @@ Implement custom template engine.
 * `KWIO\GutenbergBlocksFramework\View\PhpView` (default)
 * `KWIO\GutenbergBlocksFramework\View\TwigView` (requires `twig/twig`)
 * `KWIO\GutenbergBlocksFramework\View\TimberView` (requires `timber/timber`)
+
+## Defer loading of non-critical CSS
+
+```
+add_filter('style_loader_tag', function (string $html, string $handle, string $href, string $media): string {
+    if ($media !== 'nonblocking') {
+        return $html;
+    }
+
+    $original_html = str_replace('nonblocking', 'all', trim($html));
+    $link = "<link rel='stylesheet' id='{$handle}-css' href='{$href}' type='text/css' media='{$media}' onload='this.onload=null;this.media=\"all\"'>\n";
+    $link .= "<noscript>{$original_html}</noscript>\n";
+
+    return $link;
+}, 10, 4);
+```
+```
