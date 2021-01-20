@@ -56,9 +56,9 @@ add_filter('style_loader_tag', function (string $html, string $handle, string $h
         return $html;
     }
 
-    $original_html = str_replace('nonblocking', 'all', trim($html));
+    $originalHtml = str_replace('nonblocking', 'all', trim($html));
     $link = "<link rel='stylesheet' id='{$handle}-css' href='{$href}' type='text/css' media='{$media}' onload='this.onload=null;this.media=\"all\"'>\n";
-    $link .= "<noscript>{$original_html}</noscript>\n";
+    $link .= "<noscript>{$originalHtml}</noscript>\n";
 
     return $link;
 }, 10, 4);

@@ -17,7 +17,8 @@ class AssetCollector
             $this->pluginConfig->prefix . '-blocks',
             $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'blocks.css',
             [],
-            $this->shortenVersionHash($this->getVersionHash('blocks.css'))
+            $this->shortenVersionHash($this->getVersionHash('blocks.css')),
+            is_admin() ? 'all' : 'nonblocking'
         );
 
         if (!empty($this->getCriticalCss())) {
