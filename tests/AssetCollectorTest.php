@@ -4,8 +4,10 @@ namespace KWIO\GutenbergBlocksFramework\Tests;
 
 use KWIO\GutenbergBlocksFramework\AssetCollector;
 use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
+use ReflectionClass;
 
 use function Brain\Monkey\Functions\expect;
+use function Brain\Monkey\Functions\when;
 
 class AssetCollectorTest extends TestCase
 {
@@ -14,6 +16,8 @@ class AssetCollectorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        when('is_admin')->justReturn(false);
 
         $this->pluginConfig = new PluginConfigDTO();
         $this->pluginConfig->dirPath = '/';
@@ -26,10 +30,27 @@ class AssetCollectorTest extends TestCase
     {
         expect('wp_enqueue_style')
             ->once()
-            ->with('prefix-blocks', '/dist/blocks.css', [], '');
+            ->with('prefix-blocks', '/dist/blocks.css', [], '', 'nonblocking');
 
         $assetCollector = new AssetCollector($this->pluginConfig);
         $assetCollector->enqueueAssets();
+    }
+
+    public function testEnqueueAssetsWithCriticalCss()
+    {
+        when('is_readable')->justReturn(false);
+        when('filemtime')->returnArg();
+        when('wp_enqueue_style')->returnArg();
+
+        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector->enqueueAssets();
+
+        $assetCollectorReflection = new ReflectionClass($assetCollector);
+
+        $blockCollectorGetCriticalCss = $assetCollectorReflection->getMethod('getCriticalCss');
+        $blockCollectorGetCriticalCss->setAccessible(true);
+
+        $this->assertEquals($blockCollectorGetCriticalCss->invoke($assetCollector), '');
     }
 
     public function testEnqueueEditorAssets()

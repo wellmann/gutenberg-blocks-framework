@@ -10,6 +10,14 @@ use function Brain\Monkey\Functions\when;
 
 class BaseBlockTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        when('wp_is_mobile')->justReturn(false);
+        when('esc_attr')->returnArg();
+    }
+
     public function testRenderResultHasHtmlClassAttribute()
     {
         $block = new BaseBlock('example', 'src/', new PhpView());

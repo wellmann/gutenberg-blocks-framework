@@ -7,7 +7,6 @@ use KWIO\GutenbergBlocksFramework\View\PhpView;
 use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
 use ReflectionClass;
 
-use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;
 
 class BlockCollectorTest extends TestCase
@@ -61,10 +60,6 @@ class BlockCollectorTest extends TestCase
     {
         when('register_block_type')->justReturn(true);
 
-        expect('unregister_block_type')
-            ->once()
-            ->with('core/image');
-
         $this->pluginConfig->prefix = 'prefix';
         $this->pluginConfig->namespace = 'Namespace';
         $this->pluginConfig->viewClass = new PhpView();
@@ -75,6 +70,8 @@ class BlockCollectorTest extends TestCase
         $blockCollectorRegisterBlock = $blockCollectorReflection->getMethod('registerBlock');
         $blockCollectorRegisterBlock->setAccessible(true);
         $blockCollectorRegisterBlock->invokeArgs($blockCollector, ['core-image']);
+
+        $this->assertNotFalse(has_filter('render_block'));
     }
 
     public function dataProviderForTestValidGroupTitle()
