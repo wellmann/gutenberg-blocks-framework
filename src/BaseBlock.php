@@ -71,7 +71,7 @@ class BaseBlock
         $tagAttrString = $this->buildTagAttrString($this->tagAttr);
 
         if (!file_exists($file)) {
-            if (!empty($data['content'])) {
+            if (!empty($this->data['content'])) {
                 return "<div{$tagAttrString}>{$data['content']}</div>";
             }
 
