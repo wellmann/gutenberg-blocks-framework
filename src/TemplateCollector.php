@@ -13,21 +13,30 @@ class TemplateCollector
 
     public function registerTemplates(): void
     {
-        $templates = glob($this->pluginConfig->dirPath . '/templates/*.php');
-        foreach ($templates as $template) {
+        foreach ($this->getTemplates() as $template) {
             $this->registerTemplate($template);
         }
     }
 
     protected function registerTemplate(string $template): void
     {
-        if (basename($_SERVER['SCRIPT_FILENAME']) !== 'post-new.php') {
-            return;
-        }
-
         $postType = !empty($_GET['post_type']) ? $_GET['post_type'] : 'post';
         if (!$postTypeObj = get_post_type_object($postType)) {
             return;
+        }
+
+        $folder = basename(dirname($template));
+        $isFolder = $folder !== 'templates';
+        $templateSlug = basename($template, '.php');
+
+        if ($isFolder) {
+            if ($folder !== $postType || empty($_GET['template']) || $_GET['template'] !== $templateSlug) {
+                return;
+            }
+        } else {
+            if ($templateSlug !== $postType) {
+                return;
+            }
         }
 
         $templateOptions = include $template;
@@ -51,5 +60,10 @@ class TemplateCollector
 
             return $block;
         }, $template);
+    }
+
+    protected function getTemplates(): array
+    {
+        return glob($this->pluginConfig->dirPath . 'templates/{,*/}*.php', GLOB_BRACE);
     }
 }

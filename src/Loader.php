@@ -70,7 +70,7 @@ final class Loader
         $blockCollector = new BlockCollector($this->pluginConfig);
         $templateCollector = new TemplateCollector($this->pluginConfig);
 
-        add_action('admin_init', [$templateCollector, 'registerTemplates']);
+        add_action('load-post-new.php', [$templateCollector, 'registerTemplates']);
         add_filter('allowed_block_types', [$blockCollector, 'filterBlocks']);
         add_filter('block_categories', [$blockCollector, 'groupBlocks']);
         add_action('enqueue_block_assets', [$assetCollector, 'enqueueAssets']);

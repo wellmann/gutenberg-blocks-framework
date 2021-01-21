@@ -56,7 +56,7 @@ class LoaderTest extends TestCase
             ->loadBlocks('src/', __NAMESPACE__)
             ->init();
 
-        $this->assertNotFalse(has_action('admin_init', '\KWIO\GutenbergBlocksFramework\TemplateCollector->registerTemplates()'));
+        $this->assertNotFalse(has_action('load-post-new.php', '\KWIO\GutenbergBlocksFramework\TemplateCollector->registerTemplates()'));
         $this->assertNotFalse(has_action('enqueue_block_assets', '\KWIO\GutenbergBlocksFramework\AssetCollector->enqueueAssets()'));
         $this->assertNotFalse(has_action('enqueue_block_editor_assets', '\KWIO\GutenbergBlocksFramework\AssetCollector->enqueueEditorAssets()'));
         $this->assertNotFalse(has_action('init', '\KWIO\GutenbergBlocksFramework\BlockCollector->registerBlocks()'));
