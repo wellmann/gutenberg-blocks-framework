@@ -43,8 +43,7 @@ class BaseBlock
     public function render(array $attributes, string $content): string
     {
         $this->data = array_merge($this->data, $attributes, compact('content'));
-        $this->tagAttr = []; // Reset for each render.
-        $this->tagAttr['class'] = ['block', $this->baseClass];
+        $this->tagAttr = ['class' => ['block', $this->baseClass]]; // Reset for each render.
         $this->hideMobile = $this->extractAttr('hideMobile');
         $this->hideDesktop = $this->extractAttr('hideDesktop');
 
@@ -101,8 +100,12 @@ class BaseBlock
             return null;
         }
 
+        if (empty($this->data[$attr])) {
+            return null;
+        }
+
         $value = $this->data[$attr];
-        $this->tagAttr[$newAttr][] = $value;
+        $this->tagAttr[$newAttr][] = $attr === 'align' && $value === 'full' ? 'alignfull' : $value;
         unset($this->data[$attr]);
 
         return $value;
