@@ -72,7 +72,7 @@ class BaseBlock
 
         if (!file_exists($file)) {
             if (!empty($this->data['content'])) {
-                return "<div{$tagAttrString}>{$data['content']}</div>";
+                return "<div{$tagAttrString}>{$this->data['content']}</div>";
             }
 
             return '';
