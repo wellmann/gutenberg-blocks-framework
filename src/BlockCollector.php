@@ -40,7 +40,9 @@ class BlockCollector
         $blocks = glob($this->blockDirPath . '*', GLOB_ONLYDIR);
         foreach ($blocks as $block) {
             $block = basename($block);
-            $this->registerBlock($block);
+            if (strpos($block, '_') !== 0) {
+                $this->registerBlock($block);
+            }
         }
     }
 
