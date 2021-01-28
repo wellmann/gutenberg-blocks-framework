@@ -57,8 +57,12 @@ class BaseBlock
     /**
      * Rendered HTML output of the block.
      */
-    protected function setView(string $file, array $data = []): string
+    protected function setView(?string $file, array $data = []): string
     {
+        if (is_null($file)) {
+            return '';
+        }
+
         if (wp_is_mobile() && $this->hideMobile) {
             return '';
         }
@@ -75,7 +79,7 @@ class BaseBlock
                 return "<div{$tagAttrString}>{$this->data['content']}</div>";
             }
 
-            return '';
+            return "<div{$tagAttrString}></div>";
         }
 
         $this->viewClass
