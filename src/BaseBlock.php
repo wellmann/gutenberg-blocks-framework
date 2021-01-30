@@ -15,7 +15,7 @@ class BaseBlock
     private array $data = [];
     private ?bool $hideMobile = null;
     private ?bool $hideDesktop = null;
-    private ?ViewInterface $viewClass = null;
+    private ?ViewInterface $viewClass;
 
     public function __construct(string $blockName, string $dirPath, ViewInterface $viewClass)
     {

@@ -4,7 +4,7 @@ namespace KWIO\GutenbergBlocksFramework;
 
 class TemplateCollector
 {
-    private ?PluginConfigDTO $pluginConfig = null;
+    private ?PluginConfigDTO $pluginConfig;
 
     public function __construct(PluginConfigDTO $pluginConfig)
     {

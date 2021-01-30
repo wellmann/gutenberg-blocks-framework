@@ -7,8 +7,8 @@ use Exception;
 class BlockCollector
 {
     private array $blocks = [];
-    private string $blockDirPath = '';
-    private ?PluginConfigDTO $pluginConfig = null;
+    private string $blockDirPath;
+    private ?PluginConfigDTO $pluginConfig;
 
     public function __construct(PluginConfigDTO $pluginConfig)
     {

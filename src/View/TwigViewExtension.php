@@ -8,7 +8,7 @@ use Twig\TwigFunction;
 
 class TwigViewExtension extends AbstractExtension
 {
-    private ?TwigView $twigView = null;
+    private ?TwigView $twigView;
 
     public function __construct(TwigView $twigView)
     {
