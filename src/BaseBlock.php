@@ -94,7 +94,12 @@ class BaseBlock
             ->setData(array_merge($this->data, $data, ['renderCount' => $this->renderCount]))
             ->setFile($file);
 
-        return "<div{$tagAttrString}>{$this->viewClass->render()}</div>";
+        // Don't render custom wrapper for overridden core block.
+        if (strpos($this->baseClass, 'block-core-') === 0) {
+            return $this->viewClass->render();
+        } else {
+            return "<div{$tagAttrString}>{$this->viewClass->render()}</div>";
+        }
     }
 
     /**
