@@ -19,9 +19,7 @@ abstract class AbstractView implements ViewInterface
     public function bem(string $element = '', array $modifiers = []): string
     {
         $elementClass = !empty($element) ? $this->baseClass . '__' . $element : $this->baseClass;
-        $modifiers = array_map(function ($modifier) use ($elementClass) {
-            return $elementClass . '--' . $modifier;
-        }, $modifiers);
+        $modifiers = array_map(fn($modifier) => $elementClass . '--' . $modifier, $modifiers);
 
         return $elementClass . (!empty($modifiers) ? ' ' . implode(' ', $modifiers) : '');
     }

@@ -4,7 +4,7 @@ namespace KWIO\GutenbergBlocksFramework;
 
 class TemplateCollector
 {
-    private ?PluginConfigDTO $pluginConfig;
+    private PluginConfigDTO $pluginConfig;
 
     public function __construct(PluginConfigDTO $pluginConfig)
     {
@@ -51,7 +51,7 @@ class TemplateCollector
 
     protected function addNamespaceToBlockName(array $template): array
     {
-        return array_map(function (array $block): array {
+        return array_map(function ($block) {
             $block[0] = strpos($block[0], '/') === false ? $this->pluginConfig->prefix . '/' . $block[0] : $block[0];
 
             if (!empty($block[2]) && is_array($block[2])) {

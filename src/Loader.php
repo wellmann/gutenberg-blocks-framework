@@ -22,7 +22,7 @@ final class Loader
         'core-embed/youtube'
     ];
 
-    private ?PluginConfigDTO $pluginConfig;
+    private PluginConfigDTO $pluginConfig;
 
     public function __construct(string $file)
     {

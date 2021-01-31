@@ -8,7 +8,7 @@ use Twig\TwigFunction;
 
 class TwigViewExtension extends AbstractExtension
 {
-    private ?TwigView $twigView;
+    private TwigView $twigView;
 
     public function __construct(TwigView $twigView)
     {
@@ -29,7 +29,7 @@ class TwigViewExtension extends AbstractExtension
     {
         return [
             new TwigFunction('bem', [$this->twigView, 'bem']),
-            new TwigFunction('get_post', [$this->twigView, 'getPost'])
+            new TwigFunction('post', [$this->twigView, 'getPost'])
         ];
     }
 }

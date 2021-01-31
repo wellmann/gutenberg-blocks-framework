@@ -4,7 +4,7 @@ namespace KWIO\GutenbergBlocksFramework;
 
 class AssetCollector
 {
-    private ?PluginConfigDTO $pluginConfig;
+    private PluginConfigDTO $pluginConfig;
 
     public function __construct(PluginConfigDTO $pluginConfig)
     {

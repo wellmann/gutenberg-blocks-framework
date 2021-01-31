@@ -13,5 +13,5 @@ class PluginConfigDTO
     public string $dirUrl = '';
     public string $distDir = '';
     public string $prefix = '';
-    public ?ViewInterface $viewClass = null;
+    public ViewInterface $viewClass;
 }
