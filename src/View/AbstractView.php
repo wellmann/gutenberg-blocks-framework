@@ -12,6 +12,7 @@ abstract class AbstractView implements ViewInterface
     protected string $file = '';
 
     private string $baseClass = '';
+    private int $renderCount = 0;
 
      /**
      * Utility function for BEM style class names.
@@ -31,10 +32,16 @@ abstract class AbstractView implements ViewInterface
         return $post;
     }
 
+    public function getRenderCount(): int
+    {
+        return $this->renderCount;
+    }
+
     public function setData(array $data): ViewInterface
     {
         $this->baseClass = $data['baseClass'];
-        unset($data['baseClass']);
+        $this->renderCount = $data['renderCount'];
+        unset($data['baseClass'], $data['renderCount']);
 
         $this->data = $data;
 

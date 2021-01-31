@@ -16,6 +16,7 @@ class TimberView extends AbstractView
         add_filter('timber/twig', function ($twig) {
             $twig->addFunction(new Twig_Function('bem', [$this, 'bem']));
             $twig->addFunction(new Twig_Function('post', [$this, 'getTimberPost']));
+            $twig->addFunction(new Twig_Function('render_count', [$this, 'getRenderCount']));
 
             return $twig;
         });

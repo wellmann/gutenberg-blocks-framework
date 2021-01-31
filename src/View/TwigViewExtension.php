@@ -29,7 +29,8 @@ class TwigViewExtension extends AbstractExtension
     {
         return [
             new TwigFunction('bem', [$this->twigView, 'bem']),
-            new TwigFunction('post', [$this->twigView, 'getPost'])
+            new TwigFunction('post', [$this->twigView, 'getPost']),
+            new TwigFunction('render_count', [$this->twigView, 'getRenderCount'])
         ];
     }
 }

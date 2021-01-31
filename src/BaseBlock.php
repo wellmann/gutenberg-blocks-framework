@@ -15,6 +15,7 @@ class BaseBlock
     private array $data = [];
     private ?bool $hideMobile = null;
     private ?bool $hideDesktop = null;
+    private int $renderCount = 0;
     private ViewInterface $viewClass;
 
     public function __construct(string $blockName, string $dirPath, ViewInterface $viewClass)
@@ -40,8 +41,15 @@ class BaseBlock
         return json_decode($attributes, true);
     }
 
+    public function getRenderCount(): int
+    {
+        return $this->renderCount;
+    }
+
     public function render(array $attributes, string $content): string
     {
+        $this->renderCount++;
+
         $this->data = array_merge($this->data, $attributes, compact('content'));
         $this->tagAttr = ['class' => ['block', $this->baseClass]]; // Reset for each render.
         $this->hideMobile = $this->extractAttr('hideMobile');
@@ -83,7 +91,7 @@ class BaseBlock
         }
 
         $this->viewClass
-            ->setData(array_merge($this->data, $data))
+            ->setData(array_merge($this->data, $data, ['renderCount' => $this->renderCount]))
             ->setFile($file);
 
         return "<div{$tagAttrString}>{$this->viewClass->render()}</div>";
