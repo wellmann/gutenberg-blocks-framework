@@ -64,7 +64,7 @@ class BaseBlockTest extends TestCase
         $block->render([], '');
 
         $this->assertEquals([
-            'class' => ['block', 'block-example', 'full']
+            'class' => ['block', 'block-example', 'alignfull']
         ], $blockReflectionTagAttr->getValue($block));
     }
 
