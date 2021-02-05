@@ -57,6 +57,13 @@ final class Loader
         return $this;
     }
 
+    public function setTranslationsPath(string $path): Loader
+    {
+        $this->pluginConfig->translationsPath = trailingslashit($path);
+
+        return $this;
+    }
+
     public function setViewClass(ViewInterface $viewClass): Loader
     {
         $this->pluginConfig->viewClass = $viewClass;

@@ -38,6 +38,11 @@ Pass a custom array of blocks that should be whitelisted or use `\KWIO\Gutenberg
 
 Pass a directory relative to the plugin dir path to customize the block assets dist folder.
 
+### setTranslationsPath(string $path)
+
+Pass the path of the directory of your translation file (e.g. kwio-de_DE.json) to translate strings in your custom block in the admin.  
+Make sure that the domain matches this plugins prefix.
+
 ### setViewClass(ViewInterface $viewClass)
 
 Implement custom template engine.

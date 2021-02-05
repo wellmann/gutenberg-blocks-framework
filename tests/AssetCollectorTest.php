@@ -5,6 +5,7 @@ namespace KWIO\GutenbergBlocksFramework\Tests;
 use KWIO\GutenbergBlocksFramework\AssetCollector;
 use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
 use ReflectionClass;
+use stdClass;
 
 use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;
@@ -17,6 +18,7 @@ class AssetCollectorTest extends TestCase
     {
         parent::setUp();
 
+        when('get_locale')->justReturn('de_DE');
         when('is_admin')->justReturn(false);
 
         $this->pluginConfig = new PluginConfigDTO();
@@ -75,5 +77,35 @@ class AssetCollectorTest extends TestCase
 
         $assetCollector = new AssetCollector($this->pluginConfig);
         $assetCollector->enqueueScripts();
+    }
+
+    public function testEnqueueEditorTranslations()
+    {
+        when('is_readable')->justReturn(true);
+        when('file_get_contents')->justReturn('localeData');
+
+        $domain = $this->pluginConfig->prefix;
+        $localeData = 'localeData';
+
+        expect('wp_add_inline_script')
+            ->once()
+            ->with(
+                'prefix-blocks-editor',
+                <<<JS
+( function( domain, translations ) {
+    var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+    localeData[""].domain = domain;
+    wp.i18n.setLocaleData( localeData, domain );
+} )( "{$domain}", {$localeData} );
+JS,
+                'before'
+            );
+
+        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollectorReflection = new ReflectionClass($assetCollector);
+
+        $blockCollectorEnqueueEditorTranslations = $assetCollectorReflection->getMethod('enqueueEditorTranslations');
+        $blockCollectorEnqueueEditorTranslations->setAccessible(true);
+        $blockCollectorEnqueueEditorTranslations->invoke($assetCollector);
     }
 }

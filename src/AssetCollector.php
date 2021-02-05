@@ -30,6 +30,13 @@ class AssetCollector
     {
         $manifest = $this->getAssetManifest('editor');
 
+        wp_enqueue_style(
+            $this->pluginConfig->prefix . '-blocks-editor',
+            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
+            ['wp-edit-blocks'],
+            $this->shortenVersionHash($this->getVersionHash('editor.css'))
+        );
+
         wp_enqueue_script(
             $this->pluginConfig->prefix . '-blocks-editor',
             $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.js',
@@ -37,12 +44,8 @@ class AssetCollector
             $this->shortenVersionHash($manifest['version']),
             true
         );
-        wp_enqueue_style(
-            $this->pluginConfig->prefix . '-blocks-editor',
-            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
-            ['wp-edit-blocks'],
-            $this->shortenVersionHash($this->getVersionHash('editor.css'))
-        );
+
+        $this->enqueueEditorTranslations();
     }
 
     public function enqueueScripts(): void
@@ -55,6 +58,31 @@ class AssetCollector
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
+        );
+    }
+
+    private function enqueueEditorTranslations(): void
+    {
+        $domain = $this->pluginConfig->prefix;
+        $locale = get_locale();
+        $localeFile = $this->pluginConfig->translationsPath . "{$domain}-{$locale}.json";
+
+        if (!is_readable($localeFile)) {
+            return;
+        }
+
+        $localeData = file_get_contents($localeFile);
+
+        wp_add_inline_script(
+            $this->pluginConfig->prefix . '-blocks-editor',
+            <<<JS
+( function( domain, translations ) {
+    var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+    localeData[""].domain = domain;
+    wp.i18n.setLocaleData( localeData, domain );
+} )( "{$domain}", {$localeData} );
+JS,
+            'before'
         );
     }
 
