@@ -19,7 +19,10 @@ final class Loader
         'core/columns',
         'core/group',
         'core/shortcode',
-        'core-embed/youtube'
+        'core/separator',
+        'core/html',
+        'core-embed/youtube',
+        'core-embed/vimeo'
     ];
 
     private PluginConfigDTO $pluginConfig;
