@@ -58,7 +58,7 @@ class BlockCollector
             $blockFullClassName = $this->pluginConfig->blockNamespace . '\\' . $blockClassName;
         }
 
-        $classInstance = new $blockFullClassName($block, $this->blockDirPath, $this->pluginConfig->viewClass);
+        $classInstance = new $blockFullClassName($block, $this->blockDirPath, $this->pluginConfig);
         if (!$classInstance instanceof BaseBlock) {
             throw new Exception($blockFullClassName . ' must be an instance of ' . BaseBlock::class);
         }

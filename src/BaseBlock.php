@@ -10,6 +10,7 @@ class BaseBlock
 
     protected string $dirPath = '';
     protected string $baseClass = '';
+    protected PluginConfigDTO $pluginConfig;
     protected array $tagAttr = [];
 
     private array $data = [];
@@ -18,12 +19,13 @@ class BaseBlock
     private int $renderCount = 0;
     private ViewInterface $viewClass;
 
-    public function __construct(string $blockName, string $dirPath, ViewInterface $viewClass)
+    public function __construct(string $blockName, string $dirPath, PluginConfigDTO $pluginConfig)
     {
         $this->baseClass = 'block-' . $blockName;
         $this->data['baseClass'] = $this->baseClass;
         $this->dirPath = trailingslashit($dirPath . $blockName);
-        $this->viewClass = $viewClass;
+        $this->pluginConfig = $pluginConfig;
+        $this->viewClass = $pluginConfig->viewClass;
     }
 
     public function getAttributes(): array
