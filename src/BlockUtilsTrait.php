@@ -15,31 +15,6 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Add inline CSS only when block is rendered.
-     *
-     * @param string $cssFile - Must be relative to the dist dir.
-     */
-    protected function addCss(string $cssFile): void
-    {
-        $cssFilePath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $cssFile;
-        if (!is_readable($cssFilePath)) {
-            return;
-        }
-
-        $css = file_get_contents($cssFilePath);
-        $css = str_replace('../../../../', content_url('/'), $css);
-
-        static $isEnqueued = false;
-        if (!$isEnqueued) {
-            wp_register_style($this->baseClass, false);
-            wp_enqueue_style($this->baseClass);
-            wp_add_inline_style($this->baseClass, trim($css));
-
-            $isEnqueued = true;
-        }
-    }
-
-    /**
      * Add additional data via data attribute.
      *
      * @param string $key
