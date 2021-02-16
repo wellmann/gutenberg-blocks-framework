@@ -17,7 +17,7 @@ trait BlockUtilsTrait
     /**
      * Add inline CSS only when block is rendered.
      *
-     * @param string $cssFile - Must be relativ to the dist dir.
+     * @param string $cssFile - Must be relative to the dist dir.
      */
     protected function addCss(string $cssFile): void
     {
@@ -57,17 +57,29 @@ trait BlockUtilsTrait
      * Enqueue JS file only when block is rendered.
      * Most useful to enqueue a third party dependency of a rarely used block.
      *
-     * @param string $jsFile - Must be relativ to the dist dir.
+     * @param string $jsFile - Must be relative to the dist dir.
+     * @param string $dependentHandle - Handle of the script that needs this script loaded.
      */
-    protected function addJs(string $jsFile): void
+    protected function addJs(string $jsFile, string $dependentHandle = ''): void
     {
         $jsFilePath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $jsFile;
         if (!is_readable($jsFilePath)) {
             return;
         }
 
+        $handle = basename($jsFile, '.js');
+
+        if (!empty($dependentHandle)) {
+            $dependent = $GLOBALS['wp_scripts']->query($dependentHandle, 'registered');
+            if (!$dependent) {
+                return;
+            }
+
+            $dependent->deps[] = $handle;
+        }
+
         wp_enqueue_script(
-            basename($jsFile, '.js'),
+            $handle,
             $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . $jsFile,
             [],
             substr(md5(filemtime($jsFilePath)), 0, 12),
