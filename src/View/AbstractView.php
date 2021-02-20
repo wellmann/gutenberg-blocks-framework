@@ -25,6 +25,11 @@ abstract class AbstractView implements ViewInterface
         return $elementClass . (!empty($modifiers) ? ' ' . implode(' ', $modifiers) : '');
     }
 
+    public function isEditor(): bool
+    {
+        return defined('REST_REQUEST') && REST_REQUEST;
+    }
+
     public function getPost(): WP_Post
     {
         global $post;

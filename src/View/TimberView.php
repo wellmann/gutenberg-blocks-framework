@@ -5,7 +5,6 @@ namespace KWIO\GutenbergBlocksFramework\View;
 use Timber\Post;
 use Timber\Timber;
 use Timber\Twig_Function;
-use Twig\Environment;
 
 class TimberView extends AbstractView
 {
@@ -20,6 +19,8 @@ class TimberView extends AbstractView
 
             return $twig;
         });
+
+        $this->data['isEditor'] = $this->isEditor();
 
         return Timber::compile($this->file, $this->data);
     }

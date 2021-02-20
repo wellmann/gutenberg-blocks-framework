@@ -19,6 +19,8 @@ class TwigView extends AbstractView
         ]);
         $twig->addExtension(new TwigViewExtension($this));
 
+        $this->data['isEditor'] = $this->isEditor();
+
         return $twig->render(basename($this->file), $this->data);
     }
 }
