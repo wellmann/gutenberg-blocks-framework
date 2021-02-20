@@ -22,7 +22,6 @@ class BaseBlock
     public function __construct(string $blockName, string $dirPath, PluginConfigDTO $pluginConfig)
     {
         $this->baseClass = 'block-' . $blockName;
-        $this->data['baseClass'] = $this->baseClass;
         $this->dirPath = trailingslashit($dirPath . $blockName);
         $this->pluginConfig = $pluginConfig;
         $this->viewClass = $pluginConfig->viewClass;
@@ -52,8 +51,11 @@ class BaseBlock
     {
         $this->renderCount++;
 
+        // Reset for each render.
+        $this->data = ['baseClass' => $this->baseClass];
+        $this->tagAttr = ['class' => ['block', $this->baseClass]];
+
         $this->data = array_merge($this->data, $attributes, compact('content'));
-        $this->tagAttr = ['class' => ['block', $this->baseClass]]; // Reset for each render.
         $this->hideMobile = $this->extractAttr('hideMobile');
         $this->hideDesktop = $this->extractAttr('hideDesktop');
 
