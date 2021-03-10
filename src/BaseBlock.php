@@ -69,7 +69,7 @@ class BaseBlock
     /**
      * Rendered HTML output of the block.
      */
-    protected function setView(?string $file, array $data = []): string
+    protected function setView(?string $file, array $data = [], $wrapperTagName = 'div'): string
     {
         if (is_null($file)) {
             return '';
@@ -88,10 +88,10 @@ class BaseBlock
 
         if (!file_exists($file)) {
             if (!empty($this->data['content'])) {
-                return "<div{$tagAttrString}>{$this->data['content']}</div>";
+                return "<{$wrapperTagName}{$tagAttrString}>{$this->data['content']}</{$wrapperTagName}>";
             }
 
-            return "<div{$tagAttrString}></div>";
+            return "<{$wrapperTagName}{$tagAttrString}></{$wrapperTagName}>";
         }
 
         $this->viewClass
@@ -102,7 +102,7 @@ class BaseBlock
         if (strpos($this->baseClass, 'block-core-') === 0) {
             return $this->viewClass->render();
         } else {
-            return "<div{$tagAttrString}>{$this->viewClass->render()}</div>";
+            return "<{$wrapperTagName}{$tagAttrString}>{$this->viewClass->render()}</>";
         }
     }
 
