@@ -21,8 +21,7 @@ final class Loader
         'core/shortcode',
         'core/separator',
         'core/html',
-        'core-embed/youtube',
-        'core-embed/vimeo'
+        'core/embed'
     ];
 
     private PluginConfigDTO $pluginConfig;
