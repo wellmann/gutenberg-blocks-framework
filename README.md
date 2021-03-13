@@ -1,10 +1,27 @@
 # Gutenberg Blocks Framework
 
-Library to load custom Gutenberg blocks.
+Library to load custom Gutenberg blocks in a WordPress plugin or theme.
+
+Built to work with the following packages:  
+
+* [kwio/gutenberg-blocks-components](https://github.com/wellmann/gutenberg-blocks-components)
+* [wellmann/create-block](https://github.com/wellmann/create-block)
+
+Example project: https://github.com/wellmann/kwio-gutenberg-blocks
+
+## Features
+
+* whitelist of selected core blocks
+* overwrite output of core blocks
+* loading of critical and non-critical CSS
+* use pure PHP or Twig views
+* load translations from *.po files in the editor view
+* customize the folder where the framework is looking for the compiled block asset files
+* class names follow the BEM pattern
 
 ## Install
 
-Make sure you have the following repository added to your composer.json file.
+Make sure you have the following repository added to your composer.json file in your plugin or theme.
 
 ```
 {
@@ -20,6 +37,8 @@ Make sure you have the following repository added to your composer.json file.
 Then run `composer require kwio/gutenberg-blocks-framework`.
 
 ## Setup
+
+Add the following lines to the plugins bootstrap file or the themes functions.php.
 
 ```
 $frameworkLoader = new \KWIO\GutenbergBlocksFramework\Loader(__FILE__);
@@ -45,7 +64,7 @@ Make sure that the domain matches this plugins prefix.
 
 ### setViewClass(ViewInterface $viewClass)
 
-Implement custom template engine.
+Implement a custom template engine.
 
 * `KWIO\GutenbergBlocksFramework\View\PhpView` (default)
 * `KWIO\GutenbergBlocksFramework\View\TwigView` (requires `twig/twig`)
