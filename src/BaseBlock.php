@@ -102,7 +102,7 @@ class BaseBlock
         if (strpos($this->baseClass, 'block-core-') === 0) {
             return $this->viewClass->render();
         } else {
-            return "<{$wrapperTagName}{$tagAttrString}>{$this->viewClass->render()}</>";
+            return "<{$wrapperTagName}{$tagAttrString}>{$this->viewClass->render()}</{$wrapperTagName}>";
         }
     }
 
