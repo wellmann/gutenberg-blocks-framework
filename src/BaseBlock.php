@@ -88,6 +88,12 @@ class BaseBlock
 
         if (!file_exists($file)) {
             if (!empty($this->data['content'])) {
+
+                // Don't render custom wrapper for overridden core block.
+                if (strpos($this->baseClass, 'block-core-') === 0) {
+                    return $this->data['content'];
+                }
+
                 return "<{$wrapperTagName}{$tagAttrString}>{$this->data['content']}</{$wrapperTagName}>";
             }
 
