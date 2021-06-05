@@ -31,7 +31,7 @@ final class Loader
         $this->pluginConfig = new PluginConfigDTO();
         $this->pluginConfig->blockWhitelist = self::CORE_BLOCK_WHITELIST;
         $this->pluginConfig->dirPath = plugin_dir_path($file);
-        $this->pluginConfig->dirUrl = plugin_dir_url($file);
+        $this->pluginConfig->dirUrl = strpos($file, '/themes/') !== false ? get_template_directory_uri() . '/' : plugin_dir_url($file);
         $this->pluginConfig->distDir = 'dist/';
         $this->pluginConfig->prefix = preg_replace('/-gutenberg-blocks$/', '', basename(dirname($file)));
         $this->pluginConfig->viewClass = new PhpView();
