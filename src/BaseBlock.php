@@ -132,7 +132,7 @@ class BaseBlock
         }
 
         $value = $this->data[$attr];
-        $this->tagAttr[$newAttr][] = $attr === 'align' && $value === 'full' ? 'alignfull' : $value;
+        $this->tagAttr[$newAttr][] = $attr === 'align' &&  in_array($value, ['full', 'wide']) ? 'align' . $value : $value;
         unset($this->data[$attr]);
 
         return $value;
