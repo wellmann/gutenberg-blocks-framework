@@ -4,6 +4,7 @@ namespace KWIO\GutenbergBlocksFramework\Tests;
 
 use KWIO\GutenbergBlocksFramework\BaseBlock;
 use KWIO\GutenbergBlocksFramework\View\PhpView;
+use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;
@@ -16,11 +17,14 @@ class BaseBlockTest extends TestCase
 
         when('wp_is_mobile')->justReturn(false);
         when('esc_attr')->returnArg();
+
+        $this->pluginConfig = new PluginConfigDTO();
+        $this->pluginConfig->viewClass = new PhpView();
     }
 
     public function testRenderResultHasHtmlClassAttribute()
     {
-        $block = new BaseBlock('example', 'src/', new PhpView());
+        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
@@ -34,16 +38,12 @@ class BaseBlockTest extends TestCase
 
     public function testRenderResultHasAdditionalClassName()
     {
-        $block = new BaseBlock('example', 'src/', new PhpView());
+        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
 
-        $blockReflectionData = $blockReflection->getProperty('data');
-        $blockReflectionData->setAccessible(true);
-        $blockReflectionData->setValue($block, ['className' => 'additional-class']);
-
-        $block->render([], '');
+        $block->render(['className' => 'additional-class'], '');
 
         $this->assertEquals([
             'class' => ['block', 'block-example', 'additional-class']
@@ -52,16 +52,12 @@ class BaseBlockTest extends TestCase
 
     public function testRenderResultHasAlignClassName()
     {
-        $block = new BaseBlock('example', 'src/', new PhpView());
+        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
 
-        $blockReflectionData = $blockReflection->getProperty('data');
-        $blockReflectionData->setAccessible(true);
-        $blockReflectionData->setValue($block, ['align' => 'full']);
-
-        $block->render([], '');
+        $block->render(['align' => 'full'], '');
 
         $this->assertEquals([
             'class' => ['block', 'block-example', 'alignfull']
@@ -70,16 +66,12 @@ class BaseBlockTest extends TestCase
 
     public function testRenderResultHasHtmlIdAttribute()
     {
-        $block = new BaseBlock('example', 'src/', new PhpView());
+        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
 
-        $blockReflectionData = $blockReflection->getProperty('data');
-        $blockReflectionData->setAccessible(true);
-        $blockReflectionData->setValue($block, ['anchor' => 'anchor']);
-
-        $block->render([], '');
+        $block->render(['anchor' => 'anchor'], '');
 
         $this->assertEquals([
             'class' => ['block', 'block-example'],
@@ -89,7 +81,7 @@ class BaseBlockTest extends TestCase
 
     public function testExtractAttr()
     {
-        $block = new BaseBlock('example', 'src/', new PhpView());
+        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
         $blockReflection = new ReflectionClass($block);
 
         $blockReflectionData = $blockReflection->getProperty('data');
@@ -110,7 +102,7 @@ class BaseBlockTest extends TestCase
 
     public function testConvertIsStyleToBem()
     {
-        $block = new BaseBlock('example', 'src/', new PhpView());
+        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
         $blockReflection = new ReflectionClass($block);
 
         $blockReflectionConvertIsStyleToBem = $blockReflection->getMethod('convertIsStyleToBem');
@@ -124,7 +116,7 @@ class BaseBlockTest extends TestCase
     {
         when('esc_attr')->returnArg();
 
-        $block = new BaseBlock('example', 'src/', new PhpView());
+        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
         $blockReflection = new ReflectionClass($block);
 
         $blockReflectionBuildTagAttrString = $blockReflection->getMethod('buildTagAttrString');
