@@ -8,6 +8,8 @@ use Timber\Twig_Function;
 
 class TimberView extends AbstractView
 {
+    use ViewUtilsTrait;
+
     public string $defaultView = 'view.twig';
 
     public function render(): string

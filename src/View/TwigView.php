@@ -7,6 +7,8 @@ use Twig\Loader\FilesystemLoader;
 
 class TwigView extends AbstractView
 {
+    use ViewUtilsTrait;
+
     public string $defaultView = 'view.twig';
 
     public function render(): string

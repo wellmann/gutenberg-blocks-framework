@@ -4,6 +4,8 @@ namespace KWIO\GutenbergBlocksFramework\View;
 
 class PhpView extends AbstractView
 {
+    use ViewUtilsTrait;
+
     public string $defaultView = 'view.php';
 
     public function render(): string
