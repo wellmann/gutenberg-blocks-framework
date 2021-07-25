@@ -13,14 +13,17 @@ class BaseBlock
     protected PluginConfigDTO $pluginConfig;
     protected array $tagAttr = [];
 
+    private string $blockName;
     private array $data = [];
     private ?bool $hideMobile = null;
     private ?bool $hideDesktop = null;
     private int $renderCount = 0;
+    private bool $hasParent = false;
     private ViewInterface $viewClass;
 
     public function __construct(string $blockName, string $dirPath, PluginConfigDTO $pluginConfig)
     {
+        $this->blockName = "{$pluginConfig->prefix}/{$blockName}";
         $this->baseClass = 'block-' . $blockName;
         $this->dirPath = trailingslashit($dirPath . $blockName);
         $this->pluginConfig = $pluginConfig;
@@ -45,6 +48,21 @@ class BaseBlock
     public function getRenderCount(): int
     {
         return $this->renderCount;
+    }
+
+    public function hasParent(string $parentBlockName = ''): bool
+    {
+        add_filter('render_block_data', function ($parsedBlock) use ($parentBlockName) {
+
+             // Reset for each render.
+            $this->hasParent = false;
+
+            array_walk($parsedBlock['innerBlocks'], fn(&$item, $key) => $this->hasParentCheck($item, $key, $parentBlockName));
+
+            return $parsedBlock;
+        });
+
+        return $this->hasParent;
     }
 
     public function render(array $attributes, string $content): string
@@ -168,5 +186,24 @@ class BaseBlock
         }
 
         return $tagAttrString;
+    }
+
+    private function hasParentCheck(&$item, $key, $parentBlockName)
+    {
+        if (empty($item['innerBlocks'])) {
+            return;
+        }
+
+        if (empty($parentBlockName)) {
+            $this->hasParent = true;
+
+            return;
+        }
+
+        if (!empty($item['blockName']) && $item['blockName'] === $parentBlockName) {
+            $this->hasParent = array_search($this->blockName, array_column($item['innerBlocks'], 'blockName')) !== false;
+        }
+
+        array_walk($item['innerBlocks'], fn(&$item, $key) => $this->hasParentCheck($item, $key, $parentBlockName));
     }
 }
