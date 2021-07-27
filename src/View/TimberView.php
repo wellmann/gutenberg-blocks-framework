@@ -24,7 +24,7 @@ class TimberView extends AbstractView
 
         $this->data['isEditor'] = $this->isEditor();
 
-        return Timber::compile($this->file, $this->data);
+        return $this->wrap(Timber::compile($this->file, $this->data));
     }
 
     public function getTimberPost(): Post

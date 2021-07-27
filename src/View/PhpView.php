@@ -15,6 +15,6 @@ class PhpView extends AbstractView
         unset($this->data);
         include $this->file;
 
-        return ob_get_clean();
+        return $this->wrap(ob_get_clean());
     }
 }

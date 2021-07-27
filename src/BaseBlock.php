@@ -89,45 +89,16 @@ class BaseBlock
      */
     protected function setView(?string $file, array $data = [], $wrapperTagName = 'div'): string
     {
-        if (is_null($file)) {
-            return '';
-        }
-
-        if (wp_is_mobile() && $this->hideMobile) {
-            return '';
-        }
-
-        if (!wp_is_mobile() && $this->hideDesktop) {
-            return '';
-        }
-
-        $this->tagAttr['class'] = $this->convertIsStyleToBem($this->tagAttr['class']);
-        $tagAttrString = $this->buildTagAttrString($this->tagAttr);
-
-        if (!file_exists($file)) {
-            if (!empty($this->data['content'])) {
-
-                // Don't render custom wrapper for overridden core block.
-                if (strpos($this->baseClass, 'block-core-') === 0) {
-                    return $this->data['content'];
-                }
-
-                return "<{$wrapperTagName}{$tagAttrString}>{$this->data['content']}</{$wrapperTagName}>";
-            }
-
-            return "<{$wrapperTagName}{$tagAttrString}></{$wrapperTagName}>";
-        }
-
-        $this->viewClass
-            ->setData(array_merge($this->data, $data, ['renderCount' => $this->renderCount]))
-            ->setFile($file);
-
-        // Don't render custom wrapper for overridden core block.
-        if (strpos($this->baseClass, 'block-core-') === 0) {
-            return $this->viewClass->render();
-        } else {
-            return "<{$wrapperTagName}{$tagAttrString}>{$this->viewClass->render()}</{$wrapperTagName}>";
-        }
+        return $this->viewClass
+            ->setData(array_merge($this->data, $data, [
+                'renderCount' => $this->renderCount,
+                'wrapperTagName' => $wrapperTagName,
+                'hideMobile' => $this->hideMobile,
+                'hideDesktop' => $this->hideDesktop,
+                'tagAttr' => $this->tagAttr
+            ]))
+            ->setFile($file)
+            ->render();
     }
 
     /**
@@ -154,38 +125,6 @@ class BaseBlock
         unset($this->data[$attr]);
 
         return $value;
-    }
-
-    /**
-     * Workaround until https://github.com/WordPress/gutenberg/issues/11763 is fixed.
-     */
-    private function convertIsStyleToBem(array $classnames): array
-    {
-        return array_map(function (string $classname): string {
-            return str_replace('is-style-', $this->baseClass . '--', $classname);
-        }, $classnames);
-    }
-
-    /**
-     * Convert key-value pairs to string of HTML attributes.
-     */
-    private function buildTagAttrString(array $array): string
-    {
-        $tagAttrString = '';
-        foreach ($array as $key => $value) {
-            if (empty($key)) {
-                continue;
-            }
-
-            if (is_array($value)) {
-                $value = implode(' ', $value);
-            }
-
-            $value = esc_attr($value);
-            $tagAttrString .= " {$key}=\"{$value}\"";
-        }
-
-        return $tagAttrString;
     }
 
     private function hasParentCheck(&$item, $key, $parentBlockName)
