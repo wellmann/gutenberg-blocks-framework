@@ -48,7 +48,7 @@ abstract class AbstractView implements ViewInterface
         return $this;
     }
 
-    protected function wrap(string $content): string
+    protected function wrap(string $renderedView): string
     {
         if (is_null($this->file)) {
             return '';
@@ -62,26 +62,20 @@ abstract class AbstractView implements ViewInterface
             return '';
         }
 
+        $isCoreBlock = strpos($this->baseClass, 'block-core-') === 0;
+
         if (!file_exists($this->file)) {
             if (!empty($this->data['content'])) {
 
                 // Don't render custom wrapper for overridden core block.
-                if (strpos($this->baseClass, 'block-core-') === 0) {
-                    return $this->data['content'];
-                }
-
-                return sprintf($this->wrapperDiv, $this->data['content']);
+                return $isCoreBlock ? $this->data['content'] : sprintf($this->wrapperDiv, $this->data['content']);
             }
 
             return sprintf($this->wrapperDiv, '');
         }
 
         // Don't render custom wrapper for overridden core block.
-        if (strpos($this->baseClass, 'block-core-') === 0) {
-            return $content;
-        } else {
-            return sprintf($this->wrapperDiv, $content);
-        }
+        return $isCoreBlock ? $renderedView : sprintf($this->wrapperDiv, $renderedView);
     }
 
     /**
