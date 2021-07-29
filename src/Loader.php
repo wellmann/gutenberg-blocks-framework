@@ -21,7 +21,8 @@ final class Loader
         'core/shortcode',
         'core/separator',
         'core/html',
-        'core/embed'
+        'core/embed',
+        'core/block'
     ];
 
     private PluginConfigDTO $pluginConfig;
