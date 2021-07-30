@@ -12,7 +12,7 @@ class TimberView extends AbstractView
 
     public string $defaultView = 'view.twig';
 
-    public function render(): string
+    protected function renderWithView(): string
     {
         add_filter('timber/twig', function ($twig) {
             $twig->addFunction(new Twig_Function('bem', [$this, 'bem']));
@@ -24,7 +24,7 @@ class TimberView extends AbstractView
 
         $this->data['isEditor'] = $this->isEditor();
 
-        return $this->wrap(Timber::compile($this->file, $this->data));
+        return Timber::compile($this->file, $this->data);
     }
 
     public function getTimberPost(): Post

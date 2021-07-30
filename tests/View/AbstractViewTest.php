@@ -58,13 +58,10 @@ class AbstractViewTest extends TestCase
 
     public function testWrapReturnsEmptyStringIfViewFileIsNull()
     {
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, ['content' => 'lorem ipsum']))
-            ->setFile(null);
-
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-        $result = $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string']);
+            ->setFile(null)
+            ->render();
 
         $this->assertSame('', $result);
     }
@@ -73,112 +70,83 @@ class AbstractViewTest extends TestCase
     {
         when('wp_is_mobile')->justReturn(true);
 
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, [
                     'hideMobile' => true,
                     'content' => 'lorem ipsum'
                 ]))
-            ->setFile('src/example/view.php');
+            ->setFile('src/example/view.php')
+            ->render();
 
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-
-        $this->assertSame('', $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string']));
+        $this->assertSame('', $result);
     }
 
     public function testWrapReturnsEmptyStringIfNotMobileAndHideDesktop()
     {
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, [
                     'hideDesktop' => true,
                     'content' => 'lorem ipsum'
                 ]))
-            ->setFile('src/example/view.php');
+            ->setFile('src/example/view.php')
+            ->render();
 
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-
-        $this->assertSame('', $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string']));
+        $this->assertSame('', $result);
     }
 
     public function testWrapReturnsEmptyWrapperDivIfViewFileIsEmpty()
     {
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData($this->viewClassData)
-            ->setFile('');
+            ->setFile('')
+            ->render();
 
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-
-        $this->assertSame(
-            '<div class="block block-example"></div>',
-            $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string'])
-        );
+        $this->assertSame('<div class="block block-example"></div>', $result);
     }
 
     public function testWrapReturnsWrapperDivWithContentIfViewFileIsEmpty()
     {
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, ['content' => 'lorem ipsum']))
-            ->setFile('');
+            ->setFile('')
+            ->render();
 
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-
-        $this->assertSame(
-            '<div class="block block-example">lorem ipsum</div>',
-            $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string'])
-        );
+        $this->assertSame('<div class="block block-example">lorem ipsum</div>', $result);
     }
 
     public function testWrapReturnsCoreBlockWithoutWrapperDivtIfViewFileIsEmpty()
     {
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, [
                     'baseClass' => 'block-core-example',
                     'content' => 'lorem ipsum'
                 ]))
-            ->setFile('');
+            ->setFile('')
+            ->render();
 
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-
-        $this->assertSame(
-            'lorem ipsum',
-            $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string'])
-        );
+        $this->assertSame('lorem ipsum', $result);
     }
 
     public function testWrapReturnsWrapperDivWithContent()
     {
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, ['content' => 'lorem ipsum']))
-            ->setFile('src/example/view.php');
+            ->setFile('src/example/view.php')
+            ->render();
 
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-
-        $this->assertSame(
-            '<div class="block block-example">lorem ipsum</div>',
-            $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string'])
-        );
+        $this->assertSame('<div class="block block-example">lorem ipsum</div>', $result);
     }
 
     public function testWrapReturnsCoreBlockWithoutWrapperDiv()
     {
-        $this->viewClassMock
+        $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, [
                     'baseClass' => 'block-core-example',
                     'content' => 'lorem ipsum'
                 ]))
-            ->setFile('src/example/view.php');
+            ->setFile('src/example/view.php')
+            ->render();
 
-        $viewClassMockReflectionWrap = $this->viewClassMockReflection->getMethod('wrap');
-        $viewClassMockReflectionWrap->setAccessible(true);
-
-        $this->assertSame(
-            'lorem ipsum',
-            $viewClassMockReflectionWrap->invokeArgs($this->viewClassMock, ['view file string'])
-        );
+        $this->assertSame('lorem ipsum', $result);
     }
 }

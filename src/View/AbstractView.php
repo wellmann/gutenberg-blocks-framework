@@ -14,7 +14,7 @@ abstract class AbstractView implements ViewInterface
     private ?bool $hideMobile;
     private ?bool $hideDesktop;
 
-    abstract public function render(): string;
+    abstract protected function renderWithView(): string;
 
     public function setData(array $data): ViewInterface
     {
@@ -48,7 +48,7 @@ abstract class AbstractView implements ViewInterface
         return $this;
     }
 
-    protected function wrap(string $renderedView): string
+    public function render(): string
     {
         if (is_null($this->file)) {
             return '';
@@ -75,7 +75,7 @@ abstract class AbstractView implements ViewInterface
         }
 
         // Don't render custom wrapper for overridden core block.
-        return $isCoreBlock ? $renderedView : sprintf($this->wrapperDiv, $renderedView);
+        return $isCoreBlock ? $this->renderWithView() : sprintf($this->wrapperDiv, $this->renderWithView());
     }
 
     /**

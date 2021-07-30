@@ -11,7 +11,7 @@ class TwigView extends AbstractView
 
     public string $defaultView = 'view.twig';
 
-    public function render(): string
+    protected function renderWithView(): string
     {
         $cacheDir = WP_CONTENT_DIR . '/cache/kwio/gbf/twig';
         $loader = new FilesystemLoader(dirname($this->file));
@@ -23,6 +23,6 @@ class TwigView extends AbstractView
 
         $this->data['isEditor'] = $this->isEditor();
 
-        return $this->wrap($twig->render(basename($this->file), $this->data));
+        return $twig->render(basename($this->file), $this->data);
     }
 }

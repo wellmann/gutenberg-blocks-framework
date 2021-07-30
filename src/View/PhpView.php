@@ -8,13 +8,13 @@ class PhpView extends AbstractView
 
     public string $defaultView = 'view.php';
 
-    public function render(): string
+    protected function renderWithView(): string
     {
         ob_start();
         extract($this->data, EXTR_SKIP);
         unset($this->data);
         include $this->file;
 
-        return $this->wrap(ob_get_clean());
+        return ob_get_clean();
     }
 }
