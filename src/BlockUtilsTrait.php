@@ -4,6 +4,7 @@ namespace KWIO\GutenbergBlocksFramework;
 
 trait BlockUtilsTrait
 {
+    private bool $hasChild = false;
     private bool $hasParent = false;
 
     /**
@@ -63,37 +64,78 @@ trait BlockUtilsTrait
         );
     }
 
+    public function hasChild(string $childBlockName = ''): bool
+    {
+        return $this->hasRelative('child', $childBlockName);
+    }
+
+    public function hasChildren(): bool
+    {
+        return $this->hasChild();
+    }
+
     public function hasParent(string $parentBlockName = ''): bool
     {
-        add_filter('render_block_data', function ($parsedBlock) use ($parentBlockName) {
+        return $this->hasRelative('parent', $parentBlockName);
+    }
 
-             // Reset for each render.
+    private function hasRelative(string $type, string $blockName = ''): bool
+    {
+        if (strpos($this->blockName, $this->pluginConfig->prefix . '/core-') === 0) {
+            $this->blockName = 'core/' . preg_replace("/^{$this->pluginConfig->prefix}\/core-/", '', $this->blockName);
+        }
+
+        add_filter('render_block_data', function ($parsedBlock) use ($type, $blockName) {
+
+            // Reset for each render.
+            $this->hasChild = false;
             $this->hasParent = false;
 
-            array_walk($parsedBlock['innerBlocks'], fn(&$item, $key) => $this->hasParentCheck($item, $key, $parentBlockName));
+            array_walk($parsedBlock['innerBlocks'], fn(&$item, $key) => $this->hasRelativeCheck($item, $key, $type, $blockName));
 
             return $parsedBlock;
         });
 
-        return $this->hasParent;
+        switch ($type) {
+            case 'child':
+                return $this->hasChild;
+            case 'parent':
+                return $this->hasParent;
+            default:
+                return false;
+        }
     }
 
-    private function hasParentCheck(&$item, $key, $parentBlockName)
+    private function hasRelativeCheck(&$item, $key, $type, $blockName)
     {
         if (empty($item['innerBlocks'])) {
             return;
         }
 
-        if (empty($parentBlockName)) {
+        $this->hasChild = true;
+
+        if ($type === 'child' && !empty($item['blockName']) && $item['blockName'] === $this->blockName) {
+            $this->hasChild = $this->isInInnerBlocks($blockName, $item);
+
+            return;
+        }
+
+        if ($type === 'parent' && empty($blockName)) {
             $this->hasParent = true;
 
             return;
         }
 
-        if (!empty($item['blockName']) && $item['blockName'] === $parentBlockName) {
-            $this->hasParent = array_search($this->blockName, array_column($item['innerBlocks'], 'blockName')) !== false;
+
+        if ($type === 'parent' && !empty($item['blockName']) && $item['blockName'] === $blockName) {
+            $this->hasParent = $this->isInInnerBlocks($this->blockName, $item);
         }
 
-        array_walk($item['innerBlocks'], fn(&$item, $key) => $this->hasParentCheck($item, $key, $parentBlockName));
+        array_walk($item['innerBlocks'], fn(&$item, $key) => $this->hasRelativeCheck($item, $key, $type, $blockName));
+    }
+
+    private function isInInnerBlocks(string $blockName, array $item): bool
+    {
+        return array_search($blockName, array_column($item['innerBlocks'], 'blockName')) !== false;
     }
 }
