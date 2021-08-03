@@ -86,6 +86,9 @@ trait BlockUtilsTrait
         }
 
         add_filter('render_block_data', function ($parsedBlock) use ($type, $blockName) {
+            if (empty($parsedBlock['innerBlocks'])) {
+                $parsedBlock['innerBlocks'] = [];
+            }
 
             // Reset for each render.
             $this->hasChild = false;
