@@ -4,6 +4,8 @@ namespace KWIO\GutenbergBlocksFramework;
 
 class TemplateCollector
 {
+    private const TEMPLATE_FOLDER = 'post-type-templates';
+
     private PluginConfigDTO $pluginConfig;
 
     public function __construct(PluginConfigDTO $pluginConfig)
@@ -26,7 +28,7 @@ class TemplateCollector
         }
 
         $folder = basename(dirname($template));
-        $isFolder = $folder !== 'templates';
+        $isFolder = $folder !== self::TEMPLATE_FOLDER;
         $templateSlug = basename($template, '.php');
 
         if ($isFolder) {
@@ -64,6 +66,6 @@ class TemplateCollector
 
     protected function getTemplates(): array
     {
-        return glob($this->pluginConfig->dirPath . 'templates/{,*/}*.php', GLOB_BRACE);
+        return glob($this->pluginConfig->dirPath . self::TEMPLATE_FOLDER . '/{,*/}*.php', GLOB_BRACE);
     }
 }
