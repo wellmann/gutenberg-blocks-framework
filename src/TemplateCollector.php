@@ -47,7 +47,7 @@ class TemplateCollector
         }
 
         if (!empty($templateOptions['template_lock'])) {
-            $postTypeObj->template_lock = $templateOptions['templateLock']; // phpcs:ignore
+            $postTypeObj->template_lock = $templateOptions['template_lock']; // phpcs:ignore
         }
     }
 
