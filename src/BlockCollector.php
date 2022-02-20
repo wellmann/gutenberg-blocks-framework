@@ -3,12 +3,14 @@
 namespace KWIO\GutenbergBlocksFramework;
 
 use Exception;
+use WP_Block_Editor_Context;
 
 class BlockCollector
 {
     private array $blocks = [];
     private string $blockDirPath;
     private PluginConfigDTO $pluginConfig;
+    private array $restrictedBlocks = [];
 
     public function __construct(PluginConfigDTO $pluginConfig)
     {
@@ -16,9 +18,26 @@ class BlockCollector
         $this->pluginConfig = $pluginConfig;
     }
 
-    public function filterBlocks(): array
+    public function filterBlocks($allowedBlockTypes, WP_Block_Editor_Context $blockEditorContext)
     {
-        return array_merge($this->pluginConfig->blockWhitelist, $this->blocks);
+        $allowedBlockTypes = array_merge($this->pluginConfig->blockWhitelist, $this->blocks);
+
+        if (empty($blockEditorContext->post)) {
+            return $allowedBlockTypes;
+        }
+
+        foreach ($this->restrictedBlocks as $postType => $blocks) {
+            if ($blockEditorContext->post->post_type === $postType) { // phpcs:ignore
+                continue;
+            }
+
+            foreach ($blocks as $block) {
+                $key = array_search($block, $allowedBlockTypes);
+                unset($allowedBlockTypes[$key]);
+            }
+        }
+
+        return $allowedBlockTypes;
     }
 
     public function groupBlocks(array $categories): array
@@ -78,6 +97,19 @@ class BlockCollector
             }, 10, 2);
 
             return;
+        }
+
+        // Check if block has limited visibility.
+        $showOnPostTypeConstant = $blockFullClassName . '::SHOW_ON_POST_TYPE';
+        if (defined($showOnPostTypeConstant)) {
+            $showOnPostTypeConstantValue = constant($showOnPostTypeConstant);
+            if (!is_array($showOnPostTypeConstantValue)) {
+                return;
+            }
+
+            foreach ($showOnPostTypeConstantValue as $postType) {
+                $this->restrictedBlocks[$postType][] = $name;
+            }
         }
 
         $args = ['render_callback' => [$classInstance, 'render']];

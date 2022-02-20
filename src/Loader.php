@@ -81,7 +81,7 @@ final class Loader
         $templateCollector = new TemplateCollector($this->pluginConfig);
 
         add_action('load-post-new.php', [$templateCollector, 'registerTemplates']);
-        add_filter('allowed_block_types_all', [$blockCollector, 'filterBlocks']);
+        add_filter('allowed_block_types_all', [$blockCollector, 'filterBlocks'], 10, 2);
         add_filter('block_categories_all', [$blockCollector, 'groupBlocks']);
         add_action('enqueue_block_assets', [$assetCollector, 'enqueueAssets']);
         add_action('enqueue_block_editor_assets', [$assetCollector, 'enqueueEditorAssets']);
