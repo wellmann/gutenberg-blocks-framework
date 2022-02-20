@@ -16,19 +16,14 @@ class TimberView extends AbstractView
     {
         add_filter('timber/twig', function ($twig) {
             $twig->addFunction(new Twig_Function('bem', [$this, 'bem']));
-            $twig->addFunction(new Twig_Function('post', [$this, 'getTimberPost']));
-            $twig->addFunction(new Twig_Function('render_count', [$this, 'getRenderCount']));
 
             return $twig;
         });
 
         $this->data['isEditor'] = $this->isEditor();
+        $this->data['post'] = new Post();
+        $this->data['renderCount'] = $this->getRenderCount();
 
         return Timber::compile($this->locateView($this->file), $this->data);
-    }
-
-    public function getTimberPost(): Post
-    {
-        return new Post();
     }
 }
