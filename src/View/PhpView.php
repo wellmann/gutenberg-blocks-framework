@@ -13,7 +13,7 @@ class PhpView extends AbstractView
         ob_start();
         extract($this->data, EXTR_SKIP);
         unset($this->data);
-        include $this->file;
+        include $this->locateView($this->file);
 
         return ob_get_clean();
     }

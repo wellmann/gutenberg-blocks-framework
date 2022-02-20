@@ -78,6 +78,22 @@ abstract class AbstractView implements ViewInterface
         return $isCoreBlock ? $this->renderWithView() : sprintf($this->wrapperDiv, $this->renderWithView());
     }
 
+    protected function locateView(string $filePath): string
+    {
+        // If blocks are located in the theme make the view file overridable in child theme.
+        if (strpos($this->file, '/themes/') !== false) {
+            $relativeFilePath = str_replace([STYLESHEETPATH, TEMPLATEPATH], '', $filePath);
+
+            if (file_exists(STYLESHEETPATH . '/' . $relativeFilePath)) {
+                $filePath = STYLESHEETPATH . '/' . $relativeFilePath;
+            } elseif (file_exists(TEMPLATEPATH . '/' . $relativeFilePath)) {
+                $filePath = TEMPLATEPATH . '/' . $relativeFilePath;
+            }
+        }
+
+        return $filePath;
+    }
+
     /**
      * Workaround until https://github.com/WordPress/gutenberg/issues/11763 is fixed.
      */
