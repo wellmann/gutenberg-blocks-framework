@@ -75,6 +75,7 @@ class BaseBlock
     {
         return $this->viewClass
             ->setData(array_merge($this->data, $data, [
+                'prefix' => $this->pluginConfig->prefix,
                 'renderCount' => $this->renderCount,
                 'wrapperTagName' => $wrapperTagName,
                 'hideMobile' => $this->hideMobile,

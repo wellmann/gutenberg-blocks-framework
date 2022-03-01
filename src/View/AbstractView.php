@@ -7,6 +7,7 @@ abstract class AbstractView implements ViewInterface
     public string $defaultView;
 
     protected string $baseClass;
+    protected string $prefix;
     protected array $data;
     protected ?string $file;
 
@@ -19,6 +20,7 @@ abstract class AbstractView implements ViewInterface
     public function setData(array $data): ViewInterface
     {
         $this->baseClass = $data['baseClass'];
+        $this->prefix = $data['prefix'];
         $this->renderCount = $data['renderCount'];
         $this->hideMobile = $data['hideMobile'];
         $this->hideDesktop = $data['hideDesktop'];
@@ -29,6 +31,7 @@ abstract class AbstractView implements ViewInterface
 
         unset(
             $data['baseClass'],
+            $data['prefix'],
             $data['renderCount'],
             $data['wrapperTagName'],
             $data['hideMobile'],

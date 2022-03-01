@@ -21,7 +21,8 @@ class TwigViewExtension extends AbstractExtension
             new TwigFunction('_x', '_x'),
             new TwigFunction('_n', '_n'),
             new TwigFunction('_nx', '_nx'),
-            new TwigFunction('bem', [$this->twigView, 'bem'])
+            new TwigFunction('bem', [$this->twigView, 'bem']),
+            new TwigFunction('renderBlock', [$this->twigView, '_renderBlockInternal'], ['is_safe' => ['html']])
         ];
     }
 }

@@ -36,4 +36,23 @@ trait ViewUtilsTrait
     {
         return $this->renderCount;
     }
+
+    public function renderBlock(string $blockFullClassName, array $attrs = [], string $content = ''): string
+    {
+        // Convert KWIO\GutenbergBlocks\MyExample to my-example
+        $blockClassParts = explode('\\', $blockFullClassName);
+        $blockClass = array_pop($blockClassParts);
+        $blockName = preg_replace('%([a-z])([A-Z])%', '$1-$2', $blockClass);
+
+        return $this->_renderBlockInternal($blockName, $attrs, $content);
+    }
+
+    public function _renderBlockInternal(string $blockName,  array $attrs = [], string $content = ''): string
+    {
+        return render_block([
+            'blockName' => $this->prefix . '/' . $blockName,
+            'attrs' => $attrs,
+            'innerHTML' => $content
+        ]);
+    }
 }
