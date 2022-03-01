@@ -18,6 +18,7 @@ class AbstractViewTest extends TestCase
 
         $this->viewClassData = [
             'baseClass' => 'block-example',
+            'prefix' => 'prefix',
             'renderCount' => 1,
             'wrapperTagName' => 'div',
             'hideMobile' => null,
