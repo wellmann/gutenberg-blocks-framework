@@ -1,3 +1,9 @@
+---
+layout: default
+title: Intro
+nav_order: 0
+---
+
 # Gutenberg Blocks Framework
 
 Library to load custom Gutenberg blocks in a WordPress plugin or theme.

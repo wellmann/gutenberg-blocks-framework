@@ -1,3 +1,11 @@
-title: "Gutenberg Blocks Framework Docs"
+title: "Gutenberg Blocks Framework 🧱 Docs"
 remote_theme: pmarsceill/just-the-docs
 color_scheme: "dark"
+aux_links:
+  "GitHub":
+    - "https://github.com/wellmann/gutenberg-blocks-framework"
+aux_links_new_tab: true
+footer_content: "Copyright &copy; 2022 Kevin Wellmann. <a href=\"https://github.com/wellmann/gutenberg-blocks-framework/blob/master/LICENSE\">GPL-3.0</a>"
+gh_edit_link: true
+plugins:
+  - jekyll-remote-theme
