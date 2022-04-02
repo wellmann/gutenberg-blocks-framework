@@ -29,6 +29,9 @@ class BaseBlock
         $this->viewClass = $pluginConfig->viewClass;
     }
 
+    /**
+     * @deprecated 1.1.0
+     */
     public function getAttributes(): array
     {
         $attributesJson = $this->dirPath . 'attributes.json';
@@ -42,6 +45,21 @@ class BaseBlock
         }
 
         return json_decode($attributes, true);
+    }
+
+    public function getMetaData(): array
+    {
+        $metaJson = $this->dirPath . 'meta.json';
+        if (!is_readable($metaJson)) {
+            return [];
+        }
+
+        $metaData = file_get_contents($metaJson);
+        if (!json_decode($metaData)) {
+            return [];
+        }
+
+        return json_decode($metaData, true);
     }
 
     public function getRenderCount(): int

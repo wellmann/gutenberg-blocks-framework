@@ -118,6 +118,10 @@ class BlockCollector
             $args['attributes'] = $classInstance->getAttributes();
         }
 
+        if (!empty($classInstance->getMetaData())) {
+            $args = array_merge($classInstance->getMetaData(), $args);
+        }
+
         if (register_block_type($name, $args)) {
             $this->blocks[] = $name;
         }
