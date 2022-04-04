@@ -22,7 +22,9 @@ final class Loader
         'core/separator',
         'core/html',
         'core/embed',
-        'core/block'
+        'core/block',
+        'core/media-text',
+        'core/post-title'
     ];
 
     private PluginConfigDTO $pluginConfig;
