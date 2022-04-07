@@ -37,7 +37,7 @@ class BlockCollector
             }
         }
 
-        return $allowedBlockTypes;
+        return array_values($allowedBlockTypes);
     }
 
     public function groupBlocks(array $categories): array
