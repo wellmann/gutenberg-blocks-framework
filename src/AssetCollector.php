@@ -63,7 +63,7 @@ class AssetCollector
 
     private function enqueueEditorTranslations(): void
     {
-        $domain = $this->pluginConfig->prefix;
+        $domain = preg_replace('/-(gutenberg-blocks|theme)$/', '', $this->pluginConfig->prefix);
         $locale = get_locale();
         $localeFile = $this->pluginConfig->translationsPath . "{$domain}-{$locale}.json";
 
