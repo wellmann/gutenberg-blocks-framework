@@ -46,7 +46,8 @@ Rendered result:
 | isEditor | `bool` | Check if view is rendered in the block editor via `@wordpress/server-side-render`. |
 | getPost | `WP_Post` | Get current `WP_Post` object. |
 | getRenderCount | `int` | If you have the same block multiple times on a page this function allows you to generate a unique class name or id. |
-| renderBlock | `string` | Renders a block by passing the fully qualified class name. |
+| renderBlockClass | `string` | Renders a block by passing the fully qualified class name. |
+| renderBlock | `string` | Renders a block by passing the blocks name without namespace. |
 
 
 ## Twig view
