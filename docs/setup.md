@@ -31,6 +31,10 @@ $frameworkLoader
 
 Pass a custom array of blocks that should be whitelisted or use `KWIO\GutenbergBlocksFramework\Loader::CORE_BLOCK_WHITELIST` and merge it with your array to extend the current whitelist.
 
+### setCategories(array $categories)
+
+Pass an array of custom block categories. See [developer.wordpress.org](https://developer.wordpress.org/reference/hooks/block_categories_all/) for more.
+
 ### setDistDir(string $distDir)
 
 Pass a directory relative to the plugin dir path to customize the block assets dist folder.
@@ -53,7 +57,7 @@ Implement a custom template engine or choose one of the follwing already impleme
 The subfolder name will represent the block slug and the class should be named accordingly in PascalCase (though it is still supported to name it `block.php` for backwards compatibility).
 
 ```
-src 
+blocks 
 │
 └───my-block
 │   │   block.js

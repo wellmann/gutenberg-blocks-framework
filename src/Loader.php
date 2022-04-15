@@ -28,6 +28,7 @@ final class Loader
     ];
 
     private PluginConfigDTO $pluginConfig;
+    private array $categories = [];
 
     public function __construct(string $file)
     {
@@ -51,6 +52,13 @@ final class Loader
     public function setBlockWhitelist(array $blockWhitelist): Loader
     {
         $this->pluginConfig->blockWhitelist = $blockWhitelist;
+
+        return $this;
+    }
+
+    public function setCategories(array $categories): Loader
+    {
+        $this->categories = $categories;
 
         return $this;
     }
@@ -88,7 +96,7 @@ final class Loader
 
         add_action('load-post-new.php', [$templateCollector, 'registerTemplates']);
         add_filter('allowed_block_types_all', [$blockCollector, 'filterBlocks'], 10, 2);
-        add_filter('block_categories_all', [$blockCollector, 'groupBlocks']);
+        add_filter('block_categories_all', fn($categories) => array_merge($categories, $this->categories));
         add_action('enqueue_block_assets', [$assetCollector, 'enqueueAssets']);
         add_action('enqueue_block_editor_assets', [$assetCollector, 'enqueueEditorAssets']);
         add_action('init', [$blockCollector, 'registerBlocks']);

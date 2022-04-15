@@ -40,20 +40,6 @@ class BlockCollector
         return array_values($allowedBlockTypes);
     }
 
-    public function groupBlocks(array $categories): array
-    {
-        return array_merge($categories, [
-            [
-                'slug' => $this->pluginConfig->prefix,
-                'title' => str_replace('-', ' ', ucwords($this->pluginConfig->prefix, '-'))
-            ],
-            [
-                'slug' => 'wordpress-default',
-                'title' => 'WordPress'
-            ]
-        ]);
-    }
-
     public function registerBlocks(): void
     {
         $blocks = glob($this->blockDirPath . '*', GLOB_ONLYDIR);
