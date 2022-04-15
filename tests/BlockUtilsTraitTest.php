@@ -43,4 +43,16 @@ class BlockUtilsTraitTest extends TestCase
         $this->assertTrue(array_key_exists('data-test', $traitClassMock->tagAttr));
         $this->assertEquals($traitClassMock->tagAttr['data-test'], json_encode(['key' => 'value']));
     }
+
+    public function testAddJsonData()
+    {
+        $traitClassMock = $this->getMockForTrait(BlockUtilsTrait::class);
+
+        $traitClassMockReflection = new ReflectionClass($traitClassMock);
+        $traitClassMockAddData = $traitClassMockReflection->getMethod('addJsonData');
+        $traitClassMockAddData->setAccessible(true);
+        $traitClassMockAddData->invokeArgs($traitClassMock, ['{}']);
+
+        $this->assertEquals($traitClassMock->data['afterOpeningTag'], '<script type="application/json">{}</script>' . "\n");
+    }
 }

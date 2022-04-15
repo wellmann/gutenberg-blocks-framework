@@ -70,7 +70,11 @@ class BaseBlock
         $this->renderCount++;
 
         // Reset for each render.
-        $this->data = ['baseClass' => $this->baseClass];
+        $this->data = [
+            'baseClass' => $this->baseClass,
+            'afterOpeningTag' => '',
+            'beforeClosingTag' => '',
+        ];
         $this->tagAttr = ['class' => ['block', $this->baseClass]];
 
         $this->data = array_merge($this->data, $attributes, compact('content'));

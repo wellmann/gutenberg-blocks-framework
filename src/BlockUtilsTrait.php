@@ -30,6 +30,11 @@ trait BlockUtilsTrait
         $this->tagAttr['data-' . $key] = esc_attr($value);
     }
 
+    protected function addJsonData(string $json): void
+    {
+        $this->data['afterOpeningTag'] = sprintf('<script type="application/json">%s</script>', $json) . "\n";
+    }
+
     /**
      * Enqueue JS file only when block is rendered.
      * Most useful to enqueue a third party dependency of a rarely used block.

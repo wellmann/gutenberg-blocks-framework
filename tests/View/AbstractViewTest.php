@@ -18,6 +18,8 @@ class AbstractViewTest extends TestCase
 
         $this->viewClassData = [
             'baseClass' => 'block-example',
+            'afterOpeningTag' => '',
+            'beforeClosingTag' => '',
             'prefix' => 'prefix',
             'renderCount' => 1,
             'wrapperTagName' => 'div',
@@ -55,6 +57,32 @@ class AbstractViewTest extends TestCase
         ]]);
 
         $this->assertEquals(' class="block block-example" id="anchor"', $result);
+    }
+
+    public function testAfterOpeningTag()
+    {
+        $result = $this->viewClassMock
+            ->setData(array_merge($this->viewClassData, [
+                'content' => 'lorem ipsum',
+                'afterOpeningTag' => 'afterOpeningTag'
+                ]))
+            ->setFile('')
+            ->render();
+
+        $this->assertSame('<div class="block block-example">afterOpeningTaglorem ipsum</div>', $result);
+    }
+
+    public function testBeforeClosingTag()
+    {
+        $result = $this->viewClassMock
+            ->setData(array_merge($this->viewClassData, [
+                'content' => 'lorem ipsum',
+                'beforeClosingTag' => 'beforeClosingTag'
+                ]))
+            ->setFile('')
+            ->render();
+
+        $this->assertSame('<div class="block block-example">lorem ipsumbeforeClosingTag</div>', $result);
     }
 
     public function testWrapReturnsEmptyStringIfViewFileIsNull()

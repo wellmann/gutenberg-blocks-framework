@@ -27,10 +27,12 @@ abstract class AbstractView implements ViewInterface
 
         $data['tagAttr']['class'] = $this->convertIsStyleToBem($data['tagAttr']['class']);
         $tagAttrString = $this->buildTagAttrString($data['tagAttr']);
-        $this->wrapperDiv = "<{$data['wrapperTagName']}{$tagAttrString}>%s</{$data['wrapperTagName']}>";
+        $this->wrapperDiv = "<{$data['wrapperTagName']}{$tagAttrString}>{$data['afterOpeningTag']}%s{$data['beforeClosingTag']}</{$data['wrapperTagName']}>";
 
         unset(
             $data['baseClass'],
+            $data['afterOpeningTag'],
+            $data['beforeClosingTag'],
             $data['prefix'],
             $data['renderCount'],
             $data['wrapperTagName'],

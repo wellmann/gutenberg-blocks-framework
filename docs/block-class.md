@@ -70,4 +70,5 @@ class MyBlock extends BaseBlock
 |:------------------|:--------|:-------------------------------------------------------------|
 | addClass | `void` | Additional classes to add to the block wrapper element. `%s` can be used as a placeholder for the base class. |
 | addData | `void` | Add additional data via data attribute to the block wrapper element. |
+| addJsonData | `void` | Add JSON data via script tag after the opening block wrapper tag. |
 | addJs | `void` | Enqueue JS file only when block is rendered. |
