@@ -62,7 +62,7 @@ class LoaderTest extends TestCase
         $this->assertNotFalse(has_action('init', '\KWIO\GutenbergBlocksFramework\BlockCollector->registerBlocks()'));
         $this->assertNotFalse(has_action('wp_enqueue_scripts', '\KWIO\GutenbergBlocksFramework\AssetCollector->enqueueScripts()'));
         $this->assertNotFalse(has_filter('allowed_block_types_all', '\KWIO\GutenbergBlocksFramework\BlockCollector->filterBlocks()'));
-        $this->assertNotFalse(has_filter('block_categories_all', '\KWIO\GutenbergBlocksFramework\BlockCollector->groupBlocks()'));
+        $this->assertNotFalse(has_filter('block_categories_all'));
     }
 
     public function dataProviderForTestValidPrefix()

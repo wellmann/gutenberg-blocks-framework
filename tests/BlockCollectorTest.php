@@ -22,26 +22,13 @@ class BlockCollectorTest extends TestCase
         $this->pluginConfig->dirPath = '/';
     }
 
-    /**
-     * @dataProvider dataProviderForTestValidGroupTitle
-     */
-    public function testValidGroupTitle(string $prefix, string $title)
-    {
-        $this->pluginConfig->prefix = $prefix;
-
-        $blockCollector = new BlockCollector($this->pluginConfig);
-        $blockCategories = $blockCollector->groupBlocks([]);
-
-        $this->assertEquals($title, $blockCategories[0]['title']);
-    }
-
     public function testRegisterBlock()
     {
         when('register_block_type')->justReturn(true);
 
         $this->pluginConfig->prefix = 'prefix';
         $this->pluginConfig->namespace = 'Namespace';
-        $this->pluginConfig->viewClass = new PhpView();
+        $this->pluginConfig->viewClass = PhpView::class;
 
         $blockCollector = new BlockCollector($this->pluginConfig);
         $blockCollectorReflection = new ReflectionClass($blockCollector);
@@ -62,7 +49,7 @@ class BlockCollectorTest extends TestCase
 
         $this->pluginConfig->prefix = 'prefix';
         $this->pluginConfig->namespace = 'Namespace';
-        $this->pluginConfig->viewClass = new PhpView();
+        $this->pluginConfig->viewClass = PhpView::class;
 
         $blockCollector = new BlockCollector($this->pluginConfig);
         $blockCollectorReflection = new ReflectionClass($blockCollector);
@@ -72,14 +59,5 @@ class BlockCollectorTest extends TestCase
         $blockCollectorRegisterBlock->invokeArgs($blockCollector, ['core-image']);
 
         $this->assertNotFalse(has_filter('render_block'));
-    }
-
-    public function dataProviderForTestValidGroupTitle()
-    {
-        return [
-            ['kwio', 'Kwio'],
-            ['my-prefix', 'My Prefix'],
-            ['my-long-prefix', 'My Long Prefix'],
-        ];
     }
 }

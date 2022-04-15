@@ -19,7 +19,7 @@ class BaseBlockTest extends TestCase
         when('esc_attr')->returnArg();
 
         $this->pluginConfig = new PluginConfigDTO();
-        $this->pluginConfig->viewClass = new PhpView();
+        $this->pluginConfig->viewClass = PhpView::class;
     }
 
     public function testTagAttrHasBlockClassNames()
