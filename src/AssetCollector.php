@@ -51,19 +51,24 @@ class AssetCollector
     public function enqueueScripts(): void
     {
         $manifest = $this->getAssetManifest('blocks');
+        $handle = $this->pluginConfig->prefix . '-blocks';
+        $restUrl = get_rest_url();
+        $object = ucwords(str_replace('-', ' ', preg_replace('/-theme$/', '', $this->pluginConfig->prefix)));
+        $data = "var {$object} = {$object} || {};\n{$object}.apiRoot = {$restUrl};";
 
         wp_enqueue_script(
-            $this->pluginConfig->prefix . '-blocks',
+            $handle,
             $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'blocks.js',
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
         );
+        wp_add_inline_script($handle, $data, 'before');
     }
 
     private function enqueueEditorTranslations(): void
     {
-        $domain = preg_replace('/-(gutenberg-blocks|theme)$/', '', $this->pluginConfig->prefix);
+        $domain = preg_replace('/-theme$/', '', $this->pluginConfig->prefix);
         $locale = get_locale();
         $localeFile = $this->pluginConfig->translationsPath . "{$domain}-{$locale}.json";
 
