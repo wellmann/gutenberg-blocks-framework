@@ -37,7 +37,7 @@ final class Loader
         $this->pluginConfig->dirUrl = strpos($file, '/themes/') !== false ? get_template_directory_uri() . '/' : plugin_dir_url($file);
         $this->pluginConfig->distDir = 'dist/';
         $this->pluginConfig->prefix = preg_replace('/-gutenberg-blocks$/', '', basename(dirname($file)));
-        $this->pluginConfig->viewClass = new PhpView();
+        $this->pluginConfig->viewClass = PhpView::class;
     }
 
     public function loadBlocks(string $dir, string $namespace): Loader
@@ -69,8 +69,12 @@ final class Loader
         return $this;
     }
 
-    public function setViewClass(ViewInterface $viewClass): Loader
+    public function setViewClass(string $viewClass): Loader
     {
+        if (!is_subclass_of($viewClass, ViewInterface::class)) {
+            throw new Exception("{$viewClass} should implement " . ViewInterface::class);
+        }
+
         $this->pluginConfig->viewClass = $viewClass;
 
         return $this;

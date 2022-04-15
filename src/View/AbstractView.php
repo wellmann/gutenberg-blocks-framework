@@ -4,7 +4,7 @@ namespace KWIO\GutenbergBlocksFramework\View;
 
 abstract class AbstractView implements ViewInterface
 {
-    public string $defaultView;
+    public static string $defaultView;
 
     protected string $baseClass;
     protected string $prefix;

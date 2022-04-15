@@ -2,8 +2,6 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
-use KWIO\GutenbergBlocksFramework\View\ViewInterface;
-
 class BaseBlock
 {
     use BlockUtilsTrait;
@@ -18,7 +16,7 @@ class BaseBlock
     private ?bool $hideMobile = null;
     private ?bool $hideDesktop = null;
     private int $renderCount = 0;
-    private ViewInterface $viewClass;
+    private string $viewClass;
 
     public function __construct(string $blockName, string $dirPath, PluginConfigDTO $pluginConfig)
     {
@@ -83,7 +81,7 @@ class BaseBlock
         $this->extractAttr('align', 'class');
         $this->extractAttr('anchor', 'id');
 
-        return $this->setView($this->dirPath . $this->viewClass->defaultView);
+        return $this->setView($this->dirPath . $this->viewClass::$defaultView);
     }
 
     /**
@@ -91,7 +89,8 @@ class BaseBlock
      */
     protected function setView(?string $file, array $data = [], $wrapperTagName = 'div'): string
     {
-        return $this->viewClass
+        $viewClassInstance = new $this->viewClass();
+        return $viewClassInstance
             ->setData(array_merge($this->data, $data, [
                 'prefix' => $this->pluginConfig->prefix,
                 'renderCount' => $this->renderCount,

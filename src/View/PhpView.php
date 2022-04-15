@@ -6,7 +6,7 @@ class PhpView extends AbstractView
 {
     use ViewUtilsTrait;
 
-    public string $defaultView = 'view.php';
+    public static string $defaultView = 'view.php';
 
     protected function renderWithView(): string
     {

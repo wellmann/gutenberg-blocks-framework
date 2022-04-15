@@ -10,7 +10,7 @@ class TimberView extends AbstractView
 {
     use ViewUtilsTrait;
 
-    public string $defaultView = 'view.twig';
+    public static string $defaultView = 'view.twig';
 
     protected function renderWithView(): string
     {

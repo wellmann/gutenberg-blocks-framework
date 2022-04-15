@@ -2,8 +2,6 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
-use KWIO\GutenbergBlocksFramework\View\ViewInterface;
-
 class PluginConfigDTO
 {
     public string $blockDir = '';
@@ -14,5 +12,5 @@ class PluginConfigDTO
     public string $distDir = '';
     public string $prefix = '';
     public string $translationsPath = '';
-    public ViewInterface $viewClass;
+    public string $viewClass;
 }

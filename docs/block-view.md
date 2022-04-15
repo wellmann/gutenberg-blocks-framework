@@ -97,4 +97,4 @@ Additional data:
 
 ## Creating a custom  view
 
-You can create your own custom view loader with your favorite template engine by creating a new class which extends the `KWIO\GutenbergBlocksFramework\View\AbstractView` class and pass an instance to the `KWIO\GutenbergBlocksFramework\Loader::setViewClass` method.
+You can create your own custom view loader with your favorite template engine by creating a new class which extends the `KWIO\GutenbergBlocksFramework\View\AbstractView` class and pass the class name to the `KWIO\GutenbergBlocksFramework\Loader::setViewClass` method.

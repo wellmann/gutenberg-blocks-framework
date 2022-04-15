@@ -40,7 +40,7 @@ Pass a directory relative to the plugin dir path to customize the block assets d
 Pass the path of the directory of your translation file (e.g. kwio-de_DE.json) to translate strings in your custom block in the admin.  
 Make sure that the text domain matches this plugins prefix.
 
-### setViewClass(ViewInterface $viewClass)
+### setViewClass(string $viewClass)
 
 Implement a custom template engine or choose one of the follwing already implemented engines:
 

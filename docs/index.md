@@ -28,7 +28,7 @@ Example projects:
 * customizable whitelist of selected core blocks
 * enhance output of core blocks
 * loading of critical and non-critical CSS
-* use pure PHP or Twig views
+* use pure PHP or Twig views (all blocks are dynamic)
 * easy integration of editor view translations
 * helper functions to generate class names according to the BEM methodology
 
