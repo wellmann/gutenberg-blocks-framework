@@ -71,9 +71,13 @@ class AssetCollectorTest extends TestCase
 
     public function testEnqueueScripts()
     {
+        when('get_rest_url')->justReturn('Url');
         expect('wp_enqueue_script')
             ->once()
             ->with('prefix-blocks', '/dist/blocks.js', [], '', true);
+        expect('wp_add_inline_script')
+            ->once()
+            ->with('prefix-blocks', "var Prefix = Prefix || {};\nPrefix.apiRoot = 'Url';", 'before');
 
         $assetCollector = new AssetCollector($this->pluginConfig);
         $assetCollector->enqueueScripts();

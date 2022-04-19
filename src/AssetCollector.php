@@ -52,7 +52,7 @@ class AssetCollector
     {
         $manifest = $this->getAssetManifest('blocks');
         $handle = $this->pluginConfig->prefix . '-blocks';
-        $restUrl = get_rest_url();
+        $restUrl = html_entity_decode(json_encode(get_rest_url()), ENT_QUOTES, 'UTF-8');
         $object = ucwords(str_replace('-', ' ', preg_replace('/-theme$/', '', $this->pluginConfig->prefix)));
         $data = "var {$object} = {$object} || {};\n{$object}.apiRoot = {$restUrl};";
 
