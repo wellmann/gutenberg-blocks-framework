@@ -27,7 +27,7 @@ abstract class AbstractView implements ViewInterface
 
         $data['tagAttr']['class'] = $this->convertIsStyleToBem($data['tagAttr']['class']);
         $tagAttrString = $this->buildTagAttrString($data['tagAttr']);
-        $this->wrapperDiv = "<{$data['wrapperTagName']}{$tagAttrString}>{$data['afterOpeningTag']}%s{$data['beforeClosingTag']}</{$data['wrapperTagName']}>";
+        $this->wrapperDiv = "<{$data['wrapperTagName']}{$tagAttrString}>{$data['afterOpeningTag']}###BLOCK_CONTENT###{$data['beforeClosingTag']}</{$data['wrapperTagName']}>";
 
         unset(
             $data['baseClass'],
@@ -73,14 +73,14 @@ abstract class AbstractView implements ViewInterface
             if (!empty($this->data['content'])) {
 
                 // Don't render custom wrapper for overridden core block.
-                return $isCoreBlock ? $this->data['content'] : sprintf($this->wrapperDiv, $this->data['content']);
+                return $isCoreBlock ? $this->data['content'] : str_replace('###BLOCK_CONTENT###', $this->data['content'], $this->wrapperDiv);
             }
 
-            return sprintf($this->wrapperDiv, '');
+            return str_replace('###BLOCK_CONTENT###', '', $this->wrapperDiv);
         }
 
         // Don't render custom wrapper for overridden core block.
-        return $isCoreBlock ? $this->renderWithView() : sprintf($this->wrapperDiv, $this->renderWithView());
+        return $isCoreBlock ? $this->renderWithView() : str_replace('###BLOCK_CONTENT###', $this->renderWithView(), $this->wrapperDiv);
     }
 
     protected function locateView(string $filePath): string
