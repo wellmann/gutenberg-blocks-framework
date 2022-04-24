@@ -1,3 +1,6 @@
+[![Tests](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/tests.yml)
+[![pages-build-deployment](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/pages/pages-build-deployment/badge.svg?branch=master)](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/pages/pages-build-deployment)
+
 # Gutenberg Blocks Framework 🧱
 
 Library to load custom Gutenberg blocks in a WordPress plugin or theme.
