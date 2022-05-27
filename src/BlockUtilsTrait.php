@@ -30,8 +30,33 @@ trait BlockUtilsTrait
         $this->tagAttr['data-' . $key] = esc_attr($value);
     }
 
-    protected function addJsonData(string $json): void
+    /**
+     * Add critical CSS only when block is rendered.
+     *
+     * @param string $cssFile - Must be relative to the dist dir.
+     */
+    protected function addCriticalCss(string $cssFile): void
     {
+        $cssFilePath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $cssFile;
+        if (!is_readable($cssFilePath)) {
+            return;
+        }
+
+        $criticalCss = file_get_contents($cssFilePath);
+        $criticalCss = str_replace('../../../../', content_url('/'), $criticalCss);
+
+        wp_add_inline_style($this->pluginConfig->prefix . '-blocks', trim($criticalCss));
+    }
+
+    /**
+     * Add JSON data via script tag after the opening block wrapper tag.
+     *
+     * @param mixed $jsonOrArray
+     */
+    protected function addJsonData($jsonOrArray): void
+    {
+        $json = is_scalar($jsonOrArray) ? $jsonOrArray : json_encode($jsonOrArray);
+
         $this->data['afterOpeningTag'] = sprintf('<script type="application/json">%s</script>', $json) . "\n";
     }
 
