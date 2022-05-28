@@ -2,13 +2,26 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
+/**
+ * Set of utilitiy functions to be used inside the block class.
+ */
 trait BlockUtilsTrait
 {
+    /**
+     * @ignore
+     */
     private bool $hasChild = false;
+
+    /**
+     * @ignore
+     */
     private bool $hasParent = false;
 
     /**
-     * Use '%s' as a placholder for the base class.
+     * Adds class to the block wrapper element.
+     * Use `%s` as a placholder for the base class.
+     *
+     * @param string $class Classname to add.
      */
     protected function addClass(string $class): void
     {
@@ -17,10 +30,10 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Add additional data via data attribute.
+     * Adds additional data via data attribute to the block wrapper element.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param string $key Data identifier.
+     * @param mixed $value Data value.
      */
     protected function addData(string $key, $value): void
     {
@@ -31,9 +44,9 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Add critical CSS only when block is rendered.
+     * Adds critical CSS only when block is rendered.
      *
-     * @param string $cssFile - Must be relative to the dist dir.
+     * @param string $cssFile Must be relative to the dist dir.
      */
     protected function addCriticalCss(string $cssFile): void
     {
@@ -49,9 +62,9 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Add JSON data via script tag after the opening block wrapper tag.
+     * Adds JSON data via script tag after the opening block wrapper tag.
      *
-     * @param mixed $jsonOrArray
+     * @param mixed $jsonOrArray JSON data to add.
      */
     protected function addJsonData($jsonOrArray): void
     {
@@ -61,11 +74,11 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Enqueue JS file only when block is rendered.
+     * Enqueues JS file only when block is rendered.
      * Most useful to enqueue a third party dependency of a rarely used block.
      *
-     * @param string $jsFile - Must be relative to the dist dir.
-     * @param string $dependentHandle - Handle of the script that needs this script loaded.
+     * @param string $jsFile Must be relative to the dist dir.
+     * @param string $dependentHandle Handle of the script that needs this script loaded.
      */
     protected function addJs(string $jsFile, string $dependentHandle = ''): void
     {
@@ -94,21 +107,33 @@ trait BlockUtilsTrait
         );
     }
 
+    /**
+     * @ignore
+     */
     public function hasChild(string $childBlockName = ''): bool
     {
         return $this->hasRelative('child', $childBlockName);
     }
 
+    /**
+     * @ignore
+     */
     public function hasChildren(): bool
     {
         return $this->hasChild();
     }
 
+    /**
+     * @ignore
+     */
     public function hasParent(string $parentBlockName = ''): bool
     {
         return $this->hasRelative('parent', $parentBlockName);
     }
 
+    /**
+     * @ignore
+     */
     private function hasRelative(string $type, string $blockName = ''): bool
     {
         if (strpos($this->blockName, $this->pluginConfig->prefix . '/core-') === 0) {
@@ -139,6 +164,9 @@ trait BlockUtilsTrait
         }
     }
 
+    /**
+     * @ignore
+     */
     private function hasRelativeCheck(&$item, $key, $type, $blockName)
     {
         if (empty($item['innerBlocks'])) {
@@ -167,6 +195,9 @@ trait BlockUtilsTrait
         array_walk($item['innerBlocks'], fn(&$item, $key) => $this->hasRelativeCheck($item, $key, $type, $blockName));
     }
 
+    /**
+     * @ignore
+     */
     private function isInInnerBlocks(string $blockName, array $item): bool
     {
         return array_search($blockName, array_column($item['innerBlocks'], 'blockName')) !== false;

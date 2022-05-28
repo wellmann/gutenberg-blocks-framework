@@ -13,6 +13,11 @@ class TwigView extends AbstractView
 
     public static string $defaultView = 'view.twig';
 
+    /**
+     * Array of `\Twig\Extension\AbstractExtension`.
+     *
+     * @var array
+     */
     private array $twigExtensions;
 
     public function __construct(?AbstractExtension $twigExtension = null)

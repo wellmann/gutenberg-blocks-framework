@@ -7,13 +7,26 @@ use Twig\TwigFunction;
 
 class TwigViewExtension extends AbstractExtension
 {
+    /**
+     * Holds instance of current view.
+     *
+     * @var TwigView
+     */
     private TwigView $twigView;
 
+    /**
+     * @param TwigView $twigView Instance of current view.
+     */
     public function __construct(TwigView $twigView)
     {
         $this->twigView = $twigView;
     }
 
+    /**
+     * Returns a list of functions to add to the existing list.
+     *
+     * @return TwigFunction[]
+     */
     public function getFunctions(): array
     {
         return [

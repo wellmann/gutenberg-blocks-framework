@@ -1,0 +1,5 @@
+| Name | Type | Description |
+|------|------|-------------|
+{% for property in node.properties %}
+| {{ property.name }} | `{{ property.types ? property.types|join('\\|')|raw|replace({'|': '\\|'}) }}` | {{ property.summary|raw|replace({'|': '\\|'}) }} {{ property.description|raw|replace({'|': '\\|'}) }} |
+{% endfor %}

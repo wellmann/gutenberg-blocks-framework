@@ -1,9 +1,11 @@
 /.idea
+/.phpdoc/cache
 /.vscode
 /coverage
 /docs/_site
 /docs/.jekyll-cache
 /docs/.sass-cache
+/docs/reference
 /dist
 /node_modules
 /vendor

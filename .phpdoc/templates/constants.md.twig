@@ -1,0 +1,5 @@
+| Name | Description |
+|------|-------------|
+{% for constant in node.constants %}
+| {{ constant.name }} | {{ constant.summary|raw|replace({'|': '\\|'}) }} {{ constant.description|raw|replace({'|': '\\|'}) }} |
+{% endfor %}

@@ -2,24 +2,48 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
+/**
+ * Collects templates residing in the template directory.
+ */
 class TemplateCollector
 {
+    /**
+     * The template directory.
+     */
     private const TEMPLATE_FOLDER = 'post-type-templates';
 
+    /**
+     * Holds the configurated options.
+     *
+     * @var PluginConfigDTO
+     */
     private PluginConfigDTO $pluginConfig;
 
+    /**
+     * @param PluginConfigDTO $pluginConfig The configured options.
+     */
     public function __construct(PluginConfigDTO $pluginConfig)
     {
         $this->pluginConfig = $pluginConfig;
     }
 
+    /**
+     * Registers the templates.
+     * @see Loader::int
+     */
     public function registerTemplates(): void
     {
-        foreach ($this->getTemplates() as $template) {
+        $templates = glob($this->pluginConfig->dirPath . self::TEMPLATE_FOLDER . '/{,*/}*.php', GLOB_BRACE);
+        foreach ($templates as $template) {
             $this->registerTemplate($template);
         }
     }
 
+    /**
+     * Registers a single template based on current post type.
+     *
+     * @param string $template Template file for directory name.
+     */
     protected function registerTemplate(string $template): void
     {
         $postType = !empty($_GET['post_type']) ? $_GET['post_type'] : 'post';
@@ -51,6 +75,13 @@ class TemplateCollector
         }
     }
 
+    /**
+     * Adds the namespace if block is part of current namespace.
+     *
+     * @param array $template Array of nested blocks.
+     *
+     * @return array Array of nested blocks with namespace.
+     */
     protected function addNamespaceToBlockName(array $template): array
     {
         return array_map(function ($block) {
@@ -62,10 +93,5 @@ class TemplateCollector
 
             return $block;
         }, $template);
-    }
-
-    protected function getTemplates(): array
-    {
-        return glob($this->pluginConfig->dirPath . self::TEMPLATE_FOLDER . '/{,*/}*.php', GLOB_BRACE);
     }
 }

@@ -4,6 +4,7 @@
 
 * [Jekyll](https://jekyllrb.com/docs/installation/)
 * Bundler
+* Docker
 
 ## Setup
 
@@ -12,3 +13,7 @@
 ## Development
 
 `bundle exec jekyll serve --livereload`
+
+### Generate reference docs
+
+Run `docker run --rm -v $(pwd):/data phpdoc/phpdoc:3 -d ./src -t ./docs/reference --template=.phpdoc/templates` from project root.

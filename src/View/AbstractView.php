@@ -4,17 +4,65 @@ namespace KWIO\GutenbergBlocksFramework\View;
 
 abstract class AbstractView implements ViewInterface
 {
+    /**
+     * Holds value of default view file name.
+     *
+     * @var string
+     */
     public static string $defaultView;
 
+    /**
+     * Holds base classname of current block  (e.g. `block-my-example`).
+     *
+     * @var string
+     */
     protected string $baseClass;
+
+    /**
+     * The theme or plugin prefix (e.g. `kwio` from `kwio-gutenberg-blocks` plugin or `kwio-theme` from `kwio-theme`).
+     *
+     * @var string
+     */
     protected string $prefix;
+
+    /**
+     * Holds attributes saved in the editor plus any other variables added in the block class.
+     *
+     * @var array
+     */
     protected array $data;
+
+    /**
+     * Holds absolute path to view file.
+     *
+     * @var string|null
+     */
     protected ?string $file;
 
+    /**
+     * Sets the view files wrapper div element and attributes.
+     *
+     * @var string
+     */
     private string $wrapperDiv;
+
+    /**
+     * @ignore
+     * @deprecated 1.1.0
+     */
     private ?bool $hideMobile;
+
+    /**
+     * @ignore
+     * @deprecated 1.1.0
+     */
     private ?bool $hideDesktop;
 
+    /**
+     * Extract data variables for use in view file.
+     *
+     * @return string Rendered view fil with wrapper elment.
+     */
     abstract protected function renderWithView(): string;
 
     public function setData(array $data): ViewInterface
@@ -83,6 +131,13 @@ abstract class AbstractView implements ViewInterface
         return $isCoreBlock ? $this->renderWithView() : str_replace('###BLOCK_CONTENT###', $this->renderWithView(), $this->wrapperDiv);
     }
 
+    /**
+     * Allows block view to be overridden in child theme.
+     *
+     * @param string $filePath Absolute path to view file.
+     *
+     * @return string Located view file.
+     */
     protected function locateView(string $filePath): string
     {
         // If blocks are located in the theme make the view file overridable in child theme.
@@ -100,7 +155,13 @@ abstract class AbstractView implements ViewInterface
     }
 
     /**
+     * Converts `is-style-default` to `block-my-example--default`.
      * Workaround until https://github.com/WordPress/gutenberg/issues/11763 is fixed.
+     * @see AbstractView::setData
+     *
+     * @param array $classnames Wrapper element classes.
+     *
+     * @return array Converted wrapper element classes.
      */
     private function convertIsStyleToBem(array $classnames): array
     {
@@ -110,7 +171,12 @@ abstract class AbstractView implements ViewInterface
     }
 
     /**
-     * Convert key-value pairs to string of HTML attributes.
+     * Converts key-value pairs to string of HTML attributes.
+     * @see AbstractView::setData
+     *
+     * @param array $array Array of attributes.
+     *
+     * @return string String of HTML attributes.
      */
     private function buildTagAttrString(array $array): string
     {

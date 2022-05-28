@@ -16,41 +16,7 @@ $frameworkLoader
     ->init();
 ```
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
-
-## Optional methods
-
-### setBlockWhitelist(array $blockWhitelist)
-
-Pass a custom array of blocks that should be whitelisted or use `KWIO\GutenbergBlocksFramework\Loader::CORE_BLOCK_WHITELIST` and merge it with your array to extend the current whitelist.
-
-### setCategories(array $categories)
-
-Pass an array of custom block categories. See [developer.wordpress.org](https://developer.wordpress.org/reference/hooks/block_categories_all/) for more.
-
-### setDistDir(string $distDir)
-
-Pass a directory relative to the plugin dir path to customize the block assets dist folder.
-
-### setTranslationsPath(string $path)
-
-Pass the path of the directory of your translation file (e.g. kwio-de_DE.json) to translate strings in your custom block in the admin.  
-Make sure that the text domain matches this plugins prefix.
-
-### setViewClass(string $viewClass)
-
-Implement a custom template engine or choose one of the follwing already implemented engines:
-
-* `KWIO\GutenbergBlocksFramework\View\PhpView` (default)
-* `KWIO\GutenbergBlocksFramework\View\TwigView` (requires `twig/twig`)
-* `KWIO\GutenbergBlocksFramework\View\TimberView` (requires `timber/timber`)
+[Loader class reference](/reference/Loader.html)
 
 ## File structure
 

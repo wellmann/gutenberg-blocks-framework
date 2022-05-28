@@ -2,22 +2,90 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
+/**
+ * Default class for every custom block.
+ */
 class BaseBlock
 {
     use BlockUtilsTrait;
 
+    /**
+     * Holds path to current block.
+     *
+     * @var string
+     */
     protected string $dirPath = '';
+
+    /**
+     * Holds base classname of current block  (e.g. `block-my-example`).
+     *
+     * @var string
+     */
     protected string $baseClass = '';
+
+    /**
+     * Holds the configurated options.
+     *
+     * @var PluginConfigDTO
+     */
     protected PluginConfigDTO $pluginConfig;
+
+    /**
+     * Holds the HTML attributes that will be rendered on the block wrapper element.
+     * Is reset on every render.
+     *
+     * @var array
+     */
     protected array $tagAttr = [];
 
+    /**
+     * Hols name (e.g. `kwio/my-example`.) of current block.
+     *
+     * @var string
+     */
     private string $blockName;
+
+    /**
+     * Holds attributes saved in the editor plus any other variables added in the block class.
+     *
+     * @var array
+     */
     private array $data = [];
+
+    /**
+     * @ignore
+     * @deprecated 1.1.0
+     */
     private ?bool $hideMobile = null;
+
+    /**
+     * @ignore
+     * @deprecated 1.1.0
+     */
     private ?bool $hideDesktop = null;
+
+    /**
+     * Holds how often the current block is rendered on the page.
+     *
+     * @var integer
+     */
     private int $renderCount = 0;
+
+    /**
+     * Holds current view implementaion.
+     * @see AbstractView
+     *
+     * @var string
+     */
     private string $viewClass;
 
+    /**
+     * Creates instance of current block type once per request.
+     *
+     * @param string $blockName Block slug without namespace (e.g. `my-example`).
+     * @param string $dirPath Path to current block.
+     * @param PluginConfigDTO $pluginConfig Configurated options.
+     */
     public function __construct(string $blockName, string $dirPath, PluginConfigDTO $pluginConfig)
     {
         $this->blockName = "{$pluginConfig->prefix}/{$blockName}";
@@ -28,7 +96,11 @@ class BaseBlock
     }
 
     /**
+     * Gets attributes of current block.
+     *
      * @deprecated 1.1.0
+     *
+     * @return array JSON decoded attributes.
      */
     public function getAttributes(): array
     {
@@ -45,6 +117,12 @@ class BaseBlock
         return json_decode($attributes, true);
     }
 
+    /**
+     * Gets meta data (including attributes) for current block.
+     * See [block.json](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md) for more.
+     *
+     * @return array JSON decoded meta data.
+     */
     public function getMetaData(): array
     {
         $metaJson = $this->dirPath . 'meta.json';
@@ -60,11 +138,24 @@ class BaseBlock
         return json_decode($metaData, true);
     }
 
+    /**
+     * Returns render count for current block type.
+     *
+     * @return integer Render count for current block.
+     */
     public function getRenderCount(): int
     {
         return $this->renderCount;
     }
 
+    /**
+     * Render callback passed to `register_block_type`.
+     *
+     * @param array $attributes Holds attributes saved in the editor.
+     * @param string $content Holds content saved in the editor.
+     *
+     * @return string Rendered HTML output of current block.
+     */
     public function render(array $attributes, string $content): string
     {
         $this->renderCount++;
@@ -89,7 +180,13 @@ class BaseBlock
     }
 
     /**
-     * Rendered HTML output of the block.
+     * Renders current block.
+     *
+     * @param string|null $file Absolute path to current blocks view file.
+     * @param array $data Attributes saved in the editor plus any other variables added in the block class.
+     * @param string $wrapperTagName Block wrapper element tag name.
+     *
+     * @return string Rendered HTML output of current block.
      */
     protected function setView(?string $file, array $data = [], $wrapperTagName = 'div'): string
     {

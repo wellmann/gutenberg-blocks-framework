@@ -40,15 +40,7 @@ Rendered result:
 
 ### Utility methods
 
-| Name              | Return type    | Description                                                  |
-|:------------------|:--------|:-------------------------------------------------------------|
-| bem | `string` | Generate class names according to the BEM methodology. |
-| isEditor | `bool` | Check if view is rendered in the block editor via `@wordpress/server-side-render`. |
-| getPost | `WP_Post` | Get current `WP_Post` object. |
-| getRenderCount | `int` | If you have the same block multiple times on a page this function allows you to generate a unique class name or id. |
-| renderBlockClass | `string` | Renders a block by passing the fully qualified class name. |
-| renderBlock | `string` | Renders a block by passing the blocks name without namespace. |
-
+[ViewUtilsTrait reference](/reference/ViewUtilsTrait.html)
 
 ## Twig view
 
@@ -59,8 +51,8 @@ Rendered result:
 ```
 
 Utility methods:
-* [bem](#utility-methods)
-* [renderBlock](#utility-methods)
+* [bem](/reference/ViewUtilsTrait.html#bem)
+* [renderBlock](/reference/ViewUtilsTrait.html#renderblock)
 * [__](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
 * [_x](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
 * [_n](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
@@ -71,9 +63,9 @@ Escapers:
 * [wp_kses_post](https://developer.wordpress.org/reference/functions/wp_kses_post/){:target="_blank"}
 
 Additional data:
-* [isEditor](#utility-methods)
+* [isEditor](/reference/ViewUtilsTrait.html#iseditor)
 * [post](https://developer.wordpress.org/reference/classes/wp_post/){:target="_blank"}
-* [renderCount](#utility-methods)
+* [renderCount](/reference/ViewUtilsTrait.html#getrendercount)
 
 You can create an instance of the `KWIO\GutenbergBlocksFramework\View\TwigView` class and pass a custom TwigExtension to the constructor if you need to add additional functions or filters.
 
@@ -86,13 +78,13 @@ You can create an instance of the `KWIO\GutenbergBlocksFramework\View\TwigView` 
 ```
 
 Utility methods:
-* [bem](#utility-methods)
-* [renderBlock](#utility-methods)
+* [bem](/reference/ViewUtilsTrait.html#bem)
+* [renderBlock](/reference/ViewUtilsTrait.html#renderblock)
 
 Additional data:
-* [isEditor](#utility-methods)
+* [isEditor](/reference/ViewUtilsTrait.html#iseditor)
 * [post](https://timber.github.io/docs/reference/timber-post/){:target="_blank"}
-* [renderCount](#utility-methods)
+* [renderCount](/reference/ViewUtilsTrait.html#getrendercount)
 
 
 ## Creating a custom  view

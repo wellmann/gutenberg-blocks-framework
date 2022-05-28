@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+<version>0.1.0</version>
+  <transformations>
+    <transformation query="copy" writer="FileIo" source="reference.md.twig" artifact="reference.md"/>
+    <transformation writer="twig" query="indexes.classes" source="class.md.twig" artifact="{{name}}.md" />
+    <transformation writer="twig" query="indexes.interfaces" source="class.md.twig" artifact="{{name}}.md" />
+    <transformation writer="twig" query="indexes.traits" source="class.md.twig" artifact="{{name}}.md" />
+  </transformations>
+  <parameters>
+    <parameter key="twig-debug">true</parameter>
+  </parameters>
+</template>

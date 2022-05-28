@@ -5,19 +5,55 @@ namespace KWIO\GutenbergBlocksFramework;
 use Exception;
 use WP_Block_Editor_Context;
 
+/**
+ * Collects the blocks residing in the blocks directory.
+ */
 class BlockCollector
 {
+    /**
+     * Holds all successfully registered blocks.
+     *
+     * @var array
+     */
     private array $blocks = [];
+
+    /**
+     * Holds the path to the blocks directoy.
+     *
+     * @var string
+     */
     private string $blockDirPath;
+
+    /**
+     * Holds the configurated options.
+     *
+     * @var PluginConfigDTO
+     */
     private PluginConfigDTO $pluginConfig;
+
+    /**
+     * Holds blocks that are restricted to speciffic post types.
+     *
+     * @var array
+     */
     private array $restrictedBlocks = [];
 
+    /**
+     * @param PluginConfigDTO $pluginConfig The configured options.
+     */
     public function __construct(PluginConfigDTO $pluginConfig)
     {
         $this->blockDirPath = $pluginConfig->dirPath . $pluginConfig->blockDir;
         $this->pluginConfig = $pluginConfig;
     }
 
+    /**
+     * Removes blocks from block selector if they are not elligible for display on current post type.
+     * @see Loader::int
+     *
+     * @param bool|array $allowedBlockTypes  Array of block type slugs, or boolean to enable/disable all. Default true (all registered block types supported).
+     * @param WP_Block_Editor_Context $blockEditorContext The current block editor context.
+     */
     public function filterBlocks($allowedBlockTypes, WP_Block_Editor_Context $blockEditorContext)
     {
         $allowedBlockTypes = array_merge($this->pluginConfig->blockWhitelist, $this->blocks);
@@ -40,6 +76,10 @@ class BlockCollector
         return array_values($allowedBlockTypes);
     }
 
+    /**
+     * Registers the blocks.
+     * @see Loader::int
+     */
     public function registerBlocks(): void
     {
         $blocks = glob($this->blockDirPath . '*', GLOB_ONLYDIR);
@@ -51,6 +91,12 @@ class BlockCollector
         }
     }
 
+    /**
+     * Registers a single block.
+     * @see BlockCollector::registerBlocks
+     *
+     * @param string $block Block name without namespace.
+     */
     protected function registerBlock(string $block): void
     {
         $blockClassName = str_replace('-', '', ucwords($block, '-'));

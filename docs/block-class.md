@@ -38,37 +38,26 @@ class MyBlock extends BaseBlock
 }
 ```
 
-
-## Constants
-
-| Name              | Type    | Description                                                  |
-|:------------------|:--------|:-------------------------------------------------------------|
-| SHOW_ON_POST_TYPE | `array` | Array of post type slugs to which this block is visible only.|
+[BaseBlock class reference](/reference/BaseBlock.html)
 
 
-## Properties
+## Changing the visibility
 
-| Name         | Type              | Description                                                  |
-|:-------------|:------------------|:-------------------------------------------------------------|
-| dirPath      | `string`          | Path to the current block folder.|
-| baseClass    | `string`          | Class name of the block (e.g. `block-my-block`).|
-| pluginConfig | `PluginConfigDTO` | Object of configuration options passed to the `Loader` class.|
-| tagAttr      | `array`           | Array of html attributes that will be rendered on the block wrapper element.|
+To change the visibility of a specific block type add the `SHOW_ON_POST_TYPE` constant to your block class and pass an array of post type slugs to which this block should be visible only.
 
+```php
+<?php
 
-## Methods
+namespace KWIO\GutenbergBlocks;
 
-| Name              | Return type    | Description                                                  |
-|:------------------|:--------|:-------------------------------------------------------------|
-| render | `string` | Render callback passed to `register_block_type`. |
-| setView | `string` | Rendered HTML output of the block. |
+use KWIO\GutenbergBlocksFramework\BaseBlock;
 
+class MyBlock extends BaseBlock
+{
+  const SHOW_ON_POST_TYPE = ['page'];
+}
+```
 
 ## Utility methods
 
-| Name              | Return type    | Description                                                  |
-|:------------------|:--------|:-------------------------------------------------------------|
-| addClass | `void` | Additional classes to add to the block wrapper element. `%s` can be used as a placeholder for the base class. |
-| addData | `void` | Add additional data via data attribute to the block wrapper element. |
-| addJsonData | `void` | Add JSON data via script tag after the opening block wrapper tag. |
-| addJs | `void` | Enqueue JS file only when block is rendered. |
+[BlockUtilsTrait reference](/reference/BlockUtilsTrait.html)
