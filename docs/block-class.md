@@ -38,7 +38,7 @@ class MyBlock extends BaseBlock
 }
 ```
 
-[BaseBlock class reference](/reference/BaseBlock.html)
+[BaseBlock class reference](reference/BaseBlock.html)
 
 
 ## Changing the visibility
@@ -60,4 +60,4 @@ class MyBlock extends BaseBlock
 
 ## Utility methods
 
-[BlockUtilsTrait reference](/reference/BlockUtilsTrait.html)
+[BlockUtilsTrait reference](reference/BlockUtilsTrait.html)

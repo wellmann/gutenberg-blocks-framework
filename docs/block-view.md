@@ -40,7 +40,7 @@ Rendered result:
 
 ### Utility methods
 
-[ViewUtilsTrait reference](/reference/ViewUtilsTrait.html)
+[ViewUtilsTrait reference](reference/ViewUtilsTrait.html)
 
 ## Twig view
 
@@ -51,8 +51,8 @@ Rendered result:
 ```
 
 Utility methods:
-* [bem](/reference/ViewUtilsTrait.html#bem)
-* [renderBlock](/reference/ViewUtilsTrait.html#renderblock)
+* [bem](reference/ViewUtilsTrait.html#bem)
+* [renderBlock](reference/ViewUtilsTrait.html#renderblock)
 * [__](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
 * [_x](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
 * [_n](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
@@ -63,9 +63,9 @@ Escapers:
 * [wp_kses_post](https://developer.wordpress.org/reference/functions/wp_kses_post/){:target="_blank"}
 
 Additional data:
-* [isEditor](/reference/ViewUtilsTrait.html#iseditor)
+* [isEditor](reference/ViewUtilsTrait.html#iseditor)
 * [post](https://developer.wordpress.org/reference/classes/wp_post/){:target="_blank"}
-* [renderCount](/reference/ViewUtilsTrait.html#getrendercount)
+* [renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
 You can create an instance of the `KWIO\GutenbergBlocksFramework\View\TwigView` class and pass a custom TwigExtension to the constructor if you need to add additional functions or filters.
 
@@ -78,13 +78,13 @@ You can create an instance of the `KWIO\GutenbergBlocksFramework\View\TwigView` 
 ```
 
 Utility methods:
-* [bem](/reference/ViewUtilsTrait.html#bem)
-* [renderBlock](/reference/ViewUtilsTrait.html#renderblock)
+* [bem](reference/ViewUtilsTrait.html#bem)
+* [renderBlock](reference/ViewUtilsTrait.html#renderblock)
 
 Additional data:
-* [isEditor](/reference/ViewUtilsTrait.html#iseditor)
+* [isEditor](reference/ViewUtilsTrait.html#iseditor)
 * [post](https://timber.github.io/docs/reference/timber-post/){:target="_blank"}
-* [renderCount](/reference/ViewUtilsTrait.html#getrendercount)
+* [renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
 
 ## Creating a custom  view

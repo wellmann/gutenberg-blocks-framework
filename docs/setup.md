@@ -16,7 +16,7 @@ $frameworkLoader
     ->init();
 ```
 
-[Loader class reference](/reference/Loader.html)
+[Loader class reference](reference/Loader.html)
 
 ## File structure
 
