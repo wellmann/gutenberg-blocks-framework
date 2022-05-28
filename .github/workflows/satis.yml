@@ -1,0 +1,19 @@
+name: Satis
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+jobs:
+  update-satis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: trigger satis update
+        uses: convictional/trigger-workflow-and-wait@v1.6.1
+        with:
+          owner: Ce-Kw
+          repo: satis
+          github_token: ${{ secrets.SATIS_PERSONAL_ACCESS_TOKEN }}
+          workflow_file_name: satis.yml
+          ref: main
+          wait_workflow: false
