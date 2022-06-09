@@ -36,15 +36,6 @@ class AbstractViewTest extends TestCase
         $viewClassMockReflectionBaseClass->setValue($this->viewClassMock, 'block-example');
     }
 
-    public function testConvertIsStyleToBem()
-    {
-        $viewClassMockReflectionIsStyleToBem = $this->viewClassMockReflection->getMethod('convertIsStyleToBem');
-        $viewClassMockReflectionIsStyleToBem->setAccessible(true);
-        $result = $viewClassMockReflectionIsStyleToBem->invokeArgs($this->viewClassMock, [['block', 'block-example', 'is-style-modifier']]);
-
-        $this->assertArrayHasKey('block-example--modifier', array_flip($result));
-    }
-
     public function testBuildTagAttrString()
     {
         when('esc_attr')->returnArg();

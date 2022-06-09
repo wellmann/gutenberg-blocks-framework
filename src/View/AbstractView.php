@@ -73,7 +73,6 @@ abstract class AbstractView implements ViewInterface
         $this->hideMobile = $data['hideMobile'];
         $this->hideDesktop = $data['hideDesktop'];
 
-        $data['tagAttr']['class'] = $this->convertIsStyleToBem($data['tagAttr']['class']);
         $tagAttrString = $this->buildTagAttrString($data['tagAttr']);
         $this->wrapperDiv = "<{$data['wrapperTagName']}{$tagAttrString}>{$data['afterOpeningTag']}###BLOCK_CONTENT###{$data['beforeClosingTag']}</{$data['wrapperTagName']}>";
 
@@ -152,22 +151,6 @@ abstract class AbstractView implements ViewInterface
         }
 
         return $filePath;
-    }
-
-    /**
-     * Converts `is-style-default` to `block-my-example--default`.
-     * Workaround until https://github.com/WordPress/gutenberg/issues/11763 is fixed.
-     * @see AbstractView::setData
-     *
-     * @param array $classnames Wrapper element classes.
-     *
-     * @return array Converted wrapper element classes.
-     */
-    private function convertIsStyleToBem(array $classnames): array
-    {
-        return array_map(function (string $classname): string {
-            return str_replace('is-style-', $this->baseClass . '--', $classname);
-        }, $classnames);
     }
 
     /**
