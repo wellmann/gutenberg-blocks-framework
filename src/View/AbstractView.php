@@ -115,19 +115,20 @@ abstract class AbstractView implements ViewInterface
         }
 
         $isCoreBlock = strpos($this->baseClass, 'block-core-') === 0;
+        $isServerSideRendered = defined('REST_REQUEST') && REST_REQUEST;
 
         if (!file_exists($this->file)) {
             if (!empty($this->data['content'])) {
 
-                // Don't render custom wrapper for overridden core block.
-                return $isCoreBlock ? $this->data['content'] : str_replace('###BLOCK_CONTENT###', $this->data['content'], $this->wrapperDiv);
+                // Don't render custom wrapper for overridden core block or when server side rendered.
+                return $isCoreBlock || $isServerSideRendered ? $this->data['content'] : str_replace('###BLOCK_CONTENT###', $this->data['content'], $this->wrapperDiv);
             }
 
             return str_replace('###BLOCK_CONTENT###', '', $this->wrapperDiv);
         }
 
-        // Don't render custom wrapper for overridden core block.
-        return $isCoreBlock ? $this->renderWithView() : str_replace('###BLOCK_CONTENT###', $this->renderWithView(), $this->wrapperDiv);
+        // Don't render custom wrapper for overridden core block or when server side rendered.
+        return $isCoreBlock || $isServerSideRendered ? $this->renderWithView() : str_replace('###BLOCK_CONTENT###', $this->renderWithView(), $this->wrapperDiv);
     }
 
     /**
