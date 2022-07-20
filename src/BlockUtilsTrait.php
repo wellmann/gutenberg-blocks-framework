@@ -58,7 +58,9 @@ trait BlockUtilsTrait
         $criticalCss = file_get_contents($cssFilePath);
         $criticalCss = str_replace('../../../../', content_url('/'), $criticalCss);
 
-        wp_add_inline_style($this->pluginConfig->prefix . '-blocks', trim($criticalCss));
+        add_action('print_late_styles', function () use ($criticalCss) {
+            printf('<style id="%s-css" type="text/css">%s</style>' . "\n", $this->baseClass, "\n" . trim($criticalCss));
+        });
     }
 
     /**
