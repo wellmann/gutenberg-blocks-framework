@@ -3,6 +3,8 @@
 namespace KWIO\GutenbergBlocksFramework;
 
 use Exception;
+use KWIO\GutenbergBlocksFramework\Attribute\Visibility;
+use ReflectionClass;
 use WP_Block_Editor_Context;
 
 /**
@@ -141,6 +143,19 @@ class BlockCollector
 
             foreach ($showOnPostTypeConstantValue as $postType) {
                 $this->restrictedBlocks[$postType][] = $name;
+            }
+        }
+
+        // Visibility declarion via PHP 8 attributes.
+        if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
+            $blockClassReflection = new ReflectionClass($blockFullClassName);
+            $visibilityAttributes = $blockClassReflection->getAttributes(Visibility::class);
+            foreach ($visibilityAttributes as $visibilityAttribute) {
+                $visibility = $visibilityAttribute->newInstance();
+
+                foreach ($visibility->postTypes as $postType) {
+                    $this->restrictedBlocks[$postType][] = $name;
+                }
             }
         }
 

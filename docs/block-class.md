@@ -58,6 +58,22 @@ class MyBlock extends BaseBlock
 }
 ```
 
+If you are using PHP 8 you can also use the `KWIO\GutenbergBlocksFramework\Attribute\Visibility` attribute.
+```php
+<?php
+
+namespace KWIO\GutenbergBlocks;
+
+use KWIO\GutenbergBlocksFramework\Attribute\Visibility;
+use KWIO\GutenbergBlocksFramework\BaseBlock;
+
+#[Visibility(postTypes: ['post'])]
+class MyBlock extends BaseBlock
+{
+  ...
+}
+```
+
 ## Utility methods
 
 [BlockUtilsTrait reference](reference/BlockUtilsTrait.html)
