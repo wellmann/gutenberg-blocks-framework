@@ -2,6 +2,8 @@
 
 namespace KWIO\GutenbergBlocksFramework;
 
+use WP_Block;
+
 /**
  * Default class for every custom block.
  */
@@ -153,10 +155,11 @@ class BaseBlock
      *
      * @param array $attributes Holds attributes saved in the editor.
      * @param string $content Holds content saved in the editor.
+     * @param WP_Block $block Holds additional block information like context.
      *
      * @return string Rendered HTML output of current block.
      */
-    public function render(array $attributes, string $content): string
+    public function render(array $attributes, string $content, WP_Block $block): string
     {
         $this->renderCount++;
 
