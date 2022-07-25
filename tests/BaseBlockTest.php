@@ -6,7 +6,6 @@ use KWIO\GutenbergBlocksFramework\BaseBlock;
 use KWIO\GutenbergBlocksFramework\View\PhpView;
 use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
 use ReflectionClass;
-use WP_Block;
 
 use function Brain\Monkey\Functions\when;
 
@@ -30,7 +29,7 @@ class BaseBlockTest extends TestCase
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
 
-        $block->render([], '', new WP_Block());
+        $block->render([], '');
 
         $this->assertEquals([
             'class' => ['block', 'block-example']
@@ -44,7 +43,7 @@ class BaseBlockTest extends TestCase
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
 
-        $block->render(['className' => 'additional-class'], '', new WP_Block());
+        $block->render(['className' => 'additional-class'], '');
 
         $this->assertEquals([
             'class' => ['block', 'block-example', 'additional-class']
@@ -58,7 +57,7 @@ class BaseBlockTest extends TestCase
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
 
-        $block->render(['align' => 'full'], '', new WP_Block());
+        $block->render(['align' => 'full'], '');
 
         $this->assertEquals([
             'class' => ['block', 'block-example', 'alignfull']
@@ -72,7 +71,7 @@ class BaseBlockTest extends TestCase
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
 
-        $block->render(['anchor' => 'anchor'], '', new WP_Block());
+        $block->render(['anchor' => 'anchor'], '');
 
         $this->assertEquals([
             'class' => ['block', 'block-example'],
@@ -86,7 +85,7 @@ class BaseBlockTest extends TestCase
         $renderResult = $block->render([
             'align' => 'full',
             'className' => 'additional-class'
-        ], '', new WP_Block());
+        ], '');
 
         $this->assertTrue(strpos($renderResult, 'class="block block-example additional-class alignfull"') !== false);
     }
@@ -94,7 +93,7 @@ class BaseBlockTest extends TestCase
     public function testRenderResultHasHtmlIdAttribute()
     {
         $block = new BaseBlock('example', __DIR__ . '/data/', $this->pluginConfig);
-        $renderResult = $block->render(['anchor' => 'anchor'], '', new WP_Block());
+        $renderResult = $block->render(['anchor' => 'anchor'], '');
 
         $this->assertTrue(strpos($renderResult, 'id="anchor"') !== false);
     }
