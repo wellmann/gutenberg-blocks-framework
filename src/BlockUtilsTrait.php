@@ -44,11 +44,11 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Adds critical CSS only when block is rendered.
+     * Adds inline CSS only when block is rendered.
      *
      * @param string $cssFile Must be relative to the dist dir.
      */
-    protected function addCriticalCss(string $cssFile): void
+    protected function addInlineCss(string $cssFile): void
     {
         $cssFilePath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $cssFile;
         if (!is_readable($cssFilePath)) {
@@ -58,9 +58,13 @@ trait BlockUtilsTrait
         $criticalCss = file_get_contents($cssFilePath);
         $criticalCss = str_replace('../../../../', content_url('/'), $criticalCss);
 
-        add_action('print_late_styles', function () use ($criticalCss) {
-            printf('<style id="%s-css" type="text/css">%s</style>' . "\n", $this->baseClass, "\n" . trim($criticalCss));
-        });
+        if(wp_style_is($this->baseClass)) {
+            return;
+        }
+
+        wp_register_style($this->baseClass, false);
+        wp_enqueue_style($this->baseClass);
+        wp_add_inline_style($this->baseClass, trim($criticalCss));
     }
 
     /**
