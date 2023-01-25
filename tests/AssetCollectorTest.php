@@ -1,9 +1,9 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocksFramework\AssetCollector;
-use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
+use KWIO\GutenbergBlocks\AssetCollector;
+use KWIO\GutenbergBlocks\PluginConfigDTO;
 use ReflectionClass;
 use stdClass;
 

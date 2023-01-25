@@ -1,6 +1,6 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework;
+namespace KWIO\GutenbergBlocks;
 
 use WP_Block;
 

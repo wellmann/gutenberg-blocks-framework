@@ -1,8 +1,8 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocksFramework\View\ViewUtilsTrait;
+use KWIO\GutenbergBlocks\View\ViewUtilsTrait;
 use ReflectionClass;
 
 class ViewUtilsTraitTest extends TestCase

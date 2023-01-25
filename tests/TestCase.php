@@ -1,6 +1,6 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Brain\Monkey;

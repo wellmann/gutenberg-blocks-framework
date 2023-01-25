@@ -1,8 +1,8 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocksFramework\Loader;
+use KWIO\GutenbergBlocks\Loader;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;
@@ -56,12 +56,12 @@ class LoaderTest extends TestCase
             ->loadBlocks('src/', __NAMESPACE__)
             ->init();
 
-        $this->assertNotFalse(has_action('load-post-new.php', '\KWIO\GutenbergBlocksFramework\TemplateCollector->registerTemplates()'));
-        $this->assertNotFalse(has_action('enqueue_block_assets', '\KWIO\GutenbergBlocksFramework\AssetCollector->enqueueAssets()'));
-        $this->assertNotFalse(has_action('enqueue_block_editor_assets', '\KWIO\GutenbergBlocksFramework\AssetCollector->enqueueEditorAssets()'));
-        $this->assertNotFalse(has_action('init', '\KWIO\GutenbergBlocksFramework\BlockCollector->registerBlocks()'));
-        $this->assertNotFalse(has_action('wp_enqueue_scripts', '\KWIO\GutenbergBlocksFramework\AssetCollector->enqueueScripts()'));
-        $this->assertNotFalse(has_filter('allowed_block_types_all', '\KWIO\GutenbergBlocksFramework\BlockCollector->filterBlocks()'));
+        $this->assertNotFalse(has_action('load-post-new.php', '\KWIO\GutenbergBlocks\TemplateCollector->registerTemplates()'));
+        $this->assertNotFalse(has_action('enqueue_block_assets', '\KWIO\GutenbergBlocks\AssetCollector->enqueueAssets()'));
+        $this->assertNotFalse(has_action('enqueue_block_editor_assets', '\KWIO\GutenbergBlocks\AssetCollector->enqueueEditorAssets()'));
+        $this->assertNotFalse(has_action('init', '\KWIO\GutenbergBlocks\BlockCollector->registerBlocks()'));
+        $this->assertNotFalse(has_action('wp_enqueue_scripts', '\KWIO\GutenbergBlocks\AssetCollector->enqueueScripts()'));
+        $this->assertNotFalse(has_filter('allowed_block_types_all', '\KWIO\GutenbergBlocks\BlockCollector->filterBlocks()'));
         $this->assertNotFalse(has_filter('block_categories_all'));
     }
 

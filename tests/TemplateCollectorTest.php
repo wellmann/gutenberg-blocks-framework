@@ -1,10 +1,10 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
+use KWIO\GutenbergBlocks\PluginConfigDTO;
 use ReflectionClass;
-use KWIO\GutenbergBlocksFramework\TemplateCollector;
+use KWIO\GutenbergBlocks\TemplateCollector;
 
 class TemplateCollectorTest extends TestCase
 {

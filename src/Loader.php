@@ -1,10 +1,10 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework;
+namespace KWIO\GutenbergBlocks;
 
 use Exception;
-use KWIO\GutenbergBlocksFramework\View\PhpView;
-use KWIO\GutenbergBlocksFramework\View\ViewInterface;
+use KWIO\GutenbergBlocks\View\PhpView;
+use KWIO\GutenbergBlocks\View\ViewInterface;
 
 /**
  * Class to initialize the framework.
@@ -80,7 +80,7 @@ final class Loader
 
     /**
      * Defines an array of blocks that should be whitelisted.
-     * Use `KWIO\GutenbergBlocksFramework\Loader::CORE_BLOCK_WHITELIST` and merge it with your array to extend the current whitelist.
+     * Use `KWIO\GutenbergBlocks\Loader::CORE_BLOCK_WHITELIST` and merge it with your array to extend the current whitelist.
      *
      * @param array $blockWhitelist Array of allowed block slugs.
      *
@@ -140,9 +140,9 @@ final class Loader
     /**
      * Implement a custom template engine or choose one of the follwing already implemented engines:
      *
-     * - `KWIO\GutenbergBlocksFramework\View\PhpView` (default)
-     * - `KWIO\GutenbergBlocksFramework\View\TwigView` (requires `twig/twig`)
-     * - `KWIO\GutenbergBlocksFramework\View\TimberView` (requires `timber/timber`)
+     * - `KWIO\GutenbergBlocks\View\PhpView` (default)
+     * - `KWIO\GutenbergBlocks\View\TwigView` (requires `twig/twig`)
+     * - `KWIO\GutenbergBlocks\View\TimberView` (requires `timber/timber`)
      *
      * @param string $viewClass String of a class extending `AbstractView`.
      *

@@ -1,6 +1,6 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Attribute;
+namespace KWIO\GutenbergBlocks\Attribute;
 
 use Attribute;
 

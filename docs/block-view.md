@@ -67,7 +67,7 @@ Additional data:
 * [post](https://developer.wordpress.org/reference/classes/wp_post/){:target="_blank"}
 * [renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
-You can create an instance of the `KWIO\GutenbergBlocksFramework\View\TwigView` class and pass a custom TwigExtension to the constructor if you need to add additional functions or filters.
+You can create an instance of the `KWIO\GutenbergBlocks\View\TwigView` class and pass a custom TwigExtension to the constructor if you need to add additional functions or filters.
 
 ## Timber view
 
@@ -89,4 +89,4 @@ Additional data:
 
 ## Creating a custom  view
 
-You can create your own custom view loader with your favorite template engine by creating a new class which extends the `KWIO\GutenbergBlocksFramework\View\AbstractView` class and pass the class name to the `KWIO\GutenbergBlocksFramework\Loader::setViewClass` method.
+You can create your own custom view loader with your favorite template engine by creating a new class which extends the `KWIO\GutenbergBlocks\View\AbstractView` class and pass the class name to the `KWIO\GutenbergBlocks\Loader::setViewClass` method.

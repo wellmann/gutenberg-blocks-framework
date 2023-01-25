@@ -1,6 +1,6 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework;
+namespace KWIO\GutenbergBlocks;
 
 /**
  * Holds the configured options.

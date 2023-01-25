@@ -1,10 +1,10 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocksFramework\BaseBlock;
-use KWIO\GutenbergBlocksFramework\View\PhpView;
-use KWIO\GutenbergBlocksFramework\PluginConfigDTO;
+use KWIO\GutenbergBlocks\BaseBlock;
+use KWIO\GutenbergBlocks\View\PhpView;
+use KWIO\GutenbergBlocks\PluginConfigDTO;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;

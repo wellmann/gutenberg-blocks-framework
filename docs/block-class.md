@@ -7,7 +7,7 @@ nav_order: 15
 # Block Class
 {: .no_toc }
 
-If your block doesn't require any PHP logic you don't have to create this file since the `KWIO\GutenbergBlocksFramework\BaseBlock` class will be used by default.
+If your block doesn't require any PHP logic you don't have to create this file since the `KWIO\GutenbergBlocks\BaseBlock` class will be used by default.
 
 <details open markdown="block">
   <summary>
@@ -23,7 +23,7 @@ If your block doesn't require any PHP logic you don't have to create this file s
 
 namespace KWIO\GutenbergBlocks;
 
-use KWIO\GutenbergBlocksFramework\BaseBlock;
+use KWIO\GutenbergBlocks\BaseBlock;
 
 class MyBlock extends BaseBlock
 {
@@ -50,7 +50,7 @@ To change the visibility of a specific block type add the `SHOW_ON_POST_TYPE` co
 
 namespace KWIO\GutenbergBlocks;
 
-use KWIO\GutenbergBlocksFramework\BaseBlock;
+use KWIO\GutenbergBlocks\BaseBlock;
 
 class MyBlock extends BaseBlock
 {
@@ -58,14 +58,14 @@ class MyBlock extends BaseBlock
 }
 ```
 
-If you are using PHP 8 you can also use the `KWIO\GutenbergBlocksFramework\Attribute\Visibility` attribute.
+If you are using PHP 8 you can also use the `KWIO\GutenbergBlocks\Attribute\Visibility` attribute.
 ```php
 <?php
 
 namespace KWIO\GutenbergBlocks;
 
-use KWIO\GutenbergBlocksFramework\Attribute\Visibility;
-use KWIO\GutenbergBlocksFramework\BaseBlock;
+use KWIO\GutenbergBlocks\Attribute\Visibility;
+use KWIO\GutenbergBlocks\BaseBlock;
 
 #[Visibility(postTypes: ['post'])]
 class MyBlock extends BaseBlock

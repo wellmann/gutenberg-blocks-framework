@@ -1,6 +1,6 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\View;
+namespace KWIO\GutenbergBlocks\View;
 
 use WP_Post;
 

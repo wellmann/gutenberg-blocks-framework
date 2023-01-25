@@ -1,6 +1,6 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework;
+namespace KWIO\GutenbergBlocks;
 
 /**
  * Collects templates residing in the template directory.

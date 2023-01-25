@@ -9,12 +9,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "KWIO\\GutenbergBlocksFramework\\": "src/"
+            "KWIO\\GutenbergBlocks\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-          "KWIO\\GutenbergBlocksFramework\\Tests\\": "tests/"
+          "KWIO\\GutenbergBlocks\\Tests\\": "tests/"
         }
     },
     "scripts": {

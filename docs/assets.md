@@ -18,7 +18,7 @@ nav_order: 25
 
 ## Styles & scripts
 
-The `KWIO\GutenbergBlocksFramework\AssetCollector` will look into the dist directory or directory defined via `KWIO\GutenbergBlocksFramework\Loader::setDistDir` method to find the follwing files and enqueue them:
+The `KWIO\GutenbergBlocks\AssetCollector` will look into the dist directory or directory defined via `KWIO\GutenbergBlocks\Loader::setDistDir` method to find the follwing files and enqueue them:
 
 * [blocks.css - contains non-critical styles for editor and frontend](#defer-loading-of-non-critical-css)
 * blocks.js - JavaScript bundle for the frontend

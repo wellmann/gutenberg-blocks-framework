@@ -1,8 +1,8 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocksFramework\BlockUtilsTrait;
+use KWIO\GutenbergBlocks\BlockUtilsTrait;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;

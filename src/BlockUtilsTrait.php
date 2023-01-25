@@ -1,6 +1,6 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework;
+namespace KWIO\GutenbergBlocks;
 
 /**
  * Set of utilitiy functions to be used inside the block class.

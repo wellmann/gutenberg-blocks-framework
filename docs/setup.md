@@ -10,7 +10,7 @@ nav_order: 10
 Add the following lines to the plugins bootstrap file or the themes functions.php:
 
 ```php
-$frameworkLoader = new KWIO\GutenbergBlocksFramework\Loader(__FILE__);
+$frameworkLoader = new KWIO\GutenbergBlocks\Loader(__FILE__);
 $frameworkLoader
     ->loadBlocks('src/', __NAMESPACE__) // __NAMESPACE__ should match the namespace of your block classes.
     ->init();

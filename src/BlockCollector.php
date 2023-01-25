@@ -1,9 +1,9 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework;
+namespace KWIO\GutenbergBlocks;
 
 use Exception;
-use KWIO\GutenbergBlocksFramework\Attribute\Visibility;
+use KWIO\GutenbergBlocks\Attribute\Visibility;
 use ReflectionClass;
 use WP_Block_Editor_Context;
 

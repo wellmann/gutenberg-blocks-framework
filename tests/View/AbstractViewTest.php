@@ -1,8 +1,8 @@
 <?php
 
-namespace KWIO\GutenbergBlocksFramework\Tests;
+namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocksFramework\View\AbstractView;
+use KWIO\GutenbergBlocks\View\AbstractView;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;
