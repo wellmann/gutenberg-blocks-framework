@@ -8,16 +8,6 @@ namespace KWIO\GutenbergBlocksFramework;
 trait BlockUtilsTrait
 {
     /**
-     * @ignore
-     */
-    private bool $hasChild = false;
-
-    /**
-     * @ignore
-     */
-    private bool $hasParent = false;
-
-    /**
      * Adds class to the block wrapper element.
      * Use `%s` as a placholder for the base class.
      *
@@ -50,6 +40,10 @@ trait BlockUtilsTrait
      */
     protected function addInlineCss(string $cssFile): void
     {
+        if(wp_style_is($this->baseClass)) {
+            return;
+        }
+
         $cssFilePath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $cssFile;
         if (!is_readable($cssFilePath)) {
             return;
@@ -57,10 +51,6 @@ trait BlockUtilsTrait
 
         $criticalCss = file_get_contents($cssFilePath);
         $criticalCss = str_replace('../../../../', content_url('/'), $criticalCss);
-
-        if(wp_style_is($this->baseClass)) {
-            return;
-        }
 
         wp_register_style($this->baseClass, false);
         wp_enqueue_style($this->baseClass);
@@ -111,101 +101,5 @@ trait BlockUtilsTrait
             substr(md5(filemtime($jsFilePath)), 0, 12),
             true
         );
-    }
-
-    /**
-     * @ignore
-     */
-    public function hasChild(string $childBlockName = ''): bool
-    {
-        return $this->hasRelative('child', $childBlockName);
-    }
-
-    /**
-     * @ignore
-     */
-    public function hasChildren(): bool
-    {
-        return $this->hasChild();
-    }
-
-    /**
-     * @ignore
-     */
-    public function hasParent(string $parentBlockName = ''): bool
-    {
-        return $this->hasRelative('parent', $parentBlockName);
-    }
-
-    /**
-     * @ignore
-     */
-    private function hasRelative(string $type, string $blockName = ''): bool
-    {
-        if (strpos($this->blockName, $this->pluginConfig->prefix . '/core-') === 0) {
-            $this->blockName = 'core/' . preg_replace("/^{$this->pluginConfig->prefix}\/core-/", '', $this->blockName);
-        }
-
-        add_filter('render_block_data', function ($parsedBlock) use ($type, $blockName) {
-            if (empty($parsedBlock['innerBlocks'])) {
-                $parsedBlock['innerBlocks'] = [];
-            }
-
-            // Reset for each render.
-            $this->hasChild = false;
-            $this->hasParent = false;
-
-            array_walk($parsedBlock['innerBlocks'], fn(&$item, $key) => $this->hasRelativeCheck($item, $key, $type, $blockName));
-
-            return $parsedBlock;
-        });
-
-        switch ($type) {
-            case 'child':
-                return $this->hasChild;
-            case 'parent':
-                return $this->hasParent;
-            default:
-                return false;
-        }
-    }
-
-    /**
-     * @ignore
-     */
-    private function hasRelativeCheck(&$item, $key, $type, $blockName)
-    {
-        if (empty($item['innerBlocks'])) {
-            return;
-        }
-
-        $this->hasChild = true;
-
-        if ($type === 'child' && !empty($item['blockName']) && $item['blockName'] === $this->blockName) {
-            $this->hasChild = $this->isInInnerBlocks($blockName, $item);
-
-            return;
-        }
-
-        if ($type === 'parent' && empty($blockName)) {
-            $this->hasParent = true;
-
-            return;
-        }
-
-
-        if ($type === 'parent' && !empty($item['blockName']) && $item['blockName'] === $blockName) {
-            $this->hasParent = $this->isInInnerBlocks($this->blockName, $item);
-        }
-
-        array_walk($item['innerBlocks'], fn(&$item, $key) => $this->hasRelativeCheck($item, $key, $type, $blockName));
-    }
-
-    /**
-     * @ignore
-     */
-    private function isInInnerBlocks(string $blockName, array $item): bool
-    {
-        return array_search($blockName, array_column($item['innerBlocks'], 'blockName')) !== false;
     }
 }
