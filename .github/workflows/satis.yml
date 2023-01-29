@@ -2,8 +2,8 @@ name: Satis
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master
+    branches-ignore:
+        - develop
 jobs:
   update-satis:
     runs-on: ubuntu-latest

@@ -1,8 +1,8 @@
 name: Tests
 on:
   push:
-      branches:
-        - master
+      branches-ignore:
+        - develop
 jobs:
   build-test:
     runs-on: ubuntu-latest
