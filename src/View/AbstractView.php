@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace KWIO\GutenbergBlocks\View;
 
 abstract class AbstractView implements ViewInterface

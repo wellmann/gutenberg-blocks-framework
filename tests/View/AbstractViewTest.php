@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace KWIO\GutenbergBlocks\Tests;
 
 use KWIO\GutenbergBlocks\View\AbstractView;
