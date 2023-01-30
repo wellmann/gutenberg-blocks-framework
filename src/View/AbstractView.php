@@ -49,18 +49,6 @@ abstract class AbstractView implements ViewInterface
     private string $wrapperDiv;
 
     /**
-     * @ignore
-     * @deprecated 1.1.0
-     */
-    private ?bool $hideMobile;
-
-    /**
-     * @ignore
-     * @deprecated 1.1.0
-     */
-    private ?bool $hideDesktop;
-
-    /**
      * Extract data variables for use in view file.
      *
      * @return string Rendered view fil with wrapper elment.
@@ -72,8 +60,6 @@ abstract class AbstractView implements ViewInterface
         $this->baseClass = $data['baseClass'];
         $this->prefix = $data['prefix'];
         $this->renderCount = $data['renderCount'];
-        $this->hideMobile = $data['hideMobile'];
-        $this->hideDesktop = $data['hideDesktop'];
 
         $tagAttrString = $this->buildTagAttrString($data['tagAttr']);
         $this->wrapperDiv = "<{$data['wrapperTagName']}{$tagAttrString}>{$data['afterOpeningTag']}###BLOCK_CONTENT###{$data['beforeClosingTag']}</{$data['wrapperTagName']}>";
@@ -85,8 +71,6 @@ abstract class AbstractView implements ViewInterface
             $data['prefix'],
             $data['renderCount'],
             $data['wrapperTagName'],
-            $data['hideMobile'],
-            $data['hideDesktop'],
             $data['tagAttr']
         );
 
@@ -105,14 +89,6 @@ abstract class AbstractView implements ViewInterface
     public function render(): string
     {
         if (is_null($this->file)) {
-            return '';
-        }
-
-        if (wp_is_mobile() && $this->hideMobile) {
-            return '';
-        }
-
-        if (!wp_is_mobile() && $this->hideDesktop) {
             return '';
         }
 

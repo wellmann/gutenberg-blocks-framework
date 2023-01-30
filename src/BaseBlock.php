@@ -57,18 +57,6 @@ class BaseBlock
     private array $data = [];
 
     /**
-     * @ignore
-     * @deprecated 1.1.0
-     */
-    private ?bool $hideMobile = null;
-
-    /**
-     * @ignore
-     * @deprecated 1.1.0
-     */
-    private ?bool $hideDesktop = null;
-
-    /**
      * Holds how often the current block is rendered on the page.
      *
      * @var integer
@@ -174,8 +162,6 @@ class BaseBlock
         $this->tagAttr = ['class' => ['block', $this->baseClass]];
 
         $this->data = array_merge($this->data, $attributes, compact('content'));
-        $this->hideMobile = $this->extractAttr('hideMobile');
-        $this->hideDesktop = $this->extractAttr('hideDesktop');
 
         $this->extractAttr('className', 'class');
         $this->extractAttr('align', 'class');
@@ -201,8 +187,6 @@ class BaseBlock
                 'prefix' => $this->pluginConfig->prefix,
                 'renderCount' => $this->renderCount,
                 'wrapperTagName' => $wrapperTagName,
-                'hideMobile' => $this->hideMobile,
-                'hideDesktop' => $this->hideDesktop,
                 'tagAttr' => $this->tagAttr
             ]))
             ->setFile($file)

@@ -25,8 +25,6 @@ class AbstractViewTest extends TestCase
             'prefix' => 'prefix',
             'renderCount' => 1,
             'wrapperTagName' => 'div',
-            'hideMobile' => null,
-            'hideDesktop' => null,
             'tagAttr' => ['class' => ['block', 'block-example']]
         ];
 
@@ -83,34 +81,6 @@ class AbstractViewTest extends TestCase
         $result = $this->viewClassMock
             ->setData(array_merge($this->viewClassData, ['content' => 'lorem ipsum']))
             ->setFile(null)
-            ->render();
-
-        $this->assertSame('', $result);
-    }
-
-    public function testWrapReturnsEmptyStringIfMobileAndHideMobile()
-    {
-        when('wp_is_mobile')->justReturn(true);
-
-        $result = $this->viewClassMock
-            ->setData(array_merge($this->viewClassData, [
-                    'hideMobile' => true,
-                    'content' => 'lorem ipsum'
-                ]))
-            ->setFile('src/example/view.php')
-            ->render();
-
-        $this->assertSame('', $result);
-    }
-
-    public function testWrapReturnsEmptyStringIfNotMobileAndHideDesktop()
-    {
-        $result = $this->viewClassMock
-            ->setData(array_merge($this->viewClassData, [
-                    'hideDesktop' => true,
-                    'content' => 'lorem ipsum'
-                ]))
-            ->setFile('src/example/view.php')
             ->render();
 
         $this->assertSame('', $result);
