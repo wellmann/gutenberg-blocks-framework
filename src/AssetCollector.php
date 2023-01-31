@@ -173,7 +173,7 @@ JS,
             return '';
         }
 
-        return md5(filemtime($assetPath));
+        return md5((string)filemtime($assetPath));
     }
 
     /**

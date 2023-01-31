@@ -100,7 +100,7 @@ trait BlockUtilsTrait
             $handle,
             $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . $jsFile,
             [],
-            substr(md5(filemtime($jsFilePath)), 0, 12),
+            substr(md5((string)filemtime($jsFilePath)), 0, 12),
             true
         );
     }
