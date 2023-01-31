@@ -28,7 +28,7 @@ blocks
 └───my-block
 │   │   block.js
 │   │   editor.scss // optional
-│   │   meta.json
+│   │   block.json
 │   │   MyBlock.php // optional
 │   │   style.scss // or style.critical.scss
 │   │   view.php
@@ -36,7 +36,7 @@ blocks
 └───my-block-example
 │   │   block.js
 │   │   editor.scss // optional
-│   │   meta.json
+│   │   block.json
 │   │   MyBlockExample.php // optional
 │   │   style.scss // or style.critical.scss
 │   │   view.php

@@ -108,8 +108,8 @@ class BlockCollector
         $blockPath = trailingslashit($this->blockDirPath . $block);
 
         // Check if block has a dedicated PHP class.
-        if (file_exists($blockPath . $blockClassName . '.php') || file_exists($blockPath . 'block.php')) {
-            require_once file_exists($blockPath . 'block.php') ? $blockPath . 'block.php' : $blockPath . $blockClassName . '.php';
+        if (file_exists($blockPath . $blockClassName . '.php')) {
+            require_once $blockPath . $blockClassName . '.php';
             $blockFullClassName = $this->pluginConfig->blockNamespace . '\\' . $blockClassName;
         }
 
@@ -161,14 +161,16 @@ class BlockCollector
             }
         }
 
-        $args = ['render_callback' => [$classInstance, 'render']];
+        $args = [
+            'name' => $name,
+            'apiVersion' => 2,
+            'render_callback' => [$classInstance, 'render']
+        ];
 
-        if (!empty($classInstance->getAttributes())) {
-            $args['attributes'] = $classInstance->getAttributes();
-        }
-
-        if (!empty($classInstance->getMetaData())) {
-            $args = array_merge($classInstance->getMetaData(), $args);
+        $blockJson = $blockPath . 'block.json';
+        $blockJsonData = wp_json_file_decode($blockJson, ['associative' => true]);
+        if (is_array($blockJsonData)) {
+            $args = array_merge($blockJsonData, $args);
         }
 
         if (register_block_type($name, $args)) {

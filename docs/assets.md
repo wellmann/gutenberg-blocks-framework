@@ -48,11 +48,3 @@ add_filter('style_loader_tag', function (string $html, string $handle, string $h
     return $link;
 }, 10, 4);
 ```
-
-## attributes.json <span class="label label-red">Deprecated</span>
-
-Is used to to share attributes between JavaScript an PHP. This method is deprecated. See [below](#metajson).
-
-## meta.json
-
-In order to stay compatible with the WordPress [block.json](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md){:target="_blank"} format this file will be used to share settings (not only attributes) between JavaScript and PHP. See the linked reference for all possible options.

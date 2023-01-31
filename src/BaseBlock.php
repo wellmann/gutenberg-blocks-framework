@@ -88,49 +88,6 @@ class BaseBlock
     }
 
     /**
-     * Gets attributes of current block.
-     *
-     * @deprecated 1.1.0
-     *
-     * @return array JSON decoded attributes.
-     */
-    public function getAttributes(): array
-    {
-        $attributesJson = $this->dirPath . 'attributes.json';
-        if (!is_readable($attributesJson)) {
-            return [];
-        }
-
-        $attributes = file_get_contents($attributesJson);
-        if (!json_decode($attributes)) {
-            return [];
-        }
-
-        return json_decode($attributes, true);
-    }
-
-    /**
-     * Gets meta data (including attributes) for current block.
-     * See [block.json](https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md) for more.
-     *
-     * @return array JSON decoded meta data.
-     */
-    public function getMetaData(): array
-    {
-        $metaJson = $this->dirPath . 'meta.json';
-        if (!is_readable($metaJson)) {
-            return [];
-        }
-
-        $metaData = file_get_contents($metaJson);
-        if (!json_decode($metaData)) {
-            return [];
-        }
-
-        return json_decode($metaData, true);
-    }
-
-    /**
      * Returns render count for current block type.
      *
      * @return integer Render count for current block.

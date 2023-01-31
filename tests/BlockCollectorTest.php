@@ -26,6 +26,7 @@ class BlockCollectorTest extends TestCase
 
     public function testRegisterBlock()
     {
+        when('wp_json_file_decode')->justReturn([]);
         when('register_block_type')->justReturn(true);
 
         $this->pluginConfig->prefix = 'prefix';
