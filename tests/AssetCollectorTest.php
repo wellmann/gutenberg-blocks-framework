@@ -63,10 +63,6 @@ class AssetCollectorTest extends TestCase
             ->once()
             ->with('prefix-blocks-editor', '/dist/editor.js', [], '', true);
 
-        expect('wp_enqueue_style')
-            ->once()
-            ->with('prefix-blocks-editor', '/dist/editor.css', ['wp-edit-blocks'], '');
-
         $assetCollector = new AssetCollector($this->pluginConfig);
         $assetCollector->enqueueEditorAssets();
     }

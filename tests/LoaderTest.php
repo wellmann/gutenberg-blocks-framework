@@ -65,6 +65,7 @@ class LoaderTest extends TestCase
         $this->assertNotFalse(has_action('wp_enqueue_scripts', '\KWIO\GutenbergBlocks\AssetCollector->enqueueScripts()'));
         $this->assertNotFalse(has_filter('allowed_block_types_all', '\KWIO\GutenbergBlocks\BlockCollector->filterBlocks()'));
         $this->assertNotFalse(has_filter('block_categories_all'));
+        $this->assertNotFalse(has_action('after_setup_theme'));
     }
 
     public function dataProviderForTestValidPrefix()
