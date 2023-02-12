@@ -51,13 +51,6 @@ class AssetCollector
     {
         $manifest = $this->getAssetManifest('editor');
 
-        wp_enqueue_style(
-            $this->pluginConfig->prefix . '-blocks-editor',
-            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
-            ['wp-edit-blocks'],
-            $this->shortenVersionHash($this->getVersionHash('editor.css'))
-        );
-
         wp_enqueue_script(
             $this->pluginConfig->prefix . '-blocks-editor',
             $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.js',
