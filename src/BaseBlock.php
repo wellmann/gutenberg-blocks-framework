@@ -28,6 +28,20 @@ class BaseBlock
     protected string $baseClass = '';
 
     /**
+     * Holds name (e.g. `kwio/my-example`.) of current block.
+     *
+     * @var string
+     */
+    protected string $blockName;
+
+    /**
+     * Holds slug (e.g. `my-example`.) of current block.
+     *
+     * @var string
+     */
+    protected string $blockSlug;
+
+    /**
      * Holds the configurated options.
      *
      * @var PluginConfigDTO
@@ -41,13 +55,6 @@ class BaseBlock
      * @var array
      */
     protected array $tagAttr = [];
-
-    /**
-     * Hols name (e.g. `kwio/my-example`.) of current block.
-     *
-     * @var string
-     */
-    private string $blockName;
 
     /**
      * Holds attributes saved in the editor plus any other variables added in the block class.
@@ -74,15 +81,16 @@ class BaseBlock
     /**
      * Creates instance of current block type once per request.
      *
-     * @param string $blockName Block slug without namespace (e.g. `my-example`).
+     * @param string $blockSlug Block slug without namespace (e.g. `my-example`).
      * @param string $dirPath Path to current block.
      * @param PluginConfigDTO $pluginConfig Configurated options.
      */
-    public function __construct(string $blockName, string $dirPath, PluginConfigDTO $pluginConfig)
+    public function __construct(string $blockSlug, string $dirPath, PluginConfigDTO $pluginConfig)
     {
-        $this->blockName = "{$pluginConfig->prefix}/{$blockName}";
-        $this->baseClass = 'block-' . $blockName;
-        $this->dirPath = trailingslashit($dirPath . $blockName);
+        $this->blockSlug = $blockSlug;
+        $this->blockName = "{$pluginConfig->prefix}/{$blockSlug}";
+        $this->baseClass = 'block-' . $blockSlug;
+        $this->dirPath = trailingslashit($dirPath . $blockSlug);
         $this->pluginConfig = $pluginConfig;
         $this->viewClass = $pluginConfig->viewClass;
     }
