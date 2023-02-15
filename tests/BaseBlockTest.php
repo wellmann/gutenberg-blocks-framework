@@ -120,4 +120,9 @@ class BaseBlockTest extends TestCase
         $this->assertArrayNotHasKey('className', $blockReflectionData->getValue($block));
         $this->assertEquals('additional-class', $result);
     }
+
+    public function testToSlug()
+    {
+        $this->assertEquals('base-block', BaseBlock::toSlug());
+    }
 }

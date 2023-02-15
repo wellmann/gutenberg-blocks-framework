@@ -175,4 +175,19 @@ class BaseBlock
 
         return $value;
     }
+
+    /**
+     * Convert KWIO\GutenbergBlocks\MyExample::class to my-example
+     *
+     * @return string
+     */
+    public static function toSlug(): string
+    {
+        $blockClassParts = explode('\\', static::class);
+        $blockClass = array_pop($blockClassParts);
+        $blockSlug = preg_replace('%([a-z])([A-Z])%', '$1-$2', $blockClass);
+        $blockSlug = strtolower($blockSlug);
+
+        return $blockSlug;
+    }
 }

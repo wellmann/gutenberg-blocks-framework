@@ -76,37 +76,22 @@ trait ViewUtilsTrait
     }
 
     /**
-     * Renders block by class name string.
-     *
-     * @param string $blockFullClassName Fully qualified block class name.
-     * @param array $attrs Block attributes.
-     * @param string $content Block content.
-     *
-     * @return string Rendered block with attributes and content.
-     */
-    public function renderBlockClass(string $blockFullClassName, array $attrs = [], string $content = ''): string
-    {
-        // Convert KWIO\GutenbergBlocks\MyExample to my-example
-        $blockClassParts = explode('\\', $blockFullClassName);
-        $blockClass = array_pop($blockClassParts);
-        $blockName = preg_replace('%([a-z])([A-Z])%', '$1-$2', $blockClass);
-
-        return $this->renderBlock(strtolower($blockName), $attrs, $content);
-    }
-
-    /**
      * Renders blocks loaded by this framework without specifing the namespace.
      *
-     * @param string $blockName Block name without namespace.
+     * @param string $blockName Block name without namespace or block class name.
      * @param array $attrs Block attributes.
      * @param string $content Block content.
      *
      * @return string Rendered block with attributes and content.
      */
-    public function renderBlock(string $blockName, array $attrs = [], string $content = ''): string
+    public function renderBlock(string $blockSlugOrClassName, array $attrs = [], string $content = ''): string
     {
+        if (is_a($blockSlugOrClassName, BaseBlock::class, true)) {
+            $blockSlugOrClassName = $blockSlugOrClassName::toSlug();
+        }
+
         return render_block([
-            'blockName' => $this->prefix . '/' . $blockName,
+            'blockName' => $this->prefix . '/' . $blockSlugOrClassName,
             'attrs' => $attrs,
             'innerHTML' => $content
         ]);
