@@ -24,10 +24,11 @@ If your block doesn't require any PHP logic you don't have to create this file s
 namespace KWIO\GutenbergBlocks;
 
 use KWIO\GutenbergBlocks\BaseBlock;
+use WP_Block;
 
 class MyBlock extends BaseBlock
 {
-    public function render(array $attributes, string $content): string
+    public function render(array $attributes, string $content, ?WP_Block $block = null): string
     {
         parent::render($attributes, $content);
 
