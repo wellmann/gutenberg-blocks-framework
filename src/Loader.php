@@ -175,7 +175,7 @@ final class Loader
         add_filter('block_categories_all', fn($categories) => array_merge($categories, $this->categories));
         add_action('enqueue_block_assets', [$assetCollector, 'enqueueAssets']);
         add_action('enqueue_block_editor_assets', [$assetCollector, 'enqueueEditorAssets']);
-        add_action('after_setup_theme', fn() => add_editor_style('dist/editor.css'));
+        add_action('after_setup_theme', fn() => add_editor_style($this->pluginConfig->distDir . 'editor.css'));
         add_action('init', [$blockCollector, 'registerBlocks']);
         add_action('wp_enqueue_scripts', [$assetCollector, 'enqueueScripts']);
     }
