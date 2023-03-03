@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace KWIO\GutenbergBlocks\View;
 
+use KWIO\GutenbergBlocks\BaseBlock;
 use WP_Post;
 
 /**
