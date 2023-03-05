@@ -61,7 +61,7 @@ final class Loader
         $this->pluginConfig->dirPath = plugin_dir_path($file);
         $this->pluginConfig->dirUrl = $this->pluginConfig->isTheme ? get_template_directory_uri() . '/' : plugin_dir_url($file);
         $this->pluginConfig->distDir = 'dist/';
-        $this->pluginConfig->prefix = preg_replace('/-gutenberg-blocks$/', '', basename(dirname($file)));
+        $this->pluginConfig->prefix = preg_replace(['/-theme$/', '/-gutenberg-blocks$/'], '', basename(dirname($file)));
         $this->pluginConfig->viewClass = PhpView::class;
     }
 
