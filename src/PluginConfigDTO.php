@@ -34,6 +34,14 @@ class PluginConfigDTO
     public array $blockWhitelist = [];
 
     /**
+     * If library is used in plugin or theme.
+     * @see Loader::__construct
+     *
+     * @var boolean
+     */
+    public bool $isTheme;
+
+    /**
      * The filesystem directory path for the theme or plugin __FILE__ passed in.
      * @see Loader::__construct
      *

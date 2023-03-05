@@ -29,6 +29,30 @@ class AssetCollectorTest extends TestCase
         $this->pluginConfig->prefix = 'prefix';
     }
 
+    public function testAddEditorStylesIfIsTheme()
+    {
+        $this->pluginConfig->isTheme = true;
+
+        expect('add_editor_style')
+            ->once()
+            ->with('dist/editor.css');
+
+        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector->addEditorStyles();
+    }
+
+    public function testAddEditorStylesIfIsNotTheme()
+    {
+        $this->pluginConfig->isTheme = false;
+
+        expect('wp_enqueue_style')
+            ->once()
+            ->with('prefix-blocks-editor', '/dist/editor.css', ['wp-edit-blocks'], '');
+
+        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector->addEditorStyles();
+    }
+
     public function testEnqueueAssets()
     {
         expect('wp_enqueue_style')

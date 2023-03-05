@@ -57,8 +57,9 @@ final class Loader
     {
         $this->pluginConfig = new PluginConfigDTO();
         $this->pluginConfig->blockWhitelist = self::CORE_BLOCK_WHITELIST;
+        $this->pluginConfig->isTheme = strpos($file, '/themes/') !== false;
         $this->pluginConfig->dirPath = plugin_dir_path($file);
-        $this->pluginConfig->dirUrl = strpos($file, '/themes/') !== false ? get_template_directory_uri() . '/' : plugin_dir_url($file);
+        $this->pluginConfig->dirUrl = $this->pluginConfig->isTheme ? get_template_directory_uri() . '/' : plugin_dir_url($file);
         $this->pluginConfig->distDir = 'dist/';
         $this->pluginConfig->prefix = preg_replace('/-gutenberg-blocks$/', '', basename(dirname($file)));
         $this->pluginConfig->viewClass = PhpView::class;
@@ -175,7 +176,7 @@ final class Loader
         add_filter('block_categories_all', fn($categories) => array_merge($categories, $this->categories));
         add_action('enqueue_block_assets', [$assetCollector, 'enqueueAssets']);
         add_action('enqueue_block_editor_assets', [$assetCollector, 'enqueueEditorAssets']);
-        add_action('after_setup_theme', fn() => add_editor_style($this->pluginConfig->distDir . 'editor.css'));
+        add_action('after_setup_theme', [$assetCollector, 'addEditorStyles']);
         add_action('init', [$blockCollector, 'registerBlocks']);
         add_action('wp_enqueue_scripts', [$assetCollector, 'enqueueScripts']);
     }

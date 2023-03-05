@@ -25,6 +25,25 @@ class AssetCollector
     }
 
     /**
+     * Uses add_editor_style when library is used in a theme.
+     * @see Loader::int
+     */
+    public function addEditorStyles(): void
+    {
+        if ($this->pluginConfig->isTheme) {
+            add_editor_style($this->pluginConfig->distDir . 'editor.css');
+            return;
+        }
+
+        wp_enqueue_style(
+            $this->pluginConfig->prefix . '-blocks-editor',
+            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
+            ['wp-edit-blocks'],
+            $this->shortenVersionHash($this->getVersionHash('editor.css'))
+        );
+    }
+
+    /**
      * Enqueues blocks.css and critical.css files in admin and frontend (nonblocking).
      * @see Loader::int
      */
