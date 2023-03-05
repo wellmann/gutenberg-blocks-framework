@@ -49,17 +49,23 @@ class AssetCollector
      */
     public function enqueueEditorAssets(): void
     {
+        $handle = $this->pluginConfig->prefix . '-blocks-editor';
         $manifest = $this->getAssetManifest('editor');
+        $domain = preg_replace('/-theme$/', '', $this->pluginConfig->prefix);
 
         wp_enqueue_script(
-            $this->pluginConfig->prefix . '-blocks-editor',
+            $handle,
             $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.js',
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
         );
 
-        $this->enqueueEditorTranslations();
+        wp_set_script_translations(
+            $handle,
+            $domain,
+            $this->pluginConfig->translationsPath
+        );
     }
 
     /**
@@ -76,36 +82,6 @@ class AssetCollector
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
-        );
-    }
-
-    /**
-     * Enqueues the block editor translations that have been configured.
-     * @see AssetCollector::enqueueEditorAssets
-     * @see Loader::setTranslationsPath
-     */
-    private function enqueueEditorTranslations(): void
-    {
-        $domain = preg_replace('/-theme$/', '', $this->pluginConfig->prefix);
-        $locale = get_locale();
-        $localeFile = $this->pluginConfig->translationsPath . "{$domain}-{$locale}.json";
-
-        if (!is_readable($localeFile)) {
-            return;
-        }
-
-        $localeData = file_get_contents($localeFile);
-
-        wp_add_inline_script(
-            $this->pluginConfig->prefix . '-blocks-editor',
-            <<<JS
-( function( domain, translations ) {
-    var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
-    localeData[""].domain = domain;
-    wp.i18n.setLocaleData( localeData, domain );
-} )( "{$domain}", {$localeData} );
-JS,
-            'before'
         );
     }
 
