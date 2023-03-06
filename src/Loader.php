@@ -59,7 +59,7 @@ final class Loader
         $this->pluginConfig->blockWhitelist = self::CORE_BLOCK_WHITELIST;
         $this->pluginConfig->isTheme = strpos($file, '/themes/') !== false;
         $this->pluginConfig->dirPath = plugin_dir_path($file);
-        $this->pluginConfig->dirUrl = $this->pluginConfig->isTheme ? get_template_directory_uri() . '/' : plugin_dir_url($file);
+        $this->pluginConfig->dirUrl = $this->pluginConfig->isTheme ? trailingslashit(get_stylesheet_directory_uri()) : plugin_dir_url($file);
         $this->pluginConfig->distDir = 'dist/';
         $this->pluginConfig->prefix = preg_replace(['/-theme$/', '/-gutenberg-blocks$/'], '', basename(dirname($file)));
         $this->pluginConfig->viewClass = PhpView::class;
