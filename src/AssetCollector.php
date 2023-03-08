@@ -32,15 +32,7 @@ class AssetCollector
     {
         if ($this->pluginConfig->isTheme) {
             add_editor_style($this->pluginConfig->distDir . 'editor.css');
-            return;
         }
-
-        wp_enqueue_style(
-            $this->pluginConfig->prefix . '-blocks-editor',
-            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
-            ['wp-edit-blocks'],
-            $this->shortenVersionHash($this->getVersionHash('editor.css'))
-        );
     }
 
     /**
@@ -85,6 +77,15 @@ class AssetCollector
             $domain,
             $this->pluginConfig->translationsPath
         );
+
+        if (!$this->pluginConfig->isTheme) {
+            wp_enqueue_style(
+                $this->pluginConfig->prefix . '-blocks-editor',
+                $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
+                ['wp-edit-blocks'],
+                $this->shortenVersionHash($this->getVersionHash('editor.css'))
+            );
+        }
     }
 
     /**

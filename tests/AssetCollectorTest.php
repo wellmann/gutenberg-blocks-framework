@@ -41,18 +41,6 @@ class AssetCollectorTest extends TestCase
         $assetCollector->addEditorStyles();
     }
 
-    public function testAddEditorStylesIfIsNotTheme()
-    {
-        $this->pluginConfig->isTheme = false;
-
-        expect('wp_enqueue_style')
-            ->once()
-            ->with('prefix-blocks-editor', '/dist/editor.css', ['wp-edit-blocks'], '');
-
-        $assetCollector = new AssetCollector($this->pluginConfig);
-        $assetCollector->addEditorStyles();
-    }
-
     public function testEnqueueAssets()
     {
         expect('wp_enqueue_style')
@@ -82,6 +70,8 @@ class AssetCollectorTest extends TestCase
 
     public function testEnqueueEditorAssets()
     {
+        $this->pluginConfig->isTheme = true;
+
         expect('wp_enqueue_script')
             ->once()
             ->with('prefix-blocks-editor', '/dist/editor.js', [], '', true);
@@ -89,6 +79,26 @@ class AssetCollectorTest extends TestCase
         expect('wp_set_script_translations')
             ->once()
             ->with('prefix-blocks-editor', 'prefix', '');
+
+        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector->enqueueEditorAssets();
+    }
+
+    public function testEnqueueEditorAssetsWhenNotTheme()
+    {
+        $this->pluginConfig->isTheme = false;
+
+        expect('wp_enqueue_script')
+            ->once()
+            ->with('prefix-blocks-editor', '/dist/editor.js', [], '', true);
+
+        expect('wp_set_script_translations')
+            ->once()
+            ->with('prefix-blocks-editor', 'prefix', '');
+
+        expect('wp_enqueue_style')
+            ->once()
+            ->with('prefix-blocks-editor', '/dist/editor.css', ['wp-edit-blocks'], '');
 
         $assetCollector = new AssetCollector($this->pluginConfig);
         $assetCollector->enqueueEditorAssets();
