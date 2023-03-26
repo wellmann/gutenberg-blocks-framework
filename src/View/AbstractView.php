@@ -148,7 +148,7 @@ abstract class AbstractView implements ViewInterface
             }
 
             if (is_array($value)) {
-                $value = implode(' ', $value);
+                $value = implode(' ', array_unique($value));
             }
 
             $value = esc_attr($value);

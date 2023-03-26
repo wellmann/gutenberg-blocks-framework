@@ -43,11 +43,11 @@ class AbstractViewTest extends TestCase
         $blockReflectionBuildTagAttrString = $this->viewClassMockReflection->getMethod('buildTagAttrString');
         $blockReflectionBuildTagAttrString->setAccessible(true);
         $result = $blockReflectionBuildTagAttrString->invokeArgs($this->viewClassMock, [[
-            'class' => ['block', 'block-example'],
+            'class' => ['block', 'block-example', 'duplicated-class', 'duplicated-class'],
             'id' => ['anchor']
         ]]);
 
-        $this->assertEquals(' class="block block-example" id="anchor"', $result);
+        $this->assertEquals(' class="block block-example duplicated-class" id="anchor"', $result);
     }
 
     public function testAfterOpeningTag()
