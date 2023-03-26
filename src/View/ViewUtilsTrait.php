@@ -35,12 +35,12 @@ trait ViewUtilsTrait
      *
      * @return string BEM classname.
      */
-    public function bem(string $element = '', array $modifiers = []): string
+    public function bem(string $element = '', array $modifiers = [], bool $jsPrefix = false): string
     {
         $elementClass = !empty($element) ? $this->baseClass . '__' . $element : $this->baseClass;
         $modifiers = array_map(fn($modifier) => $elementClass . '--' . $modifier, $modifiers);
 
-        return $elementClass . (!empty($modifiers) ? ' ' . implode(' ', $modifiers) : '');
+        return $elementClass . ($jsPrefix ? ' js-' . $elementClass : '') . (!empty($modifiers) ? ' ' . implode(' ', $modifiers) : '');
     }
 
     /**

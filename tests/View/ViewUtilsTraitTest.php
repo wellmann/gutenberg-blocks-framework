@@ -12,7 +12,7 @@ class ViewUtilsTraitTest extends TestCase
     /**
      * @dataProvider dataProviderForTestBem
      */
-    public function testBem(string $element, array $modifier, string $result)
+    public function testBem(string $element, array $modifier, bool $jsPrefix, string $result)
     {
         $traitClassMock = $this->getMockForTrait(ViewUtilsTrait::class);
 
@@ -25,15 +25,16 @@ class ViewUtilsTraitTest extends TestCase
         $traitClassMockAddClass = $traitClassMockReflection->getMethod('bem');
         $traitClassMockAddClass->setAccessible(true);
 
-        $this->assertEquals($result, $traitClassMockAddClass->invokeArgs($traitClassMock, [$element, $modifier]));
+        $this->assertEquals($result, $traitClassMockAddClass->invokeArgs($traitClassMock, [$element, $modifier, $jsPrefix]));
     }
 
     public function dataProviderForTestBem()
     {
         return [
-            ['element', [], '__element'],
-            ['element', ['modifier'], '__element __element--modifier'],
-            ['element', ['modifier', 'variant'], '__element __element--modifier __element--variant'],
+            ['element', [], false, '__element'],
+            ['element', ['modifier'], false, '__element __element--modifier'],
+            ['element', ['modifier', 'variant'], false, '__element __element--modifier __element--variant'],
+            ['element', [], true, '__element js-__element'],
         ];
     }
 }
