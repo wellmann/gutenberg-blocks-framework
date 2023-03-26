@@ -126,6 +126,16 @@ class BaseBlock
         ];
         $this->tagAttr = ['class' => ['block', $this->baseClass]];
 
+        if (!empty($attributes['backgroundColor'])) {
+            $this->tagAttr['class'][] = 'has-background';
+            $this->tagAttr['class'][] = "has-{$attributes['backgroundColor']}-background-color";
+        }
+
+        if (!empty($attributes['textColor'])) {
+            $this->tagAttr['class'][] = 'has-text-color';
+            $this->tagAttr['class'][] = "has-{$attributes['textColor']}-color";
+        }
+
         $this->data = array_merge($this->data, $attributes, compact('content'));
 
         $this->extractAttr('className', 'class');
