@@ -20,6 +20,7 @@ final class Loader
         'core/image',
         'core/heading',
         'core/list',
+        'core/list-item',
         'core/video',
         'core/table',
         'core/code',
@@ -33,7 +34,8 @@ final class Loader
         'core/embed',
         'core/block',
         'core/media-text',
-        'core/post-title'
+        'core/post-title',
+        'core/spacer'
     ];
 
     /**
