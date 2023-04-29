@@ -44,6 +44,8 @@ Rendered result:
 
 ## Twig view
 
+`composer require twig/twig`
+
 ```twig
 {% raw %}<div class="{{ bem('element', ['modifier', renderCount])|e('html_attr') }}">
   {{ content }}
@@ -71,6 +73,8 @@ You can create an instance of the `KWIO\GutenbergBlocks\View\TwigView` class and
 
 ## Timber view
 
+`composer require timber/timber`
+
 ```twig
 {% raw %}<div class="{{ bem('element', ['modifier', renderCount]) }}">
   {{ content }}
@@ -87,6 +91,8 @@ Additional data:
 * [renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
 ## Blade view
+
+`composer require eftec/bladeone`
 
 ```php
 {% raw %}<div class="@bem('element', ['modifier', $renderCount])">

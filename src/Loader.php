@@ -146,6 +146,7 @@ final class Loader
      * - `KWIO\GutenbergBlocks\View\PhpView` (default)
      * - `KWIO\GutenbergBlocks\View\TwigView` (requires `twig/twig`)
      * - `KWIO\GutenbergBlocks\View\TimberView` (requires `timber/timber`)
+     * - `KWIO\GutenbergBlocks\View\BladeOneView` (requires `eftec/bladeone`)
      *
      * @param string $viewClass String of a class extending `AbstractView`.
      *
