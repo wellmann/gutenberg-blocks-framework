@@ -28,7 +28,7 @@ Example projects:
 * customizable whitelist of selected core blocks
 * enhance output of core blocks
 * optimized for performance (critical CSS)
-* all blocks are [dynamic](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) (pure PHP or Twig views)
+* all blocks are [dynamic](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) (pure PHP, Twig or Blade views)
 * easy integration of i18n
 * view utility functions
 * supports BEM methodology

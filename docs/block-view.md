@@ -86,6 +86,22 @@ Additional data:
 * [post](https://timber.github.io/docs/reference/timber-post/){:target="_blank"}
 * [renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
+## Blade view
+
+```php
+{% raw %}<div class="@bem('element', ['modifier', $renderCount])">
+  {{ $content }}
+</div>{% endraw %}
+```
+
+Utility methods:
+* [@bem](reference/ViewUtilsTrait.html#bem)
+* [@renderBlock](reference/ViewUtilsTrait.html#renderblock)
+
+Additional data:
+* [$isEditor](reference/ViewUtilsTrait.html#iseditor)
+* [$post](https://timber.github.io/docs/reference/timber-post/){:target="_blank"}
+* [$renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
 ## Creating a custom  view
 
