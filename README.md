@@ -13,7 +13,7 @@ Since this library is solely taking care of registering and setting up blocks on
 
 Example projects:
  * https://github.com/wellmann/kwio-gutenberg-blocks (as a seperate plugin)
- * ~~https://github.com/wellmann/kwio-gutenberg-theme (as part of a theme)~~ (coming soon)
+ * https://github.com/wellmann/kwio-wp-theme (as part of a theme)
 
 ## Features
 

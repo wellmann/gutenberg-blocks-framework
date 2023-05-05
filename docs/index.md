@@ -21,7 +21,7 @@ Since this library is solely taking care of registering and setting up blocks on
 
 Example projects:
 * [https://github.com/wellmann/kwio-gutenberg-blocks](https://github.com/wellmann/kwio-gutenberg-blocks) (as a seperate plugin)
-* ~~[https://github.com/wellmann/kwio-gutenberg-theme](https://github.com/wellmann/kwio-gutenberg-blocks-theme) (as part of a theme)~~ <small style="opacity:.5;">(coming soon)</small>
+* [https://github.com/wellmann/kwio-wp-theme](https://github.com/wellmann/kwio-wp-theme) (as part of a theme)
 
 ## Features
 
