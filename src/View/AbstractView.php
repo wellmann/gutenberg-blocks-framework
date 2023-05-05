@@ -21,6 +21,13 @@ abstract class AbstractView implements ViewInterface
     protected string $baseClass;
 
     /**
+     * Holds absolute path to a custom cache directory for twig or blade views.
+     *
+     * @var string|null
+     */
+    protected ?string $cachePath = null;
+
+    /**
      * The theme or plugin prefix (e.g. `kwio` from `kwio-gutenberg-blocks` plugin or `kwio-theme` from `kwio-theme`).
      *
      * @var string
@@ -82,6 +89,13 @@ abstract class AbstractView implements ViewInterface
     public function setFile(?string $file): ViewInterface
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function setCachePath(?string $path): ViewInterface
+    {
+        $this->cachePath = $path;
 
         return $this;
     }

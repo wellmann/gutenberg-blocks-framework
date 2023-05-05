@@ -165,6 +165,7 @@ class BaseBlock
                 'tagAttr' => $this->tagAttr
             ]))
             ->setFile($file)
+            ->setCachePath($this->pluginConfig->viewCachePath)
             ->render();
     }
 

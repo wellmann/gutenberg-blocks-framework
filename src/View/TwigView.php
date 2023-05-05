@@ -34,7 +34,7 @@ class TwigView extends AbstractView
     protected function renderWithView(): string
     {
         $filePath = $this->locateView($this->file);
-        $cacheDir = WP_CONTENT_DIR . '/cache/kwio/gbf/twig';
+        $cacheDir = $this->cachePath ?? WP_CONTENT_DIR . '/cache/kwio/gbf/twig';
         $loader = new FilesystemLoader(dirname($filePath));
         $twig = new Environment($loader, [
             'debug' => defined('WP_DEBUG') && WP_DEBUG === true,

@@ -83,6 +83,14 @@ class PluginConfigDTO
     public string $translationsPath = '';
 
     /**
+     * Absolute path to a custom cache directory for twig or blade views.
+     * @see Loader::loadBlocks
+     *
+     * @var string|null
+     */
+    public ?string $viewCachePath = null;
+
+    /**
      * String of a class extending `AbstractView`.
      * @see Loader::__construct
      * @see Loader::setViewClass

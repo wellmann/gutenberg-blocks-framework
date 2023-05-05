@@ -142,6 +142,13 @@ final class Loader
         return $this;
     }
 
+    public function setViewCachePath(string $path): Loader
+    {
+        $this->pluginConfig->viewCachePath = trailingslashit($path);
+
+        return $this;
+    }
+
     /**
      * Implement a custom template engine or choose one of the follwing already implemented engines:
      *
