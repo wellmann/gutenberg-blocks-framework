@@ -87,7 +87,7 @@ class TemplateCollector
     protected function addNamespaceToBlockName(array $template): array
     {
         return array_map(function ($block) {
-            $block[0] = strpos($block[0], '/') === false ? $this->config->prefix . '/' . $block[0] : $block[0];
+            $block[0] = strpos($block[0], '/') === false ? $this->config->namespace . '/' . $block[0] : $block[0];
 
             if (!empty($block[2]) && is_array($block[2])) {
                 $block[2] = $this->addNamespaceToBlockName($block[2]);

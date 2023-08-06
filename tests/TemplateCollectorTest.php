@@ -13,7 +13,7 @@ class TemplateCollectorTest extends TestCase
     public function testAddNamespaceToBlockName()
     {
         $this->config = new Config();
-        $this->config->prefix = 'prefix';
+        $this->config->namespace = 'namespace';
 
         $templateCollector = new TemplateCollector($this->config);
         $templateCollectorReflection = new ReflectionClass($templateCollector);
@@ -27,7 +27,7 @@ class TemplateCollectorTest extends TestCase
 
         $this->assertEquals([
             ['core/image'],
-            ['prefix/example-block'],
+            ['namespace/example-block'],
         ], $result);
     }
 }

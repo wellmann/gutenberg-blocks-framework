@@ -18,14 +18,6 @@ class Config
     public string $blockDir = '';
 
     /**
-     * Namespace of the block classes (`__NAMESPACE__`).
-     * @see Loader::loadBlocks
-     *
-     * @var string
-     */
-    public string $blockNamespace = '';
-
-    /**
      * Array of blocks that should be whitelisted.
      * @see Loader::setBlockWhitelist
      *
@@ -34,12 +26,12 @@ class Config
     public array $blockWhitelist = [];
 
     /**
-     * If library is used in plugin or theme.
-     * @see Loader::__construct
+     * Namespace of the block classes (`__NAMESPACE__`).
+     * @see Loader::loadBlocks
      *
-     * @var boolean
+     * @var string
      */
-    public bool $isTheme;
+    public string $classNamespace = '';
 
     /**
      * The filesystem directory path for the theme or plugin __FILE__ passed in.
@@ -66,13 +58,21 @@ class Config
     public string $distDir = '';
 
     /**
-     * The theme or plugin prefix (e.g. `kwio` from `kwio-gutenberg-blocks` plugin or `kwio-theme` from `kwio-theme`).
+     * If library is used in plugin or theme.
+     * @see Loader::__construct
+     *
+     * @var boolean
+     */
+    public bool $isTheme;
+
+    /**
+     * The theme or plugin name.
      * @see Loader::__construct
      * @see Loader::setDistDir
      *
      * @var string
      */
-    public string $prefix = '';
+    public string $namespace = '';
 
     /**
      * The path of the directory of your translation file (e.g. kwio-de_DE.json).

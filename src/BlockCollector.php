@@ -114,7 +114,7 @@ class BlockCollector
         // Check if block has a dedicated PHP class.
         if (file_exists($blockPath . $blockClassName . '.php')) {
             require_once $blockPath . $blockClassName . '.php';
-            $blockFullClassName = $this->config->blockNamespace . '\\' . $blockClassName;
+            $blockFullClassName = $this->config->classNamespace . '\\' . $blockClassName;
         }
 
         $classInstance = new $blockFullClassName($block, $this->blockDirPath, $this->config);
@@ -122,7 +122,7 @@ class BlockCollector
             throw new Exception($blockFullClassName . ' must be an instance of ' . BaseBlock::class);
         }
 
-        $name = $this->config->prefix . '/' . $block;
+        $name = $this->config->namespace . '/' . $block;
 
         // Override core blocks render output.
         if (strpos($block, 'core-') === 0) {

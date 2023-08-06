@@ -79,7 +79,7 @@ trait ViewUtilsTrait
     /**
      * Renders blocks loaded by this framework without specifing the namespace.
      *
-     * @param string $blockName Block name without namespace or block class name.
+     * @param string $blockSlugOrClassName Block name without namespace or block class name.
      * @param array $attrs Block attributes.
      * @param string $content Block content.
      *
@@ -92,7 +92,7 @@ trait ViewUtilsTrait
         }
 
         return render_block([
-            'blockName' => $this->prefix . '/' . $blockSlugOrClassName,
+            'blockName' => $this->namespace . '/' . $blockSlugOrClassName,
             'attrs' => $attrs,
             'innerHTML' => $content
         ]);

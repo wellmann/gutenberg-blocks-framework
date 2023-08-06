@@ -42,7 +42,7 @@ class AssetCollector
     public function enqueueAssets(): void
     {
         wp_enqueue_style(
-            $this->config->prefix . '-blocks',
+            $this->config->namespace . '-blocks',
             $this->config->dirUrl . $this->config->distDir . 'blocks.css',
             [],
             $this->shortenVersionHash($this->getVersionHash('blocks.css')),
@@ -50,7 +50,7 @@ class AssetCollector
         );
 
         if (!empty($this->getCriticalCss())) {
-            wp_add_inline_style($this->config->prefix . '-blocks', $this->getCriticalCss());
+            wp_add_inline_style($this->config->namespace . '-blocks', $this->getCriticalCss());
         }
     }
 
@@ -60,9 +60,9 @@ class AssetCollector
      */
     public function enqueueEditorAssets(): void
     {
-        $handle = $this->config->prefix . '-blocks-editor';
+        $handle = $this->config->namespace . '-blocks-editor';
         $manifest = $this->getAssetManifest('editor');
-        $domain = preg_replace('/-theme$/', '', $this->config->prefix);
+        $domain = preg_replace('/-theme$/', '', $this->config->namespace);
 
         wp_enqueue_script(
             $handle,
@@ -80,7 +80,7 @@ class AssetCollector
 
         if (!$this->config->isTheme) {
             wp_enqueue_style(
-                $this->config->prefix . '-blocks-editor',
+                $this->config->namespace . '-blocks-editor',
                 $this->config->dirUrl . $this->config->distDir . 'editor.css',
                 ['wp-edit-blocks'],
                 $this->shortenVersionHash($this->getVersionHash('editor.css'))
@@ -97,7 +97,7 @@ class AssetCollector
         $manifest = $this->getAssetManifest('blocks');
 
         wp_enqueue_script(
-            $this->config->prefix . '-blocks',
+            $this->config->namespace . '-blocks',
             $this->config->dirUrl . $this->config->distDir . 'blocks.js',
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),

@@ -29,8 +29,7 @@ class BlockCollectorTest extends TestCase
         when('wp_json_file_decode')->justReturn([]);
         when('register_block_type')->justReturn(true);
 
-        $this->config->prefix = 'prefix';
-        $this->config->namespace = 'Namespace';
+        $this->config->namespace = 'namespace';
         $this->config->viewClass = PhpView::class;
 
         $blockCollector = new BlockCollector($this->config);
@@ -43,15 +42,14 @@ class BlockCollectorTest extends TestCase
         $blockCollectorBlocks = $blockCollectorReflection->getProperty('blocks');
         $blockCollectorBlocks->setAccessible(true);
 
-        $this->assertContains('prefix/example-block', $blockCollectorBlocks->getValue($blockCollector));
+        $this->assertContains('namespace/example-block', $blockCollectorBlocks->getValue($blockCollector));
     }
 
     public function testOverrideCoreBlock()
     {
         when('register_block_type')->justReturn(true);
 
-        $this->config->prefix = 'prefix';
-        $this->config->namespace = 'Namespace';
+        $this->config->namespace = 'namespace';
         $this->config->viewClass = PhpView::class;
 
         $blockCollector = new BlockCollector($this->config);

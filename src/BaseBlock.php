@@ -32,14 +32,14 @@ class BaseBlock
      *
      * @var string
      */
-    protected string $blockName;
+    protected string $name;
 
     /**
      * Holds slug (e.g. `my-example`.) of current block.
      *
      * @var string
      */
-    protected string $blockSlug;
+    protected string $slug;
 
     /**
      * Holds the configurated options.
@@ -81,16 +81,16 @@ class BaseBlock
     /**
      * Creates instance of current block type once per request.
      *
-     * @param string $blockSlug Block slug without namespace (e.g. `my-example`).
+     * @param string $slug Block slug without namespace (e.g. `my-example`).
      * @param string $dirPath Path to current block.
      * @param Config $config Configurated options.
      */
-    public function __construct(string $blockSlug, string $dirPath, Config $config)
+    public function __construct(string $slug, string $dirPath, Config $config)
     {
-        $this->blockSlug = $blockSlug;
-        $this->blockName = "{$config->prefix}/{$blockSlug}";
-        $this->baseClass = 'block-' . $blockSlug;
-        $this->dirPath = trailingslashit($dirPath . $blockSlug);
+        $this->slug = $slug;
+        $this->name = "{$config->namespace}/{$slug}";
+        $this->baseClass = 'block-' . $slug;
+        $this->dirPath = trailingslashit($dirPath . $slug);
         $this->config = $config;
         $this->viewClass = $config->viewClass;
     }
@@ -159,7 +159,7 @@ class BaseBlock
         $viewClassInstance = new $this->viewClass();
         return $viewClassInstance
             ->setData(array_merge($this->data, $data, [
-                'prefix' => $this->config->prefix,
+                'namespace' => $this->config->namespace,
                 'renderCount' => $this->renderCount,
                 'wrapperTagName' => $wrapperTagName,
                 'tagAttr' => $this->tagAttr
@@ -204,9 +204,9 @@ class BaseBlock
     {
         $blockClassParts = explode('\\', static::class);
         $blockClass = array_pop($blockClassParts);
-        $blockSlug = preg_replace('%([a-z])([A-Z])%', '$1-$2', $blockClass);
-        $blockSlug = strtolower($blockSlug);
+        $slug = preg_replace('%([a-z])([A-Z])%', '$1-$2', $blockClass);
+        $slug = strtolower($slug);
 
-        return $blockSlug;
+        return $slug;
     }
 }

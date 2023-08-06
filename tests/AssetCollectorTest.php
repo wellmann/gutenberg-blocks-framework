@@ -26,7 +26,7 @@ class AssetCollectorTest extends TestCase
         $this->config->dirPath = '/';
         $this->config->dirUrl = '/';
         $this->config->distDir = 'dist/';
-        $this->config->prefix = 'prefix';
+        $this->config->namespace = 'namespace';
     }
 
     public function testAddEditorStylesIfIsTheme()
@@ -45,7 +45,7 @@ class AssetCollectorTest extends TestCase
     {
         expect('wp_enqueue_style')
             ->once()
-            ->with('prefix-blocks', '/dist/blocks.css', [], '', 'nonblocking');
+            ->with('namespace-blocks', '/dist/blocks.css', [], '', 'nonblocking');
 
         $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueAssets();
@@ -74,11 +74,11 @@ class AssetCollectorTest extends TestCase
 
         expect('wp_enqueue_script')
             ->once()
-            ->with('prefix-blocks-editor', '/dist/editor.js', [], '', true);
+            ->with('namespace-blocks-editor', '/dist/editor.js', [], '', true);
 
         expect('wp_set_script_translations')
             ->once()
-            ->with('prefix-blocks-editor', 'prefix', '');
+            ->with('namespace-blocks-editor', 'namespace', '');
 
         $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueEditorAssets();
@@ -90,15 +90,15 @@ class AssetCollectorTest extends TestCase
 
         expect('wp_enqueue_script')
             ->once()
-            ->with('prefix-blocks-editor', '/dist/editor.js', [], '', true);
+            ->with('namespace-blocks-editor', '/dist/editor.js', [], '', true);
 
         expect('wp_set_script_translations')
             ->once()
-            ->with('prefix-blocks-editor', 'prefix', '');
+            ->with('namespace-blocks-editor', 'namespace', '');
 
         expect('wp_enqueue_style')
             ->once()
-            ->with('prefix-blocks-editor', '/dist/editor.css', ['wp-edit-blocks'], '');
+            ->with('namespace-blocks-editor', '/dist/editor.css', ['wp-edit-blocks'], '');
 
         $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueEditorAssets();
@@ -109,7 +109,7 @@ class AssetCollectorTest extends TestCase
         when('get_rest_url')->justReturn('Url');
         expect('wp_enqueue_script')
             ->once()
-            ->with('prefix-blocks', '/dist/blocks.js', [], '', true);
+            ->with('namespace-blocks', '/dist/blocks.js', [], '', true);
 
         $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueScripts();

@@ -37,7 +37,7 @@ final class Loader
         $this->config->dirPath = plugin_dir_path($file);
         $this->config->dirUrl = $this->config->isTheme ? trailingslashit(get_stylesheet_directory_uri()) : plugin_dir_url($file);
         $this->config->distDir = 'dist/';
-        $this->config->prefix = preg_replace(['/-theme$/', '/-gutenberg-blocks$/'], '', basename(dirname($file)));
+        $this->config->namespace = preg_replace(['/-theme$/', '/-gutenberg-blocks$/'], '', basename(dirname($file)));
         $this->config->viewClass = PhpView::class;
     }
 
@@ -52,7 +52,7 @@ final class Loader
     public function loadBlocks(string $dir, string $namespace): Loader
     {
         $this->config->blockDir = trailingslashit($dir);
-        $this->config->blockNamespace = $namespace;
+        $this->config->classNamespace = $namespace;
 
         return $this;
     }
@@ -103,7 +103,7 @@ final class Loader
 
     /**
      * Sets the path of the directory of your translation file (e.g. kwio-de_DE.json) to translate strings in your custom block in the admin.
-     * Make sure that the text domain matches this plugins prefix.
+     * Make sure that the text domain matches the configured namespace.
      *
      * @param string $path Full path to the languages directory.
      *

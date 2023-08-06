@@ -22,7 +22,7 @@ class AbstractViewTest extends TestCase
             'baseClass' => 'block-example',
             'afterOpeningTag' => '',
             'beforeClosingTag' => '',
-            'prefix' => 'prefix',
+            'namespace' => 'namespace',
             'renderCount' => 1,
             'wrapperTagName' => 'div',
             'tagAttr' => ['class' => ['block', 'block-example']]

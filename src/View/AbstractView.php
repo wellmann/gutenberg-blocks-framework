@@ -28,11 +28,11 @@ abstract class AbstractView implements ViewInterface
     protected ?string $cachePath = null;
 
     /**
-     * The theme or plugin prefix (e.g. `kwio` from `kwio-gutenberg-blocks` plugin or `kwio-theme` from `kwio-theme`).
+     * The theme or plugin name.
      *
      * @var string
      */
-    protected string $prefix;
+    protected string $namespace;
 
     /**
      * Holds attributes saved in the editor plus any other variables added in the block class.
@@ -65,7 +65,7 @@ abstract class AbstractView implements ViewInterface
     public function setData(array $data): ViewInterface
     {
         $this->baseClass = $data['baseClass'];
-        $this->prefix = $data['prefix'];
+        $this->namespace = $data['namespace'];
         $this->renderCount = $data['renderCount'];
 
         $tagAttrString = $this->buildTagAttrString($data['tagAttr']);
@@ -75,7 +75,7 @@ abstract class AbstractView implements ViewInterface
             $data['baseClass'],
             $data['afterOpeningTag'],
             $data['beforeClosingTag'],
-            $data['prefix'],
+            $data['namespace'],
             $data['renderCount'],
             $data['wrapperTagName'],
             $data['tagAttr']

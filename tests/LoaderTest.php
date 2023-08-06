@@ -32,14 +32,14 @@ class LoaderTest extends TestCase
         $this->assertObjectHasAttribute('dirPath', $pluginCongfig);
         $this->assertObjectHasAttribute('dirUrl', $pluginCongfig);
         $this->assertObjectHasAttribute('distDir', $pluginCongfig);
-        $this->assertObjectHasAttribute('prefix', $pluginCongfig);
+        $this->assertObjectHasAttribute('namespace', $pluginCongfig);
         $this->assertObjectHasAttribute('viewClass', $pluginCongfig);
     }
 
     /**
-     * @dataProvider dataProviderForTestValidPrefix
+     * @dataProvider dataProviderForTestValidBlockNamespace
      */
-    public function testValidPrefix(string $file, string $prefix)
+    public function testValidBlockNamespace(string $file, string $namespace)
     {
         $frameworkLoader = new Loader($file);
         $loaderClassReflection = new ReflectionClass($frameworkLoader);
@@ -48,7 +48,7 @@ class LoaderTest extends TestCase
 
         $pluginCongfig = $loaderClassconfig->getValue($frameworkLoader);
 
-        $this->assertEquals($prefix, $pluginCongfig->prefix);
+        $this->assertEquals($namespace, $pluginCongfig->namespace);
     }
 
     public function testInitHasHooks()
@@ -68,13 +68,13 @@ class LoaderTest extends TestCase
         $this->assertNotFalse(has_action('after_setup_theme'));
     }
 
-    public function dataProviderForTestValidPrefix()
+    public function dataProviderForTestValidBlockNamespace()
     {
         return [
             ['kwio-gutenberg-blocks/bootstrap.php', 'kwio'],
-            ['my-long-prefix-gutenberg-blocks/bootstrap.php', 'my-long-prefix'],
-            ['prefix-with-gutenberg-gutenberg-blocks/bootstrap.php', 'prefix-with-gutenberg'],
-            ['prefix-with-gutenberg-blocks-gutenberg-blocks/bootstrap.php', 'prefix-with-gutenberg-blocks'],
+            ['my-long-namespace-gutenberg-blocks/bootstrap.php', 'my-long-namespace'],
+            ['namespace-with-gutenberg-gutenberg-blocks/bootstrap.php', 'namespace-with-gutenberg'],
+            ['namespace-with-gutenberg-blocks-gutenberg-blocks/bootstrap.php', 'namespace-with-gutenberg-blocks'],
         ];
     }
 }
