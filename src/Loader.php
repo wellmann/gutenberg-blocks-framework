@@ -14,31 +14,6 @@ use KWIO\GutenbergBlocks\View\ViewInterface;
 final class Loader
 {
     /**
-     * Default whitelist of core blocks.
-     */
-    public const CORE_BLOCK_WHITELIST = [
-        'core/image',
-        'core/heading',
-        'core/list',
-        'core/list-item',
-        'core/video',
-        'core/table',
-        'core/code',
-        'core/paragraph',
-        'core/column',
-        'core/columns',
-        'core/group',
-        'core/shortcode',
-        'core/separator',
-        'core/html',
-        'core/embed',
-        'core/block',
-        'core/media-text',
-        'core/post-title',
-        'core/spacer'
-    ];
-
-    /**
      * Holds the configurated options.
      *
      * @var Config
@@ -58,7 +33,6 @@ final class Loader
     public function __construct(string $file)
     {
         $this->config = new Config();
-        $this->config->blockWhitelist = self::CORE_BLOCK_WHITELIST;
         $this->config->isTheme = strpos($file, '/themes/') !== false;
         $this->config->dirPath = plugin_dir_path($file);
         $this->config->dirUrl = $this->config->isTheme ? trailingslashit(get_stylesheet_directory_uri()) : plugin_dir_url($file);

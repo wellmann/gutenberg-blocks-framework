@@ -60,6 +60,10 @@ class BlockCollector
      */
     public function filterBlocks($allowedBlockTypes, WP_Block_Editor_Context $blockEditorContext)
     {
+        if (empty($this->config->blockWhitelist)) {
+            return $allowedBlockTypes;
+        }
+
         $allowedBlockTypes = array_merge($this->config->blockWhitelist, $this->blocks);
 
         if (empty($blockEditorContext->post)) {
