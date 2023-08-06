@@ -45,7 +45,7 @@ class AssetCollector
             $this->config->namespace . '-blocks',
             $this->config->dirUrl . $this->config->distDir . 'blocks.css',
             [],
-            $this->shortenVersionHash($this->getVersionHash('blocks.css')),
+            $this->getVersionHash('blocks.css'),
             is_admin() ? 'all' : 'nonblocking'
         );
 
@@ -68,7 +68,7 @@ class AssetCollector
             $handle,
             $this->config->dirUrl . $this->config->distDir . 'editor.js',
             $manifest['dependencies'],
-            $this->shortenVersionHash($manifest['version']),
+            $manifest['version'],
             true
         );
 
@@ -83,7 +83,7 @@ class AssetCollector
                 $this->config->namespace . '-blocks-editor',
                 $this->config->dirUrl . $this->config->distDir . 'editor.css',
                 ['wp-edit-blocks'],
-                $this->shortenVersionHash($this->getVersionHash('editor.css'))
+                $this->getVersionHash('editor.css')
             );
         }
     }
@@ -100,7 +100,7 @@ class AssetCollector
             $this->config->namespace . '-blocks',
             $this->config->dirUrl . $this->config->distDir . 'blocks.js',
             $manifest['dependencies'],
-            $this->shortenVersionHash($manifest['version']),
+            $manifest['version'],
             true
         );
     }
@@ -158,17 +158,5 @@ class AssetCollector
         }
 
         return md5((string)filemtime($assetPath));
-    }
-
-    /**
-     * Trims hashed timestamp.
-     *
-     * @param string $hash Hashed timestamp.
-     *
-     * @return string Trimmed hash.
-     */
-    private function shortenVersionHash(string $hash): string
-    {
-        return substr($hash, 0, 12);
     }
 }
