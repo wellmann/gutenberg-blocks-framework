@@ -1,12 +1,4 @@
----
-layout: default
-title: {{ node.name }}
-parent: Reference
-has_toc: false
----
-
 # {{ node.name }}
-{: .no_toc }
 
 {{ node.summary|raw }}
 
@@ -31,15 +23,6 @@ has_toc: false
 {% endfor %}
 
 {% endif %}{# node.tags.see || node.tags.link #}
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 {% if node.constants is not empty %}
 ## Constants

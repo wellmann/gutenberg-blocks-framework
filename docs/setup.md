@@ -9,7 +9,7 @@ $blocksLoader
     ->init();
 ```
 
-[Loader class reference](reference/Loader.html)
+[Loader class reference](reference/Loader)
 
 ## File structure
 

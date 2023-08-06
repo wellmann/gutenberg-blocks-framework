@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 </head>
-<body>
-  <div id="app"></div>
+<body aria-busy="true">
+  <div id="app" aria-label="Loading"></div>
   <script>
     window.docsifyVars = {
       repo: 'wellmann/gutenberg-blocks-framework',
@@ -26,6 +26,11 @@
       subMaxLevel: 2,
       homepage: 'https://raw.githubusercontent.com/' + window.docsifyVars.repo + '/master/README.md',
       plugins: [
+        function a11y(hook) {
+          hook.init(function () {
+            document.body.setAttribute('aria-busy', 'false');
+          });
+        },
         function pageTitle(hook) {
           hook.doneEach(function () {
             document.title = document.title + ' | ' + window.$docsify.name;
@@ -42,16 +47,16 @@
               html +
               '\n\n----\n' +
               copyright +
-              (vm.route.path !== '/' ? editHtml : '')
+              (vm.route.path !== '/' && vm.route.path.includes('/reference/') ? editHtml : '')
             );
           });
         },
       ]
     }
   </script>
-  <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
 </body>

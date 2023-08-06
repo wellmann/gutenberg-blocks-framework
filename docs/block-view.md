@@ -24,7 +24,7 @@ Rendered result:
 
 ### Utility methods
 
-[ViewUtilsTrait reference](reference/ViewUtilsTrait.html)
+[ViewUtilsTrait reference](reference/ViewUtilsTrait)
 
 ## Twig view
 
@@ -37,8 +37,8 @@ Rendered result:
 ```
 
 Utility methods:
-* [bem](reference/ViewUtilsTrait.html#bem)
-* [renderBlock](reference/ViewUtilsTrait.html#renderblock)
+* [bem](reference/ViewUtilsTrait#bem)
+* [renderBlock](reference/ViewUtilsTrait#renderblock)
 * [__](https://developer.wordpress.org/themes/functionality/internationalization/)
 * [_x](https://developer.wordpress.org/themes/functionality/internationalization/)
 * [_n](https://developer.wordpress.org/themes/functionality/internationalization/)
@@ -49,9 +49,9 @@ Escapers:
 * [wp_kses_post](https://developer.wordpress.org/reference/functions/wp_kses_post/)
 
 Additional data:
-* [isEditor](reference/ViewUtilsTrait.html#iseditor)
+* [isEditor](reference/ViewUtilsTrait#iseditor)
 * [post](https://developer.wordpress.org/reference/classes/wp_post/)
-* [renderCount](reference/ViewUtilsTrait.html#getrendercount)
+* [renderCount](reference/ViewUtilsTrait#getrendercount)
 
 You can create an instance of the `KWIO\GutenbergBlocks\View\TwigView` class and pass a custom TwigExtension to the constructor if you need to add additional functions or filters.
 
@@ -66,13 +66,13 @@ You can create an instance of the `KWIO\GutenbergBlocks\View\TwigView` class and
 ```
 
 Utility methods:
-* [bem](reference/ViewUtilsTrait.html#bem)
-* [renderBlock](reference/ViewUtilsTrait.html#renderblock)
+* [bem](reference/ViewUtilsTrait#bem)
+* [renderBlock](reference/ViewUtilsTrait#renderblock)
 
 Additional data:
-* [isEditor](reference/ViewUtilsTrait.html#iseditor)
+* [isEditor](reference/ViewUtilsTrait#iseditor)
 * [post](https://timber.github.io/docs/reference/timber-post/)
-* [renderCount](reference/ViewUtilsTrait.html#getrendercount)
+* [renderCount](reference/ViewUtilsTrait#getrendercount)
 
 ## Blade view
 
@@ -85,13 +85,13 @@ Additional data:
 ```
 
 Utility methods:
-* [@bem](reference/ViewUtilsTrait.html#bem)
-* [@renderBlock](reference/ViewUtilsTrait.html#renderblock)
+* [@bem](reference/ViewUtilsTrait#bem)
+* [@renderBlock](reference/ViewUtilsTrait#renderblock)
 
 Additional data:
-* [$isEditor](reference/ViewUtilsTrait.html#iseditor)
+* [$isEditor](reference/ViewUtilsTrait#iseditor)
 * [$post](https://timber.github.io/docs/reference/timber-post/)
-* [$renderCount](reference/ViewUtilsTrait.html#getrendercount)
+* [$renderCount](reference/ViewUtilsTrait#getrendercount)
 
 ## Creating a custom  view
 
