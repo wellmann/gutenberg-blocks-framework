@@ -30,7 +30,7 @@ class AssetCollector
      */
     public function addEditorStyles(): void
     {
-        if ($this->config->isTheme) {
+        if ($this->config->isTheme && file_exists($this->config->dirPath . $this->config->distDir . 'editor.css')) {
             add_editor_style($this->config->distDir . 'editor.css');
         }
     }
@@ -41,13 +41,15 @@ class AssetCollector
      */
     public function enqueueAssets(): void
     {
-        wp_enqueue_style(
-            $this->config->namespace . '-blocks',
-            $this->config->dirUrl . $this->config->distDir . 'blocks.css',
-            [],
-            $this->getVersionHash('blocks.css'),
-            is_admin() ? 'all' : 'nonblocking'
-        );
+        if (file_exists($this->config->dirPath . $this->config->distDir . 'blocks.css')) {
+            wp_enqueue_style(
+                $this->config->namespace . '-blocks',
+                $this->config->dirUrl . $this->config->distDir . 'blocks.css',
+                [],
+                $this->getVersionHash('blocks.css'),
+                is_admin() ? 'all' : 'nonblocking'
+            );
+        }
 
         if (!empty($this->getCriticalCss())) {
             wp_add_inline_style($this->config->namespace . '-blocks', $this->getCriticalCss());
@@ -64,21 +66,23 @@ class AssetCollector
         $manifest = $this->getAssetManifest('editor');
         $domain = preg_replace('/-theme$/', '', $this->config->namespace);
 
-        wp_enqueue_script(
-            $handle,
-            $this->config->dirUrl . $this->config->distDir . 'editor.js',
-            $manifest['dependencies'],
-            $manifest['version'],
-            true
-        );
+        if (file_exists($this->config->dirPath . $this->config->distDir . 'editor.js')) {
+            wp_enqueue_script(
+                $handle,
+                $this->config->dirUrl . $this->config->distDir . 'editor.js',
+                $manifest['dependencies'],
+                $manifest['version'],
+                true
+            );
 
-        wp_set_script_translations(
-            $handle,
-            $domain,
-            $this->config->translationsPath
-        );
+            wp_set_script_translations(
+                $handle,
+                $domain,
+                $this->config->translationsPath
+            );
+        }
 
-        if (!$this->config->isTheme) {
+        if (!$this->config->isTheme && file_exists($this->config->dirPath . $this->config->distDir . 'editor.css')) {
             wp_enqueue_style(
                 $this->config->namespace . '-blocks-editor',
                 $this->config->dirUrl . $this->config->distDir . 'editor.css',
@@ -96,13 +100,15 @@ class AssetCollector
     {
         $manifest = $this->getAssetManifest('blocks');
 
-        wp_enqueue_script(
-            $this->config->namespace . '-blocks',
-            $this->config->dirUrl . $this->config->distDir . 'blocks.js',
-            $manifest['dependencies'],
-            $manifest['version'],
-            true
-        );
+        if (file_exists($this->config->dirPath . $this->config->distDir . 'blocks.js')) {
+            wp_enqueue_script(
+                $this->config->namespace . '-blocks',
+                $this->config->dirUrl . $this->config->distDir . 'blocks.js',
+                $manifest['dependencies'],
+                $manifest['version'],
+                true
+            );
+        }
     }
 
     /**

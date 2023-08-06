@@ -21,6 +21,15 @@ class AssetCollectorTest extends TestCase
 
         when('get_locale')->justReturn('de_DE');
         when('is_admin')->justReturn(false);
+        when('file_exists')->alias(function($arg) {
+            switch($arg) {
+                case '/dist/editor.asset.php':
+                case '/dist/blocks.asset.php':
+                    return false;
+                default:
+                    return true;
+            }
+        });
 
         $this->config = new Config();
         $this->config->dirPath = '/';

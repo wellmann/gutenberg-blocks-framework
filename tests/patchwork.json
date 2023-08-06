@@ -1,3 +1,3 @@
 {
-  "redefinable-internals": ["file_get_contents", "filemtime", "is_readable"]
+  "redefinable-internals": ["file_get_contents", "filemtime", "is_readable", "file_exists"]
 }
