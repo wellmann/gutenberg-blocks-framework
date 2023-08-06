@@ -1,12 +1,4 @@
----
-layout: default
-title: Visibility
-parent: Reference
-has_toc: false
----
-
 # Visibility
-{: .no_toc }
 
 Post type visibility attribute.
 
@@ -17,15 +9,6 @@ Post type visibility attribute.
 **See Also:**
 
 * \KWIO\GutenbergBlocks\Attribute\BaseBlock::class - 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

@@ -1,12 +1,4 @@
----
-layout: default
-title: AssetCollector
-parent: Reference
-has_toc: false
----
-
 # AssetCollector
-{: .no_toc }
 
 Enqueues assets from the configured dist directory.
 
@@ -14,15 +6,6 @@ Enqueues assets from the configured dist directory.
 
 * Full name: `\KWIO\GutenbergBlocks\AssetCollector`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

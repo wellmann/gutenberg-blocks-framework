@@ -1,12 +1,4 @@
----
-layout: default
-title: BlockCollector
-parent: Reference
-has_toc: false
----
-
 # BlockCollector
-{: .no_toc }
 
 Collects the blocks residing in the blocks directory.
 
@@ -14,15 +6,6 @@ Collects the blocks residing in the blocks directory.
 
 * Full name: `\KWIO\GutenbergBlocks\BlockCollector`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

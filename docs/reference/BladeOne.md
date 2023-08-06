@@ -1,12 +1,4 @@
----
-layout: default
-title: BladeOne
-parent: Reference
-has_toc: false
----
-
 # BladeOne
-{: .no_toc }
 
 
 
@@ -14,15 +6,6 @@ has_toc: false
 
 * Full name: `\KWIO\GutenbergBlocks\View\BladeOne`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

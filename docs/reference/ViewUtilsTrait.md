@@ -1,12 +1,4 @@
----
-layout: default
-title: ViewUtilsTrait
-parent: Reference
-has_toc: false
----
-
 # ViewUtilsTrait
-{: .no_toc }
 
 Set of utilitiy functions to be used inside the view file.
 
@@ -14,15 +6,6 @@ Set of utilitiy functions to be used inside the view file.
 
 * Full name: `\KWIO\GutenbergBlocks\View\ViewUtilsTrait`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

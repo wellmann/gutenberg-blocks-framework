@@ -1,12 +1,4 @@
----
-layout: default
-title: BlockUtilsTrait
-parent: Reference
-has_toc: false
----
-
 # BlockUtilsTrait
-{: .no_toc }
 
 Set of utilitiy functions to be used inside the block class.
 
@@ -14,15 +6,6 @@ Set of utilitiy functions to be used inside the block class.
 
 * Full name: `\KWIO\GutenbergBlocks\BlockUtilsTrait`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 

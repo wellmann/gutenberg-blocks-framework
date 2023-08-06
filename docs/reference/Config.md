@@ -1,12 +1,4 @@
----
-layout: default
-title: Config
-parent: Reference
-has_toc: false
----
-
 # Config
-{: .no_toc }
 
 Holds the configured options.
 
@@ -14,15 +6,6 @@ Holds the configured options.
 
 * Full name: `\KWIO\GutenbergBlocks\Config`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

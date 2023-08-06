@@ -1,12 +1,4 @@
----
-layout: default
-title: TemplateCollector
-parent: Reference
-has_toc: false
----
-
 # TemplateCollector
-{: .no_toc }
 
 Collects templates residing in the template directory.
 
@@ -14,15 +6,6 @@ Collects templates residing in the template directory.
 
 * Full name: `\KWIO\GutenbergBlocks\TemplateCollector`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ## Constants
 

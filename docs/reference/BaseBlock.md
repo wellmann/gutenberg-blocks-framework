@@ -1,12 +1,4 @@
----
-layout: default
-title: BaseBlock
-parent: Reference
-has_toc: false
----
-
 # BaseBlock
-{: .no_toc }
 
 Default class for every custom block.
 
@@ -14,15 +6,6 @@ Default class for every custom block.
 
 * Full name: `\KWIO\GutenbergBlocks\BaseBlock`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

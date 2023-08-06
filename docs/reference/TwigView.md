@@ -1,12 +1,4 @@
----
-layout: default
-title: TwigView
-parent: Reference
-has_toc: false
----
-
 # TwigView
-{: .no_toc }
 
 
 
@@ -15,15 +7,6 @@ has_toc: false
 * Full name: `\KWIO\GutenbergBlocks\View\TwigView`
 * Parent class: `\KWIO\GutenbergBlocks\View\AbstractView`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties

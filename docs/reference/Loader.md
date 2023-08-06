@@ -1,12 +1,4 @@
----
-layout: default
-title: Loader
-parent: Reference
-has_toc: false
----
-
 # Loader
-{: .no_toc }
 
 Class to initialize the framework.
 
@@ -14,15 +6,6 @@ Class to initialize the framework.
 
 * Full name: `\KWIO\GutenbergBlocks\Loader`
 
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 
 ## Properties
