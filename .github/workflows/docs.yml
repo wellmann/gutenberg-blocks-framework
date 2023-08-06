@@ -12,15 +12,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: checkout gh-pages
-        run: |
-          git fetch --unshallow
-          git checkout gh-pages
-      - name: merge master into gh-pages
-        run: |
-          git pull
-          git merge --no-ff master -m "auto-merge master to gh-pages"
-          git push
       - name: phpDocumentor generate
         run: docker run --rm -v $(pwd):/data phpdoc/phpdoc:3 -d ./src -t ./docs/reference --template=.phpdoc/templates
       - name: commit generated phpdocs
