@@ -36,21 +36,6 @@ class LoaderTest extends TestCase
         $this->assertObjectHasAttribute('viewClass', $pluginCongfig);
     }
 
-    /**
-     * @dataProvider dataProviderForTestValidBlockNamespace
-     */
-    public function testValidBlockNamespace(string $file, string $namespace)
-    {
-        $frameworkLoader = new Loader($file);
-        $loaderClassReflection = new ReflectionClass($frameworkLoader);
-        $loaderClassconfig = $loaderClassReflection->getProperty('config');
-        $loaderClassconfig->setAccessible(true);
-
-        $pluginCongfig = $loaderClassconfig->getValue($frameworkLoader);
-
-        $this->assertEquals($namespace, $pluginCongfig->namespace);
-    }
-
     public function testInitHasHooks()
     {
         $frameworkLoader = new Loader(__FILE__);
@@ -66,15 +51,5 @@ class LoaderTest extends TestCase
         $this->assertNotFalse(has_filter('allowed_block_types_all', '\KWIO\GutenbergBlocks\BlockCollector->filterBlocks()'));
         $this->assertNotFalse(has_filter('block_categories_all'));
         $this->assertNotFalse(has_action('after_setup_theme'));
-    }
-
-    public function dataProviderForTestValidBlockNamespace()
-    {
-        return [
-            ['kwio-gutenberg-blocks/bootstrap.php', 'kwio'],
-            ['my-long-namespace-gutenberg-blocks/bootstrap.php', 'my-long-namespace'],
-            ['namespace-with-gutenberg-gutenberg-blocks/bootstrap.php', 'namespace-with-gutenberg'],
-            ['namespace-with-gutenberg-blocks-gutenberg-blocks/bootstrap.php', 'namespace-with-gutenberg-blocks'],
-        ];
     }
 }

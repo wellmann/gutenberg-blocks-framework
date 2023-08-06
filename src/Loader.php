@@ -37,7 +37,7 @@ class Loader
         $this->config->dirPath = plugin_dir_path($file);
         $this->config->dirUrl = $this->config->isTheme ? trailingslashit(get_stylesheet_directory_uri()) : plugin_dir_url($file);
         $this->config->distDir = 'dist/';
-        $this->config->namespace = preg_replace(['/-theme$/', '/-gutenberg-blocks$/'], '', basename(dirname($file)));
+        $this->config->namespace = basename(dirname($file));
         $this->config->viewClass = PhpView::class;
     }
 
@@ -53,6 +53,21 @@ class Loader
     {
         $this->config->blockDir = trailingslashit($dir);
         $this->config->classNamespace = $namespace;
+
+        return $this;
+    }
+
+    /**
+     * Customize the namepace of the blocks.
+     * Defaults to plugin or theme name.
+     *
+     * @param callable $callback Function which recieves current namespace as parameter and returns new namespace.
+     *
+     * @return Loader
+     */
+    public function setBlockNamespace(callable $callback): Loader
+    {
+        $this->config->namespace = $callback($this->config->namespace);
 
         return $this;
     }
