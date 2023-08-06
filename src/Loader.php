@@ -11,14 +11,14 @@ use KWIO\GutenbergBlocks\View\ViewInterface;
 /**
  * Class to initialize the framework.
  */
-final class Loader
+class Loader
 {
     /**
      * Holds the configurated options.
      *
      * @var Config
      */
-    private Config $config;
+    protected Config $config;
 
     /**
      * Holds any defined custom categories.
