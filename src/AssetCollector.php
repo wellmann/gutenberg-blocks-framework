@@ -12,16 +12,16 @@ class AssetCollector
     /**
      * Holds the configurated options.
      *
-     * @var PluginConfigDTO
+     * @var Config
      */
-    private PluginConfigDTO $pluginConfig;
+    private Config $config;
 
     /**
-     * @param PluginConfigDTO $pluginConfig The configurated options.
+     * @param Config $config The configurated options.
      */
-    public function __construct(PluginConfigDTO $pluginConfig)
+    public function __construct(Config $config)
     {
-        $this->pluginConfig = $pluginConfig;
+        $this->config = $config;
     }
 
     /**
@@ -30,8 +30,8 @@ class AssetCollector
      */
     public function addEditorStyles(): void
     {
-        if ($this->pluginConfig->isTheme) {
-            add_editor_style($this->pluginConfig->distDir . 'editor.css');
+        if ($this->config->isTheme) {
+            add_editor_style($this->config->distDir . 'editor.css');
         }
     }
 
@@ -42,15 +42,15 @@ class AssetCollector
     public function enqueueAssets(): void
     {
         wp_enqueue_style(
-            $this->pluginConfig->prefix . '-blocks',
-            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'blocks.css',
+            $this->config->prefix . '-blocks',
+            $this->config->dirUrl . $this->config->distDir . 'blocks.css',
             [],
             $this->shortenVersionHash($this->getVersionHash('blocks.css')),
             is_admin() ? 'all' : 'nonblocking'
         );
 
         if (!empty($this->getCriticalCss())) {
-            wp_add_inline_style($this->pluginConfig->prefix . '-blocks', $this->getCriticalCss());
+            wp_add_inline_style($this->config->prefix . '-blocks', $this->getCriticalCss());
         }
     }
 
@@ -60,13 +60,13 @@ class AssetCollector
      */
     public function enqueueEditorAssets(): void
     {
-        $handle = $this->pluginConfig->prefix . '-blocks-editor';
+        $handle = $this->config->prefix . '-blocks-editor';
         $manifest = $this->getAssetManifest('editor');
-        $domain = preg_replace('/-theme$/', '', $this->pluginConfig->prefix);
+        $domain = preg_replace('/-theme$/', '', $this->config->prefix);
 
         wp_enqueue_script(
             $handle,
-            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.js',
+            $this->config->dirUrl . $this->config->distDir . 'editor.js',
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
@@ -75,13 +75,13 @@ class AssetCollector
         wp_set_script_translations(
             $handle,
             $domain,
-            $this->pluginConfig->translationsPath
+            $this->config->translationsPath
         );
 
-        if (!$this->pluginConfig->isTheme) {
+        if (!$this->config->isTheme) {
             wp_enqueue_style(
-                $this->pluginConfig->prefix . '-blocks-editor',
-                $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'editor.css',
+                $this->config->prefix . '-blocks-editor',
+                $this->config->dirUrl . $this->config->distDir . 'editor.css',
                 ['wp-edit-blocks'],
                 $this->shortenVersionHash($this->getVersionHash('editor.css'))
             );
@@ -97,8 +97,8 @@ class AssetCollector
         $manifest = $this->getAssetManifest('blocks');
 
         wp_enqueue_script(
-            $this->pluginConfig->prefix . '-blocks',
-            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . 'blocks.js',
+            $this->config->prefix . '-blocks',
+            $this->config->dirUrl . $this->config->distDir . 'blocks.js',
             $manifest['dependencies'],
             $this->shortenVersionHash($manifest['version']),
             true
@@ -114,7 +114,7 @@ class AssetCollector
      */
     private function getAssetManifest(string $entry): array
     {
-        $manifestPath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . "{$entry}.asset.php";
+        $manifestPath = $this->config->dirPath . $this->config->distDir . "{$entry}.asset.php";
         if (!file_exists($manifestPath)) {
             return [
                 'dependencies' => [],
@@ -132,7 +132,7 @@ class AssetCollector
      */
     private function getCriticalCss(): string
     {
-        $criticalCssPath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . 'critical.css';
+        $criticalCssPath = $this->config->dirPath . $this->config->distDir . 'critical.css';
         if (!is_readable($criticalCssPath)) {
             return '';
         }
@@ -152,7 +152,7 @@ class AssetCollector
      */
     private function getVersionHash(string $asset): string
     {
-        $assetPath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $asset;
+        $assetPath = $this->config->dirPath . $this->config->distDir . $asset;
         if (!is_readable($assetPath)) {
             return '';
         }

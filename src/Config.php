@@ -7,7 +7,7 @@ namespace KWIO\GutenbergBlocks;
 /**
  * Holds the configured options.
  */
-class PluginConfigDTO
+class Config
 {
     /**
      * Blocks directory relative to the plugin or theme.

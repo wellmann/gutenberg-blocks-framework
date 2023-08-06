@@ -19,14 +19,14 @@ class LoaderTest extends TestCase
         when('plugin_dir_url')->returnArg();
     }
 
-    public function testpluginConfigHasAttributes()
+    public function testconfigHasAttributes()
     {
         $frameworkLoader = new Loader(__FILE__);
         $loaderClassReflection = new ReflectionClass($frameworkLoader);
-        $loaderClassPluginConfig = $loaderClassReflection->getProperty('pluginConfig');
-        $loaderClassPluginConfig->setAccessible(true);
+        $loaderClassconfig = $loaderClassReflection->getProperty('config');
+        $loaderClassconfig->setAccessible(true);
 
-        $pluginCongfig = $loaderClassPluginConfig->getValue($frameworkLoader);
+        $pluginCongfig = $loaderClassconfig->getValue($frameworkLoader);
 
         $this->assertObjectHasAttribute('blockWhitelist', $pluginCongfig);
         $this->assertObjectHasAttribute('dirPath', $pluginCongfig);
@@ -43,10 +43,10 @@ class LoaderTest extends TestCase
     {
         $frameworkLoader = new Loader($file);
         $loaderClassReflection = new ReflectionClass($frameworkLoader);
-        $loaderClassPluginConfig = $loaderClassReflection->getProperty('pluginConfig');
-        $loaderClassPluginConfig->setAccessible(true);
+        $loaderClassconfig = $loaderClassReflection->getProperty('config');
+        $loaderClassconfig->setAccessible(true);
 
-        $pluginCongfig = $loaderClassPluginConfig->getValue($frameworkLoader);
+        $pluginCongfig = $loaderClassconfig->getValue($frameworkLoader);
 
         $this->assertEquals($prefix, $pluginCongfig->prefix);
     }

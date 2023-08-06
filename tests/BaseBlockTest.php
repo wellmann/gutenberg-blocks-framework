@@ -6,7 +6,7 @@ namespace KWIO\GutenbergBlocks\Tests;
 
 use KWIO\GutenbergBlocks\BaseBlock;
 use KWIO\GutenbergBlocks\View\PhpView;
-use KWIO\GutenbergBlocks\PluginConfigDTO;
+use KWIO\GutenbergBlocks\Config;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;
@@ -20,13 +20,13 @@ class BaseBlockTest extends TestCase
         when('wp_is_mobile')->justReturn(false);
         when('esc_attr')->returnArg();
 
-        $this->pluginConfig = new PluginConfigDTO();
-        $this->pluginConfig->viewClass = PhpView::class;
+        $this->config = new Config();
+        $this->config->viewClass = PhpView::class;
     }
 
     public function testTagAttrHasBlockClassNames()
     {
-        $block = new BaseBlock('example', __DIR__ . '/data/', $this->pluginConfig);
+        $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
@@ -40,7 +40,7 @@ class BaseBlockTest extends TestCase
 
     public function testTagAttrHasAdditionalClassName()
     {
-        $block = new BaseBlock('example', __DIR__ . '/data/', $this->pluginConfig);
+        $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
@@ -54,7 +54,7 @@ class BaseBlockTest extends TestCase
 
     public function testTagAttrHasAlign()
     {
-        $block = new BaseBlock('example', __DIR__ . '/data/', $this->pluginConfig);
+        $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
@@ -68,7 +68,7 @@ class BaseBlockTest extends TestCase
 
     public function testTagAttrHasAnchor()
     {
-        $block = new BaseBlock('example', __DIR__ . '/data/', $this->pluginConfig);
+        $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
         $blockReflectionTagAttr->setAccessible(true);
@@ -83,7 +83,7 @@ class BaseBlockTest extends TestCase
 
     public function testRenderResultHasClassNames()
     {
-        $block = new BaseBlock('example', __DIR__ . '/data/', $this->pluginConfig);
+        $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $renderResult = $block->render([
             'align' => 'full',
             'className' => 'additional-class'
@@ -94,7 +94,7 @@ class BaseBlockTest extends TestCase
 
     public function testRenderResultHasHtmlIdAttribute()
     {
-        $block = new BaseBlock('example', __DIR__ . '/data/', $this->pluginConfig);
+        $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $renderResult = $block->render(['anchor' => 'anchor'], '');
 
         $this->assertTrue(strpos($renderResult, 'id="anchor"') !== false);
@@ -102,7 +102,7 @@ class BaseBlockTest extends TestCase
 
     public function testExtractAttr()
     {
-        $block = new BaseBlock('example', 'src/', $this->pluginConfig);
+        $block = new BaseBlock('example', 'src/', $this->config);
         $blockReflection = new ReflectionClass($block);
 
         $blockReflectionData = $blockReflection->getProperty('data');

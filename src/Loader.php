@@ -41,9 +41,9 @@ final class Loader
     /**
      * Holds the configurated options.
      *
-     * @var PluginConfigDTO
+     * @var Config
      */
-    private PluginConfigDTO $pluginConfig;
+    private Config $config;
 
     /**
      * Holds any defined custom categories.
@@ -57,14 +57,14 @@ final class Loader
      */
     public function __construct(string $file)
     {
-        $this->pluginConfig = new PluginConfigDTO();
-        $this->pluginConfig->blockWhitelist = self::CORE_BLOCK_WHITELIST;
-        $this->pluginConfig->isTheme = strpos($file, '/themes/') !== false;
-        $this->pluginConfig->dirPath = plugin_dir_path($file);
-        $this->pluginConfig->dirUrl = $this->pluginConfig->isTheme ? trailingslashit(get_stylesheet_directory_uri()) : plugin_dir_url($file);
-        $this->pluginConfig->distDir = 'dist/';
-        $this->pluginConfig->prefix = preg_replace(['/-theme$/', '/-gutenberg-blocks$/'], '', basename(dirname($file)));
-        $this->pluginConfig->viewClass = PhpView::class;
+        $this->config = new Config();
+        $this->config->blockWhitelist = self::CORE_BLOCK_WHITELIST;
+        $this->config->isTheme = strpos($file, '/themes/') !== false;
+        $this->config->dirPath = plugin_dir_path($file);
+        $this->config->dirUrl = $this->config->isTheme ? trailingslashit(get_stylesheet_directory_uri()) : plugin_dir_url($file);
+        $this->config->distDir = 'dist/';
+        $this->config->prefix = preg_replace(['/-theme$/', '/-gutenberg-blocks$/'], '', basename(dirname($file)));
+        $this->config->viewClass = PhpView::class;
     }
 
     /**
@@ -77,8 +77,8 @@ final class Loader
      */
     public function loadBlocks(string $dir, string $namespace): Loader
     {
-        $this->pluginConfig->blockDir = trailingslashit($dir);
-        $this->pluginConfig->blockNamespace = $namespace;
+        $this->config->blockDir = trailingslashit($dir);
+        $this->config->blockNamespace = $namespace;
 
         return $this;
     }
@@ -93,7 +93,7 @@ final class Loader
      */
     public function setBlockWhitelist(array $blockWhitelist): Loader
     {
-        $this->pluginConfig->blockWhitelist = $blockWhitelist;
+        $this->config->blockWhitelist = $blockWhitelist;
 
         return $this;
     }
@@ -122,7 +122,7 @@ final class Loader
      */
     public function setDistDir(string $distDir): Loader
     {
-        $this->pluginConfig->distDir = trailingslashit($distDir);
+        $this->config->distDir = trailingslashit($distDir);
 
         return $this;
     }
@@ -137,14 +137,14 @@ final class Loader
      */
     public function setTranslationsPath(string $path): Loader
     {
-        $this->pluginConfig->translationsPath = trailingslashit($path);
+        $this->config->translationsPath = trailingslashit($path);
 
         return $this;
     }
 
     public function setViewCachePath(string $path): Loader
     {
-        $this->pluginConfig->viewCachePath = trailingslashit($path);
+        $this->config->viewCachePath = trailingslashit($path);
 
         return $this;
     }
@@ -167,7 +167,7 @@ final class Loader
             throw new Exception("{$viewClass} should implement " . ViewInterface::class);
         }
 
-        $this->pluginConfig->viewClass = $viewClass;
+        $this->config->viewClass = $viewClass;
 
         return $this;
     }
@@ -177,9 +177,9 @@ final class Loader
      */
     public function init(): void
     {
-        $assetCollector = new AssetCollector($this->pluginConfig);
-        $blockCollector = new BlockCollector($this->pluginConfig);
-        $templateCollector = new TemplateCollector($this->pluginConfig);
+        $assetCollector = new AssetCollector($this->config);
+        $blockCollector = new BlockCollector($this->config);
+        $templateCollector = new TemplateCollector($this->config);
 
         add_action('load-post-new.php', [$templateCollector, 'registerTemplates']);
         add_filter('allowed_block_types_all', [$blockCollector, 'filterBlocks'], 10, 2);

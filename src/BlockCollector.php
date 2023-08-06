@@ -31,9 +31,9 @@ class BlockCollector
     /**
      * Holds the configurated options.
      *
-     * @var PluginConfigDTO
+     * @var Config
      */
-    private PluginConfigDTO $pluginConfig;
+    private Config $config;
 
     /**
      * Holds blocks that are restricted to speciffic post types.
@@ -43,12 +43,12 @@ class BlockCollector
     private array $restrictedBlocks = [];
 
     /**
-     * @param PluginConfigDTO $pluginConfig The configured options.
+     * @param Config $config The configured options.
      */
-    public function __construct(PluginConfigDTO $pluginConfig)
+    public function __construct(Config $config)
     {
-        $this->blockDirPath = $pluginConfig->dirPath . $pluginConfig->blockDir;
-        $this->pluginConfig = $pluginConfig;
+        $this->blockDirPath = $config->dirPath . $config->blockDir;
+        $this->config = $config;
     }
 
     /**
@@ -60,7 +60,7 @@ class BlockCollector
      */
     public function filterBlocks($allowedBlockTypes, WP_Block_Editor_Context $blockEditorContext)
     {
-        $allowedBlockTypes = array_merge($this->pluginConfig->blockWhitelist, $this->blocks);
+        $allowedBlockTypes = array_merge($this->config->blockWhitelist, $this->blocks);
 
         if (empty($blockEditorContext->post)) {
             return $allowedBlockTypes;
@@ -110,15 +110,15 @@ class BlockCollector
         // Check if block has a dedicated PHP class.
         if (file_exists($blockPath . $blockClassName . '.php')) {
             require_once $blockPath . $blockClassName . '.php';
-            $blockFullClassName = $this->pluginConfig->blockNamespace . '\\' . $blockClassName;
+            $blockFullClassName = $this->config->blockNamespace . '\\' . $blockClassName;
         }
 
-        $classInstance = new $blockFullClassName($block, $this->blockDirPath, $this->pluginConfig);
+        $classInstance = new $blockFullClassName($block, $this->blockDirPath, $this->config);
         if (!$classInstance instanceof BaseBlock) {
             throw new Exception($blockFullClassName . ' must be an instance of ' . BaseBlock::class);
         }
 
-        $name = $this->pluginConfig->prefix . '/' . $block;
+        $name = $this->config->prefix . '/' . $block;
 
         // Override core blocks render output.
         if (strpos($block, 'core-') === 0) {

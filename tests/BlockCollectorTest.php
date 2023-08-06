@@ -6,22 +6,22 @@ namespace KWIO\GutenbergBlocks\Tests;
 
 use KWIO\GutenbergBlocks\BlockCollector;
 use KWIO\GutenbergBlocks\View\PhpView;
-use KWIO\GutenbergBlocks\PluginConfigDTO;
+use KWIO\GutenbergBlocks\Config;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;
 
 class BlockCollectorTest extends TestCase
 {
-    protected ?PluginConfigDTO $pluginConfig = null;
+    protected ?Config $config = null;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->pluginConfig = new PluginConfigDTO();
-        $this->pluginConfig->blockDir = 'src/';
-        $this->pluginConfig->dirPath = '/';
+        $this->config = new Config();
+        $this->config->blockDir = 'src/';
+        $this->config->dirPath = '/';
     }
 
     public function testRegisterBlock()
@@ -29,11 +29,11 @@ class BlockCollectorTest extends TestCase
         when('wp_json_file_decode')->justReturn([]);
         when('register_block_type')->justReturn(true);
 
-        $this->pluginConfig->prefix = 'prefix';
-        $this->pluginConfig->namespace = 'Namespace';
-        $this->pluginConfig->viewClass = PhpView::class;
+        $this->config->prefix = 'prefix';
+        $this->config->namespace = 'Namespace';
+        $this->config->viewClass = PhpView::class;
 
-        $blockCollector = new BlockCollector($this->pluginConfig);
+        $blockCollector = new BlockCollector($this->config);
         $blockCollectorReflection = new ReflectionClass($blockCollector);
 
         $blockCollectorRegisterBlock = $blockCollectorReflection->getMethod('registerBlock');
@@ -50,11 +50,11 @@ class BlockCollectorTest extends TestCase
     {
         when('register_block_type')->justReturn(true);
 
-        $this->pluginConfig->prefix = 'prefix';
-        $this->pluginConfig->namespace = 'Namespace';
-        $this->pluginConfig->viewClass = PhpView::class;
+        $this->config->prefix = 'prefix';
+        $this->config->namespace = 'Namespace';
+        $this->config->viewClass = PhpView::class;
 
-        $blockCollector = new BlockCollector($this->pluginConfig);
+        $blockCollector = new BlockCollector($this->config);
         $blockCollectorReflection = new ReflectionClass($blockCollector);
 
         $blockCollectorRegisterBlock = $blockCollectorReflection->getMethod('registerBlock');

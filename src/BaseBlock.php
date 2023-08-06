@@ -44,9 +44,9 @@ class BaseBlock
     /**
      * Holds the configurated options.
      *
-     * @var PluginConfigDTO
+     * @var Config
      */
-    protected PluginConfigDTO $pluginConfig;
+    protected Config $config;
 
     /**
      * Holds the HTML attributes that will be rendered on the block wrapper element.
@@ -83,16 +83,16 @@ class BaseBlock
      *
      * @param string $blockSlug Block slug without namespace (e.g. `my-example`).
      * @param string $dirPath Path to current block.
-     * @param PluginConfigDTO $pluginConfig Configurated options.
+     * @param Config $config Configurated options.
      */
-    public function __construct(string $blockSlug, string $dirPath, PluginConfigDTO $pluginConfig)
+    public function __construct(string $blockSlug, string $dirPath, Config $config)
     {
         $this->blockSlug = $blockSlug;
-        $this->blockName = "{$pluginConfig->prefix}/{$blockSlug}";
+        $this->blockName = "{$config->prefix}/{$blockSlug}";
         $this->baseClass = 'block-' . $blockSlug;
         $this->dirPath = trailingslashit($dirPath . $blockSlug);
-        $this->pluginConfig = $pluginConfig;
-        $this->viewClass = $pluginConfig->viewClass;
+        $this->config = $config;
+        $this->viewClass = $config->viewClass;
     }
 
     /**
@@ -159,13 +159,13 @@ class BaseBlock
         $viewClassInstance = new $this->viewClass();
         return $viewClassInstance
             ->setData(array_merge($this->data, $data, [
-                'prefix' => $this->pluginConfig->prefix,
+                'prefix' => $this->config->prefix,
                 'renderCount' => $this->renderCount,
                 'wrapperTagName' => $wrapperTagName,
                 'tagAttr' => $this->tagAttr
             ]))
             ->setFile($file)
-            ->setCachePath($this->pluginConfig->viewCachePath)
+            ->setCachePath($this->config->viewCachePath)
             ->render();
     }
 

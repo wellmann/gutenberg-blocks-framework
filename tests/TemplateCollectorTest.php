@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace KWIO\GutenbergBlocks\Tests;
 
-use KWIO\GutenbergBlocks\PluginConfigDTO;
+use KWIO\GutenbergBlocks\Config;
 use ReflectionClass;
 use KWIO\GutenbergBlocks\TemplateCollector;
 
@@ -12,10 +12,10 @@ class TemplateCollectorTest extends TestCase
 {
     public function testAddNamespaceToBlockName()
     {
-        $this->pluginConfig = new PluginConfigDTO();
-        $this->pluginConfig->prefix = 'prefix';
+        $this->config = new Config();
+        $this->config->prefix = 'prefix';
 
-        $templateCollector = new TemplateCollector($this->pluginConfig);
+        $templateCollector = new TemplateCollector($this->config);
         $templateCollectorReflection = new ReflectionClass($templateCollector);
 
         $templateCollectorAddNamespace = $templateCollectorReflection->getMethod('addNamespaceToBlockName');

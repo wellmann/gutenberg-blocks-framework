@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace KWIO\GutenbergBlocks\Tests;
 
 use KWIO\GutenbergBlocks\AssetCollector;
-use KWIO\GutenbergBlocks\PluginConfigDTO;
+use KWIO\GutenbergBlocks\Config;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\expect;
@@ -13,7 +13,7 @@ use function Brain\Monkey\Functions\when;
 
 class AssetCollectorTest extends TestCase
 {
-    protected ?PluginConfigDTO $pluginConfig = null;
+    protected ?Config $config = null;
 
     protected function setUp(): void
     {
@@ -22,22 +22,22 @@ class AssetCollectorTest extends TestCase
         when('get_locale')->justReturn('de_DE');
         when('is_admin')->justReturn(false);
 
-        $this->pluginConfig = new PluginConfigDTO();
-        $this->pluginConfig->dirPath = '/';
-        $this->pluginConfig->dirUrl = '/';
-        $this->pluginConfig->distDir = 'dist/';
-        $this->pluginConfig->prefix = 'prefix';
+        $this->config = new Config();
+        $this->config->dirPath = '/';
+        $this->config->dirUrl = '/';
+        $this->config->distDir = 'dist/';
+        $this->config->prefix = 'prefix';
     }
 
     public function testAddEditorStylesIfIsTheme()
     {
-        $this->pluginConfig->isTheme = true;
+        $this->config->isTheme = true;
 
         expect('add_editor_style')
             ->once()
             ->with('dist/editor.css');
 
-        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector = new AssetCollector($this->config);
         $assetCollector->addEditorStyles();
     }
 
@@ -47,7 +47,7 @@ class AssetCollectorTest extends TestCase
             ->once()
             ->with('prefix-blocks', '/dist/blocks.css', [], '', 'nonblocking');
 
-        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueAssets();
     }
 
@@ -57,7 +57,7 @@ class AssetCollectorTest extends TestCase
         when('filemtime')->returnArg();
         when('wp_enqueue_style')->returnArg();
 
-        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueAssets();
 
         $assetCollectorReflection = new ReflectionClass($assetCollector);
@@ -70,7 +70,7 @@ class AssetCollectorTest extends TestCase
 
     public function testEnqueueEditorAssets()
     {
-        $this->pluginConfig->isTheme = true;
+        $this->config->isTheme = true;
 
         expect('wp_enqueue_script')
             ->once()
@@ -80,13 +80,13 @@ class AssetCollectorTest extends TestCase
             ->once()
             ->with('prefix-blocks-editor', 'prefix', '');
 
-        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueEditorAssets();
     }
 
     public function testEnqueueEditorAssetsWhenNotTheme()
     {
-        $this->pluginConfig->isTheme = false;
+        $this->config->isTheme = false;
 
         expect('wp_enqueue_script')
             ->once()
@@ -100,7 +100,7 @@ class AssetCollectorTest extends TestCase
             ->once()
             ->with('prefix-blocks-editor', '/dist/editor.css', ['wp-edit-blocks'], '');
 
-        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueEditorAssets();
     }
 
@@ -111,7 +111,7 @@ class AssetCollectorTest extends TestCase
             ->once()
             ->with('prefix-blocks', '/dist/blocks.js', [], '', true);
 
-        $assetCollector = new AssetCollector($this->pluginConfig);
+        $assetCollector = new AssetCollector($this->config);
         $assetCollector->enqueueScripts();
     }
 }

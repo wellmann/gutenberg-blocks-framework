@@ -17,16 +17,16 @@ class TemplateCollector
     /**
      * Holds the configurated options.
      *
-     * @var PluginConfigDTO
+     * @var Config
      */
-    private PluginConfigDTO $pluginConfig;
+    private Config $config;
 
     /**
-     * @param PluginConfigDTO $pluginConfig The configured options.
+     * @param Config $config The configured options.
      */
-    public function __construct(PluginConfigDTO $pluginConfig)
+    public function __construct(Config $config)
     {
-        $this->pluginConfig = $pluginConfig;
+        $this->config = $config;
     }
 
     /**
@@ -35,7 +35,7 @@ class TemplateCollector
      */
     public function registerTemplates(): void
     {
-        $templates = glob($this->pluginConfig->dirPath . self::TEMPLATE_FOLDER . '/{,*/}*.php', GLOB_BRACE);
+        $templates = glob($this->config->dirPath . self::TEMPLATE_FOLDER . '/{,*/}*.php', GLOB_BRACE);
         foreach ($templates as $template) {
             $this->registerTemplate($template);
         }
@@ -87,7 +87,7 @@ class TemplateCollector
     protected function addNamespaceToBlockName(array $template): array
     {
         return array_map(function ($block) {
-            $block[0] = strpos($block[0], '/') === false ? $this->pluginConfig->prefix . '/' . $block[0] : $block[0];
+            $block[0] = strpos($block[0], '/') === false ? $this->config->prefix . '/' . $block[0] : $block[0];
 
             if (!empty($block[2]) && is_array($block[2])) {
                 $block[2] = $this->addNamespaceToBlockName($block[2]);

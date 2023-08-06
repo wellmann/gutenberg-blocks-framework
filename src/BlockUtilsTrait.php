@@ -46,7 +46,7 @@ trait BlockUtilsTrait
             return;
         }
 
-        $cssFilePath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $cssFile;
+        $cssFilePath = $this->config->dirPath . $this->config->distDir . $cssFile;
         if (!is_readable($cssFilePath)) {
             return;
         }
@@ -80,7 +80,7 @@ trait BlockUtilsTrait
      */
     protected function addJs(string $jsFile, string $dependentHandle = ''): void
     {
-        $jsFilePath = $this->pluginConfig->dirPath . $this->pluginConfig->distDir . $jsFile;
+        $jsFilePath = $this->config->dirPath . $this->config->distDir . $jsFile;
         if (!is_readable($jsFilePath)) {
             return;
         }
@@ -98,7 +98,7 @@ trait BlockUtilsTrait
 
         wp_enqueue_script(
             $handle,
-            $this->pluginConfig->dirUrl . $this->pluginConfig->distDir . $jsFile,
+            $this->config->dirUrl . $this->config->distDir . $jsFile,
             [],
             substr(md5((string)filemtime($jsFilePath)), 0, 12),
             true
