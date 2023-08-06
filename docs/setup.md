@@ -1,11 +1,4 @@
----
-layout: default
-title: Setup
-nav_order: 10
----
-
 # Setup
-{: .no_toc }
 
 Add the following lines to the plugins bootstrap file or the themes functions.php:
 

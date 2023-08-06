@@ -1,20 +1,4 @@
----
-layout: default
-title: Assets
-nav_order: 25
----
-
 # Assets
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ## Styles & scripts
 
@@ -35,7 +19,7 @@ Use the follwing package to compile the files according to this schema:
 
 To load the non-critical CSS (blocks.css) in the frontend you have to include the following filter in your functions.php.
 
-```
+```php
 add_filter('style_loader_tag', function (string $html, string $handle, string $href, string $media): string {
     if ($media !== 'nonblocking') {
         return $html;

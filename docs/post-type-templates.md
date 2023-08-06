@@ -1,9 +1,3 @@
----
-layout: default
-title: Post Type Templates
-nav_order: 25
----
-
 # Post Type Templates
 
 The `KWIO\GutenbergBlocks\TemplateCollector` will look into the `post-type-templates` directory next to the blocks directory to find the template files.  

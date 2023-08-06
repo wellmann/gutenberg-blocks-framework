@@ -2,7 +2,7 @@
 [![Docs](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/docs.yml/badge.svg?branch=master)](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/docs.yml)
 [![pages-build-deployment](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/wellmann/gutenberg-blocks-framework/actions/workflows/pages/pages-build-deployment)
 
-# Gutenberg Blocks Framework 🧱
+# 🧱 Gutenberg Blocks Framework
 
 Library to load custom Gutenberg blocks in a WordPress plugin or theme.
 
@@ -17,12 +17,11 @@ Example projects:
 
 ## Features
 
-* customizable whitelist of selected core blocks
+* [dynamic](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) blocks (pure PHP, Twig or Blade views)
 * enhance output of core blocks
 * optimized for performance (critical CSS)
-* all blocks are [dynamic](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/) (pure PHP, Twig or Blade views)
+* whitelist of blocks
 * easy integration of i18n
-* view utility functions
-* supports BEM methodology
+* view utility functions (e.g. to generete BEM CSS classes)
 
-Read more: https://wellmann.github.io/gutenberg-blocks-framework/installation.html
+Read more: https://wellmann.github.io/gutenberg-blocks-framework/#/installation

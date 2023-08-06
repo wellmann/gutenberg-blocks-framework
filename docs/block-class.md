@@ -1,22 +1,6 @@
----
-layout: default
-title: Block Class
-nav_order: 15
----
-
 # Block Class
-{: .no_toc }
 
 If your block doesn't require any PHP logic you don't have to create this file since the `KWIO\GutenbergBlocks\BaseBlock` class will be used by default.
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ```php
 <?php

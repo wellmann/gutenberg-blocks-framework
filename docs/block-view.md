@@ -1,22 +1,6 @@
----
-layout: default
-title: Block View
-nav_order: 20
----
-
 # Block View
-{: .no_toc }
 
 The view file is return by the `render` function of the block class and rendered between the block wrapper element.
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ## Pure PHP view
 
@@ -47,26 +31,26 @@ Rendered result:
 `composer require twig/twig`
 
 ```twig
-{% raw %}<div class="{{ bem('element', ['modifier', renderCount])|e('html_attr') }}">
+<div class="{{ bem('element', ['modifier', renderCount])|e('html_attr') }}">
   {{ content }}
-</div>{% endraw %}
+</div>
 ```
 
 Utility methods:
 * [bem](reference/ViewUtilsTrait.html#bem)
 * [renderBlock](reference/ViewUtilsTrait.html#renderblock)
-* [__](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
-* [_x](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
-* [_n](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
-* [_nx](https://developer.wordpress.org/themes/functionality/internationalization/){:target="_blank"}
+* [__](https://developer.wordpress.org/themes/functionality/internationalization/)
+* [_x](https://developer.wordpress.org/themes/functionality/internationalization/)
+* [_n](https://developer.wordpress.org/themes/functionality/internationalization/)
+* [_nx](https://developer.wordpress.org/themes/functionality/internationalization/)
 
 Escapers:
 
-* [wp_kses_post](https://developer.wordpress.org/reference/functions/wp_kses_post/){:target="_blank"}
+* [wp_kses_post](https://developer.wordpress.org/reference/functions/wp_kses_post/)
 
 Additional data:
 * [isEditor](reference/ViewUtilsTrait.html#iseditor)
-* [post](https://developer.wordpress.org/reference/classes/wp_post/){:target="_blank"}
+* [post](https://developer.wordpress.org/reference/classes/wp_post/)
 * [renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
 You can create an instance of the `KWIO\GutenbergBlocks\View\TwigView` class and pass a custom TwigExtension to the constructor if you need to add additional functions or filters.
@@ -76,9 +60,9 @@ You can create an instance of the `KWIO\GutenbergBlocks\View\TwigView` class and
 `composer require timber/timber`
 
 ```twig
-{% raw %}<div class="{{ bem('element', ['modifier', renderCount]) }}">
+<div class="{{ bem('element', ['modifier', renderCount]) }}">
   {{ content }}
-</div>{% endraw %}
+</div>
 ```
 
 Utility methods:
@@ -87,17 +71,17 @@ Utility methods:
 
 Additional data:
 * [isEditor](reference/ViewUtilsTrait.html#iseditor)
-* [post](https://timber.github.io/docs/reference/timber-post/){:target="_blank"}
+* [post](https://timber.github.io/docs/reference/timber-post/)
 * [renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
 ## Blade view
 
 `composer require eftec/bladeone`
 
-```php
-{% raw %}<div class="@bem('element', ['modifier', $renderCount])">
+```blade
+<div class="@bem('element', ['modifier', $renderCount])">
   {{ $content }}
-</div>{% endraw %}
+</div>
 ```
 
 Utility methods:
@@ -106,7 +90,7 @@ Utility methods:
 
 Additional data:
 * [$isEditor](reference/ViewUtilsTrait.html#iseditor)
-* [$post](https://timber.github.io/docs/reference/timber-post/){:target="_blank"}
+* [$post](https://timber.github.io/docs/reference/timber-post/)
 * [$renderCount](reference/ViewUtilsTrait.html#getrendercount)
 
 ## Creating a custom  view

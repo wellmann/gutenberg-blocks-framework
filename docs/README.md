@@ -1,18 +1,17 @@
-# Gutenberg Blocks Framework 🧱 Docs
+# 🧱 Gutenberg Blocks Framework Docs
 
 ## Requirements
 
-* [Jekyll](https://jekyllrb.com/docs/installation/)
-* Bundler
+* [docsify](https://docsify.js.org/)
 * Docker
 
 ## Setup
 
-`bundle install`
+`npm i docsify-cli -g`
 
 ## Development
 
-`bundle exec jekyll serve --livereload`
+`docsify serve ./docs`
 
 ### Generate reference docs
 
