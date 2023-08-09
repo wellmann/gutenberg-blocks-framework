@@ -17,5 +17,4 @@ jobs:
       - name: commit generated phpdocs
         run: |
           git add . -f
-          git commit -m "update phpdoc"
-          git push
+          git diff-index --quiet HEAD || git commit -m "update phpdoc" && git push
