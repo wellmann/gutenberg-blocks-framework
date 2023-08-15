@@ -6,25 +6,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 </head>
 <body aria-busy="true">
+  <nav class="app-nav">
+    <ul>
+      <li>
+        <p>Version &#9662;</p>
+        <ul id="version-sub-menu"></ul>
+      </li>
+      <li>
+        <p><a href="#/changelog" title="Changelog">Changelog</a></p>
+      </li>
+      <li>
+        <p>&#9680;</p>
+      </li>
+    </ul>
+  </nav>
   <div id="app" aria-label="Loading"></div>
   <script>
     window.docsifyVars = {
-      repo: 'wellmann/gutenberg-blocks-framework',
       author: 'Kevin Wellmann'
     };
     window.$docsify = {
-      auto2top: true,
       name: '🧱 Gutenberg Blocks Framework',
-      repo: window.docsifyVars.repo,
-      loadSidebar: true,
-      alias: {
-        '/.*/_sidebar.md': '/_sidebar.md'
-      },
+      repo: 'wellmann/gutenberg-blocks-framework',
+      themeColor: '#e45932',
       subMaxLevel: 2,
-      homepage: 'https://raw.githubusercontent.com/' + window.docsifyVars.repo + '/master/README.md',
+      auto2top: true,
+      loadSidebar: true,
+      mergeNavbar: true,
       plugins: [
         function a11y(hook) {
           hook.init(function () {
@@ -37,27 +48,84 @@
           });
         },
         function footer(hook, vm) {
-          var copyright = 'Copyright © ' + new Date().getFullYear() + ' ' + window.docsifyVars.author + '. [GPL-3.0](https://github.com/' + window.docsifyVars.repo + '/blob/master/LICENSE)<br>'
+          var copyright = 'Copyright © ' + new Date().getFullYear() + ' ' + window.docsifyVars.author + '. [GPL-3.0](https://github.com/' + window.$docsify.repo + '/blob/master/LICENSE)<br>'
 
           hook.beforeEach(function (html) {
-            var url = 'https://github.com/' + window.docsifyVars.repo + '/blob/master/docs/' + vm.route.file;
+            var url = 'https://github.com/' + window.$docsify.repo + '/blob/master/docs/' + vm.route.file;
             var editHtml = '[Edit on GitHub](' + url + ')\n';
 
             return (
               html +
               '\n\n----\n' +
               copyright +
-              (vm.route.path !== '/' && vm.route.path.includes('/reference/') ? editHtml : '')
+              (
+                !vm.route.file.includes('README.md') &&
+                !vm.route.file.includes('CHANGELOG.md') &&
+                !vm.route.path.includes('/reference/')
+                ? editHtml : ''
+                )
             );
           });
         },
+        function versionSubMenu(hook) {
+          hook.init(function() {
+            if (sessionStorage.getItem('tags')) {
+              var tags = JSON.parse(sessionStorage.getItem('tags'));
+              assignTagAlias(tags);
+              renderVersionSubMenu(tags);
+            } else {
+              fetch('https://api.github.com/repos/' + window.$docsify.repo + '/tags')
+              .then(function (response) {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                return response.json();
+              })
+              .then(function (tags) {
+                sessionStorage.setItem('tags', JSON.stringify(tags));
+                assignTagAlias(tags);
+                renderVersionSubMenu(tags);
+              });
+            }
+          });
+        }
       ]
+    };
+    window.$docsify.homepage = 'https://raw.githubusercontent.com/' + window.$docsify.repo + '/master/README.md';
+    window.$docsify.alias = {
+      '/changelog': 'https://raw.githubusercontent.com/' + window.$docsify.repo + '/master/CHANGELOG.md',
+      '/1.0.(0|1)/_sidebar.md': '_sidebar-readme-only.md',
+      '/1.0.2/_sidebar.md': '_sidebar-102.md'
+    };
+    function assignTagAlias(tags) {
+      tags.forEach(function (tag) {
+        window.$docsify.alias = Object.assign(
+          window.$docsify.alias || {},
+          {
+            ['/' + tag.name + '/']: 'https://raw.githubusercontent.com/' + window.$docsify.repo + '/' + tag.name + '/README.md',
+            ['/' + tag.name + '/(.*)']: 'https://raw.githubusercontent.com/' + window.$docsify.repo + '/' + tag.name + '/docs/$1',
+          }
+        );
+      });
+    }
+    function renderVersionSubMenu(tags) {
+      var versionSubMenu = document.getElementById('version-sub-menu');
+      tags.forEach(function (tag, index) {
+        var link = document.createElement('a');
+        link.setAttribute('href', (index > 0 ? '#/' + tag.name : '') + '/');
+        link.setAttribute('title', tag.name);
+        link.textContent = tag.name;
+        var listItem = document.createElement('li');
+        listItem.append(link);
+        versionSubMenu.append(listItem);
+      });
     }
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
 </body>
 </html>

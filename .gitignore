@@ -2,9 +2,7 @@
 /.phpdoc/cache
 /.vscode
 /coverage
-/docs/_site
-/docs/.jekyll-cache
-/docs/.sass-cache
+/docs/node_modules
 /docs/reference
 /dist
 /node_modules
