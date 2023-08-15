@@ -111,7 +111,7 @@
       var versionSubMenu = document.getElementById('version-sub-menu');
       tags.forEach(function (tag, index) {
         var link = document.createElement('a');
-        link.setAttribute('href', (index > 0 ? '#/' + tag.name : '') + '#/');
+        link.setAttribute('href', (index > 0 ? '#/' + tag.name : '#') + '/');
         link.setAttribute('title', tag.name);
         link.textContent = tag.name;
         var listItem = document.createElement('li');
