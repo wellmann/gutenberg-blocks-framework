@@ -16,10 +16,7 @@
         <ul id="version-sub-menu"></ul>
       </li>
       <li>
-        <p><a href="#/changelog" title="Changelog">Changelog</a></p>
-      </li>
-      <li>
-        <p>&#9680;</p>
+        <p><a href="#/changelog/" title="Changelog">Changelog</a></p>
       </li>
     </ul>
   </nav>
@@ -94,7 +91,8 @@
     };
     window.$docsify.homepage = 'https://raw.githubusercontent.com/' + window.$docsify.repo + '/master/README.md';
     window.$docsify.alias = {
-      '/changelog': 'https://raw.githubusercontent.com/' + window.$docsify.repo + '/master/CHANGELOG.md',
+      '/changelog/': 'https://raw.githubusercontent.com/' + window.$docsify.repo + '/master/CHANGELOG.md',
+      '/changelog/_sidebar.md': '_no-sidebar.md',
       '/1.0.(0|1)/_sidebar.md': '_sidebar-readme-only.md',
       '/1.0.2/_sidebar.md': '_sidebar-102.md'
     };
@@ -113,7 +111,7 @@
       var versionSubMenu = document.getElementById('version-sub-menu');
       tags.forEach(function (tag, index) {
         var link = document.createElement('a');
-        link.setAttribute('href', (index > 0 ? '#/' + tag.name : '') + '/');
+        link.setAttribute('href', (index > 0 ? '#/' + tag.name : '') + '#/');
         link.setAttribute('title', tag.name);
         link.textContent = tag.name;
         var listItem = document.createElement('li');
