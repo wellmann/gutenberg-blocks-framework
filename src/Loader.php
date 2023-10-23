@@ -74,7 +74,6 @@ class Loader
 
     /**
      * Defines an array of blocks that should be whitelisted.
-     * Use `KWIO\GutenbergBlocks\Loader::CORE_BLOCK_WHITELIST` and merge it with your array to extend the current whitelist.
      *
      * @param array $blockWhitelist Array of allowed block slugs.
      *

@@ -19,19 +19,21 @@ The subfolder name will represent the block slug and the class should be named a
 blocks 
 │
 └───my-block
-│   │   block.js
+│   │   edit.js
 │   │   editor.scss // optional
 │   │   block.json
 │   │   MyBlock.php // optional
 │   │   style.scss // or style.critical.scss
 │   │   view.php
+│   │   view.js // optional
 │   
 └───my-block-example
-│   │   block.js
+│   │   edit.js
 │   │   editor.scss // optional
 │   │   block.json
 │   │   MyBlockExample.php // optional
 │   │   style.scss // or style.critical.scss
 │   │   view.php
+│   │   view.js // optional
 │   ...
 ```
