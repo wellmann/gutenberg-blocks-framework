@@ -74,7 +74,7 @@ Loader::setBlockNamespace(callable callback): \KWIO\GutenbergBlocks\Loader
 ### setBlockWhitelist 
 Defines an array of blocks that should be whitelisted.
 
-Use `KWIO\GutenbergBlocks\Loader::CORE_BLOCK_WHITELIST` and merge it with your array to extend the current whitelist.
+
 
 ```php
 Loader::setBlockWhitelist(array blockWhitelist): \KWIO\GutenbergBlocks\Loader
