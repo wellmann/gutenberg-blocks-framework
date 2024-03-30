@@ -15,4 +15,4 @@
 
 ### Generate reference docs
 
-Run `docker run --rm -v $(pwd):/data phpdoc/phpdoc run -d ./src -t ./docs/reference --template=.phpdoc/templates` from project root.
+Run `docker run --rm -v $(pwd):/data phpdoc/phpdoc:20230817072522e99a2e run -d ./src -t ./docs/reference --template=.phpdoc/templates` from project root.
