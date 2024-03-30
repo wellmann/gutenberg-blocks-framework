@@ -13,7 +13,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: phpDocumentor generate
-        run: docker run --rm -v $(pwd):/data phpdoc/phpdoc:3 -d ./src -t ./docs/reference --template=.phpdoc/templates
+        run: docker run --rm -v $(pwd):/data phpdoc/phpdoc:3 run -d ./src -t ./docs/reference --template=.phpdoc/templates
       - name: commit generated phpdocs
         run: |
           git add . -f
