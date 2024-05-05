@@ -149,6 +149,8 @@ class BaseBlock
      * Renders current block.
      *
      * @param string|null $file Absolute path to current blocks view file.
+     *  * Passing `null` returns an empty string
+     *  * Passing an empty string or non-existent file returns just the wrapper div (with child blocks if available)
      * @param array $data Attributes saved in the editor plus any other variables added in the block class.
      * @param string $wrapperTagName Block wrapper element tag name.
      *
