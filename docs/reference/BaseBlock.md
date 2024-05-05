@@ -89,7 +89,9 @@ BaseBlock::setView(string|null file, array data = [], string wrapperTagName = 'd
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| file | `string\|null` | Absolute path to current blocks view file. |
+| file | `string\|null` | Absolute path to current blocks view file.
+* Passing `null` returns an empty string
+* Passing an empty string or non-existent file returns just the wrapper div (with child blocks if available) |
 | data | `array` | Attributes saved in the editor plus any other variables added in the block class. |
 | wrapperTagName | `string` | Block wrapper element tag name. |
 
