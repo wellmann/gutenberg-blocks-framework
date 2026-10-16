@@ -100,3 +100,21 @@ BlockCollector::registerBlock(string block): void
 
 * `\KWIO\GutenbergBlocks\BlockCollector::registerBlocks`  
 
+### registerMetadataCollection 
+Registers a block metadata collection (`blocks-manifest.php`) if one exists,
+so core reads block metadata from a single PHP file instead of decoding each block.json.
+
+Generate it with `wp-scripts build-blocks-manifest --input=<blocks dir> --output=<manifest>`.
+
+```php
+BlockCollector::registerMetadataCollection(): void
+```
+
+
+
+**Returns:** `void` 
+
+**See:**
+
+* `\KWIO\GutenbergBlocks\BlockCollector::registerBlocks`  
+

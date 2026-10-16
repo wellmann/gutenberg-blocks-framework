@@ -13,6 +13,7 @@ Holds the configured options.
 | Name | Type | Description |
 |------|------|-------------|
 | blockDir | `string` | Blocks directory relative to the plugin or theme.  |
+| blocksManifest | `string` | Block metadata manifest relative to the plugin or theme. Empty means `blocks-manifest.php` inside the dist directory is used if it exists. |
 | blockWhitelist | `array` | Array of blocks that should be whitelisted.  |
 | classNamespace | `string` | Namespace of the block classes (`__NAMESPACE__`).  |
 | dirPath | `string` | The filesystem directory path for the theme or plugin __FILE__ passed in.  |
