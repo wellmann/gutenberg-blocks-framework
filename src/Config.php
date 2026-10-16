@@ -18,6 +18,15 @@ class Config
     public string $blockDir = '';
 
     /**
+     * Block metadata manifest relative to the plugin or theme.
+     * Empty means `blocks-manifest.php` inside the dist directory is used if it exists.
+     * @see Loader::setBlocksManifest
+     *
+     * @var string
+     */
+    public string $blocksManifest = '';
+
+    /**
      * Array of blocks that should be whitelisted.
      * @see Loader::setBlockWhitelist
      *

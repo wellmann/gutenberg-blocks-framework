@@ -90,6 +90,8 @@ class BlockCollector
      */
     public function registerBlocks(): void
     {
+        $this->registerMetadataCollection();
+
         $blocks = glob($this->blockDirPath . '*', GLOB_ONLYDIR);
         foreach ($blocks as $block) {
             $block = basename($block);
@@ -165,20 +167,37 @@ class BlockCollector
             }
         }
 
-        $args = [
+        // Core parses block.json (or reads it from a registered metadata collection).
+        // Values passed here take precedence over block.json: the name keeps the
+        // framework's folder-based naming and the class handles rendering.
+        $blockType = register_block_type_from_metadata($blockPath, [
             'name' => $name,
-            'apiVersion' => 2,
             'render_callback' => [$classInstance, 'render']
-        ];
+        ]);
 
-        $blockJson = $blockPath . 'block.json';
-        $blockJsonData = wp_json_file_decode($blockJson, ['associative' => true]);
-        if (is_array($blockJsonData)) {
-            $args = array_merge($blockJsonData, $args);
-        }
-
-        if (register_block_type($name, $args)) {
+        if ($blockType) {
             $this->blocks[] = $name;
         }
+    }
+
+    /**
+     * Registers a block metadata collection (`blocks-manifest.php`) if one exists,
+     * so core reads block metadata from a single PHP file instead of decoding each block.json.
+     * Generate it with `wp-scripts build-blocks-manifest --input=<blocks dir> --output=<manifest>`.
+     * @see BlockCollector::registerBlocks
+     */
+    protected function registerMetadataCollection(): void
+    {
+        if (!function_exists('wp_register_block_metadata_collection')) {
+            return;
+        }
+
+        $manifest = $this->config->blocksManifest ?: $this->config->distDir . 'blocks-manifest.php';
+        $manifestPath = $this->config->dirPath . $manifest;
+        if (!is_readable($manifestPath)) {
+            return;
+        }
+
+        wp_register_block_metadata_collection(untrailingslashit($this->blockDirPath), $manifestPath);
     }
 }
