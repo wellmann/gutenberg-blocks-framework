@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace KWIO\GutenbergBlocks\Tests;
 
 use KWIO\GutenbergBlocks\View\AbstractView;
+use KWIO\GutenbergBlocks\View\ViewUtilsTrait;
 use ReflectionClass;
 
 use function Brain\Monkey\Functions\when;
 
 class AbstractViewTest extends TestCase
 {
+    protected array $viewClassData;
+    protected AbstractView $viewClassMock;
+    protected ReflectionClass $viewClassMockReflection;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,11 +33,17 @@ class AbstractViewTest extends TestCase
             'tagAttr' => ['class' => ['block', 'block-example']]
         ];
 
-        $this->viewClassMock = $this->getMockForAbstractClass(AbstractView::class);
+        $this->viewClassMock = new class extends AbstractView {
+            use ViewUtilsTrait;
+
+            protected function renderWithView(): string
+            {
+                return '';
+            }
+        };
         $this->viewClassMockReflection = new ReflectionClass($this->viewClassMock);
 
         $viewClassMockReflectionBaseClass = $this->viewClassMockReflection->getProperty('baseClass');
-        $viewClassMockReflectionBaseClass->setAccessible(true);
         $viewClassMockReflectionBaseClass->setValue($this->viewClassMock, 'block-example');
     }
 
@@ -41,7 +52,6 @@ class AbstractViewTest extends TestCase
         when('esc_attr')->returnArg();
 
         $blockReflectionBuildTagAttrString = $this->viewClassMockReflection->getMethod('buildTagAttrString');
-        $blockReflectionBuildTagAttrString->setAccessible(true);
         $result = $blockReflectionBuildTagAttrString->invokeArgs($this->viewClassMock, [[
             'class' => ['block', 'block-example', 'duplicated-class', 'duplicated-class'],
             'id' => ['anchor']

@@ -141,29 +141,13 @@ class BlockCollector
             return;
         }
 
-        // Check if block has limited visibility.
-        $showOnPostTypeConstant = $blockFullClassName . '::SHOW_ON_POST_TYPE';
-        if (defined($showOnPostTypeConstant)) {
-            $showOnPostTypeConstantValue = constant($showOnPostTypeConstant);
-            if (!is_array($showOnPostTypeConstantValue)) {
-                return;
-            }
+        $blockClassReflection = new ReflectionClass($blockFullClassName);
+        $visibilityAttributes = $blockClassReflection->getAttributes(Visibility::class);
+        foreach ($visibilityAttributes as $visibilityAttribute) {
+            $visibility = $visibilityAttribute->newInstance();
 
-            foreach ($showOnPostTypeConstantValue as $postType) {
+            foreach ($visibility->postTypes as $postType) {
                 $this->restrictedBlocks[$postType][] = $name;
-            }
-        }
-
-        // Visibility declarion via PHP 8 attributes.
-        if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
-            $blockClassReflection = new ReflectionClass($blockFullClassName);
-            $visibilityAttributes = $blockClassReflection->getAttributes(Visibility::class);
-            foreach ($visibilityAttributes as $visibilityAttribute) {
-                $visibility = $visibilityAttribute->newInstance();
-
-                foreach ($visibility->postTypes as $postType) {
-                    $this->restrictedBlocks[$postType][] = $name;
-                }
             }
         }
 

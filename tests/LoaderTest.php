@@ -24,16 +24,15 @@ class LoaderTest extends TestCase
         $frameworkLoader = new Loader(__FILE__);
         $loaderClassReflection = new ReflectionClass($frameworkLoader);
         $loaderClassconfig = $loaderClassReflection->getProperty('config');
-        $loaderClassconfig->setAccessible(true);
 
         $pluginCongfig = $loaderClassconfig->getValue($frameworkLoader);
 
-        $this->assertObjectHasAttribute('blockWhitelist', $pluginCongfig);
-        $this->assertObjectHasAttribute('dirPath', $pluginCongfig);
-        $this->assertObjectHasAttribute('dirUrl', $pluginCongfig);
-        $this->assertObjectHasAttribute('distDir', $pluginCongfig);
-        $this->assertObjectHasAttribute('namespace', $pluginCongfig);
-        $this->assertObjectHasAttribute('viewClass', $pluginCongfig);
+        $this->assertObjectHasProperty('blockWhitelist', $pluginCongfig);
+        $this->assertObjectHasProperty('dirPath', $pluginCongfig);
+        $this->assertObjectHasProperty('dirUrl', $pluginCongfig);
+        $this->assertObjectHasProperty('distDir', $pluginCongfig);
+        $this->assertObjectHasProperty('namespace', $pluginCongfig);
+        $this->assertObjectHasProperty('viewClass', $pluginCongfig);
     }
 
     public function testInitHasHooks()

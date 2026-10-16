@@ -7,12 +7,18 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: php-actions/composer@v5
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@v3
+      - uses: actions/checkout@v7
+      - uses: php-actions/composer@v6
         with:
-          version: 9.5
+          php_version: "8.4"
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@v4
+        env:
+          XDEBUG_MODE: coverage
+        with:
+          php_version: "8.4"
+          php_extensions: xdebug
+          vendored_phpunit_path: vendor/bin/phpunit
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           args: --coverage-text

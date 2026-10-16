@@ -72,7 +72,6 @@ class AssetCollectorTest extends TestCase
         $assetCollectorReflection = new ReflectionClass($assetCollector);
 
         $blockCollectorGetCriticalCss = $assetCollectorReflection->getMethod('getCriticalCss');
-        $blockCollectorGetCriticalCss->setAccessible(true);
 
         $this->assertEquals($blockCollectorGetCriticalCss->invoke($assetCollector), '');
     }

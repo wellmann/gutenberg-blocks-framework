@@ -13,6 +13,8 @@ use function Brain\Monkey\Functions\when;
 
 class BaseBlockTest extends TestCase
 {
+    protected Config $config;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -29,7 +31,6 @@ class BaseBlockTest extends TestCase
         $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
-        $blockReflectionTagAttr->setAccessible(true);
 
         $block->render([], '');
 
@@ -43,7 +44,6 @@ class BaseBlockTest extends TestCase
         $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
-        $blockReflectionTagAttr->setAccessible(true);
 
         $block->render(['className' => 'additional-class'], '');
 
@@ -57,7 +57,6 @@ class BaseBlockTest extends TestCase
         $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
-        $blockReflectionTagAttr->setAccessible(true);
 
         $block->render(['align' => 'full'], '');
 
@@ -71,7 +70,6 @@ class BaseBlockTest extends TestCase
         $block = new BaseBlock('example', __DIR__ . '/data/', $this->config);
         $blockReflection = new ReflectionClass($block);
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
-        $blockReflectionTagAttr->setAccessible(true);
 
         $block->render(['anchor' => 'anchor'], '');
 
@@ -106,15 +104,12 @@ class BaseBlockTest extends TestCase
         $blockReflection = new ReflectionClass($block);
 
         $blockReflectionData = $blockReflection->getProperty('data');
-        $blockReflectionData->setAccessible(true);
         $blockReflectionData->setValue($block, ['className' => 'additional-class']);
 
         $blockReflectionExtractAttr = $blockReflection->getMethod('extractAttr');
-        $blockReflectionExtractAttr->setAccessible(true);
         $result = $blockReflectionExtractAttr->invokeArgs($block, ['className', 'class']);
 
         $blockReflectionTagAttr = $blockReflection->getProperty('tagAttr');
-        $blockReflectionTagAttr->setAccessible(true);
 
         $this->assertArrayHasKey('class', $blockReflectionTagAttr->getValue($block));
         $this->assertArrayNotHasKey('className', $blockReflectionData->getValue($block));

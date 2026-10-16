@@ -5,30 +5,29 @@ declare(strict_types=1);
 namespace KWIO\GutenbergBlocks\Tests;
 
 use KWIO\GutenbergBlocks\View\ViewUtilsTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
 
 class ViewUtilsTraitTest extends TestCase
 {
-    /**
-     * @dataProvider dataProviderForTestBem
-     */
+    #[DataProvider('dataProviderForTestBem')]
     public function testBem(string $element, array $modifier, bool $jsPrefix, string $result)
     {
-        $traitClassMock = $this->getMockForTrait(ViewUtilsTrait::class);
+        $traitClassMock = new class {
+            use ViewUtilsTrait;
+        };
 
         $traitClassMockReflection = new ReflectionClass($traitClassMock);
 
         $traitClassMockReflectionBaseClass = $traitClassMockReflection->getProperty('baseClass');
-        $traitClassMockReflectionBaseClass->setAccessible(true);
         $traitClassMockReflectionBaseClass->setValue($traitClassMock, '');
 
         $traitClassMockAddClass = $traitClassMockReflection->getMethod('bem');
-        $traitClassMockAddClass->setAccessible(true);
 
         $this->assertEquals($result, $traitClassMockAddClass->invokeArgs($traitClassMock, [$element, $modifier, $jsPrefix]));
     }
 
-    public function dataProviderForTestBem()
+    public static function dataProviderForTestBem()
     {
         return [
             ['element', [], false, '__element'],

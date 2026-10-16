@@ -27,7 +27,7 @@ class BlockCollectorTest extends TestCase
     public function testRegisterBlock()
     {
         when('wp_json_file_decode')->justReturn([]);
-        when('register_block_type')->justReturn(true);
+        when('register_block_type_from_metadata')->justReturn(true);
 
         $this->config->namespace = 'namespace';
         $this->config->viewClass = PhpView::class;
@@ -36,11 +36,9 @@ class BlockCollectorTest extends TestCase
         $blockCollectorReflection = new ReflectionClass($blockCollector);
 
         $blockCollectorRegisterBlock = $blockCollectorReflection->getMethod('registerBlock');
-        $blockCollectorRegisterBlock->setAccessible(true);
         $blockCollectorRegisterBlock->invokeArgs($blockCollector, ['example-block']);
 
         $blockCollectorBlocks = $blockCollectorReflection->getProperty('blocks');
-        $blockCollectorBlocks->setAccessible(true);
 
         $this->assertContains('namespace/example-block', $blockCollectorBlocks->getValue($blockCollector));
     }
@@ -56,7 +54,6 @@ class BlockCollectorTest extends TestCase
         $blockCollectorReflection = new ReflectionClass($blockCollector);
 
         $blockCollectorRegisterBlock = $blockCollectorReflection->getMethod('registerBlock');
-        $blockCollectorRegisterBlock->setAccessible(true);
         $blockCollectorRegisterBlock->invokeArgs($blockCollector, ['core-image']);
 
         $this->assertNotFalse(has_filter('render_block'));

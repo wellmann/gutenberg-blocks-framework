@@ -20,12 +20,11 @@ class BlockUtilsTraitTest extends TestCase
 
     public function testAddClass()
     {
-        $traitClassMock = $this->getMockForTrait(BlockUtilsTrait::class);
+        $traitClassMock = $this->createTraitInstance();
         $traitClassMock->baseClass = 'base-class';
 
         $traitClassMockReflection = new ReflectionClass($traitClassMock);
         $traitClassMockAddClass = $traitClassMockReflection->getMethod('addClass');
-        $traitClassMockAddClass->setAccessible(true);
         $traitClassMockAddClass->invokeArgs($traitClassMock, ['test-class']);
 
         $this->assertContains('test-class', $traitClassMock->tagAttr['class']);
@@ -35,11 +34,10 @@ class BlockUtilsTraitTest extends TestCase
     {
         when('esc_attr')->returnArg();
 
-        $traitClassMock = $this->getMockForTrait(BlockUtilsTrait::class);
+        $traitClassMock = $this->createTraitInstance();
 
         $traitClassMockReflection = new ReflectionClass($traitClassMock);
         $traitClassMockAddData = $traitClassMockReflection->getMethod('addData');
-        $traitClassMockAddData->setAccessible(true);
         $traitClassMockAddData->invokeArgs($traitClassMock, ['test', ['key' => 'value']]);
 
         $this->assertTrue(array_key_exists('data-test', $traitClassMock->tagAttr));
@@ -48,13 +46,23 @@ class BlockUtilsTraitTest extends TestCase
 
     public function testAddJsonData()
     {
-        $traitClassMock = $this->getMockForTrait(BlockUtilsTrait::class);
+        $traitClassMock = $this->createTraitInstance();
 
         $traitClassMockReflection = new ReflectionClass($traitClassMock);
         $traitClassMockAddData = $traitClassMockReflection->getMethod('addJsonData');
-        $traitClassMockAddData->setAccessible(true);
         $traitClassMockAddData->invokeArgs($traitClassMock, ['{}']);
 
         $this->assertEquals($traitClassMock->data['afterOpeningTag'], '<script type="application/json">{}</script>' . "\n");
+    }
+
+    private function createTraitInstance(): object
+    {
+        return new class {
+            use BlockUtilsTrait;
+
+            public string $baseClass = '';
+            public array $tagAttr = [];
+            public array $data = [];
+        };
     }
 }

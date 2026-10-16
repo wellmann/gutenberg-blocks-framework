@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace KWIO\GutenbergBlocks\View;
 
-use Timber\Post;
 use Timber\Timber;
-use Timber\Twig_Function;
+use Twig\TwigFunction;
 
 class TimberView extends AbstractView
 {
@@ -17,14 +16,14 @@ class TimberView extends AbstractView
     protected function renderWithView(): string
     {
         add_filter('timber/twig', function ($twig) {
-            $twig->addFunction(new Twig_Function('bem', [$this, 'bem']));
-            $twig->addFunction(new Twig_Function('renderBlock', [$this, 'renderBlock'], ['is_safe' => ['html']]));
+            $twig->addFunction(new TwigFunction('bem', [$this, 'bem']));
+            $twig->addFunction(new TwigFunction('renderBlock', [$this, 'renderBlock'], ['is_safe' => ['html']]));
 
             return $twig;
         });
 
         $this->data['isEditor'] = $this->isEditor();
-        $this->data['post'] = new Post();
+        $this->data['post'] = Timber::get_post();
         $this->data['renderCount'] = $this->getRenderCount();
 
         return Timber::compile($this->locateView($this->file), $this->data);

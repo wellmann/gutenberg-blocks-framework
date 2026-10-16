@@ -10,6 +10,8 @@ use KWIO\GutenbergBlocks\TemplateCollector;
 
 class TemplateCollectorTest extends TestCase
 {
+    protected Config $config;
+
     public function testAddNamespaceToBlockName()
     {
         $this->config = new Config();
@@ -19,7 +21,6 @@ class TemplateCollectorTest extends TestCase
         $templateCollectorReflection = new ReflectionClass($templateCollector);
 
         $templateCollectorAddNamespace = $templateCollectorReflection->getMethod('addNamespaceToBlockName');
-        $templateCollectorAddNamespace->setAccessible(true);
         $result = $templateCollectorAddNamespace->invokeArgs($templateCollector, [[
             ['core/image'],
             ['example-block'],
