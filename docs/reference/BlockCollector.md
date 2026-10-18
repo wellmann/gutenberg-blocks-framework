@@ -13,9 +13,9 @@ Collects the blocks residing in the blocks directory.
 | Name | Type | Description |
 |------|------|-------------|
 | blocks | `array` | Holds all successfully registered blocks.  |
-| blockDirPath | `string` | Holds the path to the blocks directoy.  |
-| config | `\KWIO\GutenbergBlocks\Config` | Holds the configurated options.  |
-| restrictedBlocks | `array` | Holds blocks that are restricted to speciffic post types.  |
+| blockDirPath | `string` | Holds the path to the blocks directory.  |
+| config | `\KWIO\GutenbergBlocks\Config` | Holds the configured options.  |
+| restrictedBlocks | `array` | Holds blocks that are restricted to specific post types.  |
 
 ## Methods
 ### __construct 
@@ -37,7 +37,7 @@ BlockCollector::__construct(\KWIO\GutenbergBlocks\Config config)
 
 
 ### filterBlocks 
-Removes blocks from block selector if they are not elligible for display on current post type.
+Removes blocks from block selector if they are not eligible for display on current post type.
 
 
 
@@ -92,24 +92,6 @@ BlockCollector::registerBlock(string block): void
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | block | `string` | Block name without namespace. |
-
-
-**Returns:** `void` 
-
-**See:**
-
-* `\KWIO\GutenbergBlocks\BlockCollector::registerBlocks`  
-
-### registerMetadataCollection 
-Registers a block metadata collection (`blocks-manifest.php`) if one exists,
-so core reads block metadata from a single PHP file instead of decoding each block.json.
-
-Generate it with `wp-scripts build-blocks-manifest --input=<blocks dir> --output=<manifest>`.
-
-```php
-BlockCollector::registerMetadataCollection(): void
-```
-
 
 
 **Returns:** `void` 
