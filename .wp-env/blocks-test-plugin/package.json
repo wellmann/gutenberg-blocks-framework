@@ -1,0 +1,11 @@
+{
+  "name": "blocks-test-plugin",
+  "private": true,
+  "scripts": {
+    "build": "wp-scripts build --webpack-copy-php --blocks-manifest --output-path=dist",
+    "start": "wp-scripts start --webpack-copy-php --blocks-manifest --output-path=dist"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^36.1.0"
+  }
+}

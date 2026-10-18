@@ -1,0 +1,16 @@
+.block-notice {
+  padding: 1rem;
+  border-left: 4px solid #2271b1;
+  background: #f0f6fc;
+
+  &--warning {
+    border-color: #dba617;
+    background: #fcf9e8;
+  }
+
+  &__label {
+    display: block;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+}
