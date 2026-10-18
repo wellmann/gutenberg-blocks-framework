@@ -22,21 +22,21 @@ class BlockCollector
     private array $blocks = [];
 
     /**
-     * Holds the path to the blocks directoy.
+     * Holds the path to the blocks directory.
      *
      * @var string
      */
     private string $blockDirPath;
 
     /**
-     * Holds the configurated options.
+     * Holds the configured options.
      *
      * @var Config
      */
     private Config $config;
 
     /**
-     * Holds blocks that are restricted to speciffic post types.
+     * Holds blocks that are restricted to specific post types.
      *
      * @var array
      */
@@ -52,7 +52,7 @@ class BlockCollector
     }
 
     /**
-     * Removes blocks from block selector if they are not elligible for display on current post type.
+     * Removes blocks from block selector if they are not eligible for display on current post type.
      * @see Loader::int
      *
      * @param bool|array $allowedBlockTypes  Array of block type slugs, or boolean to enable/disable all. Default true (all registered block types supported).
@@ -90,12 +90,16 @@ class BlockCollector
      */
     public function registerBlocks(): void
     {
-        $this->registerMetadataCollection();
+        $manifestFile = $this->config->blocksManifest ?: $this->config->distDir . 'blocks-manifest.php';
+        $manifestPath = $this->config->dirPath . $manifestFile;
+        if (is_readable($manifestPath) && function_exists('wp_register_block_metadata_collection')) {
+            wp_register_block_metadata_collection($this->blockDirPath, $manifestPath);
+        }
 
         $blocks = glob($this->blockDirPath . '*', GLOB_ONLYDIR);
         foreach ($blocks as $block) {
             $block = basename($block);
-            if (strpos($block, '_') !== 0) {
+            if (!str_starts_with($block, '_')) {
                 $this->registerBlock($block);
             }
         }
@@ -106,6 +110,8 @@ class BlockCollector
      * @see BlockCollector::registerBlocks
      *
      * @param string $block Block name without namespace.
+     *
+     * @throws Exception
      */
     protected function registerBlock(string $block): void
     {
@@ -127,7 +133,7 @@ class BlockCollector
         $name = $this->config->namespace . '/' . $block;
 
         // Override core blocks render output.
-        if (strpos($block, 'core-') === 0) {
+        if (str_starts_with($block, 'core-')) {
             $name = 'core/' . preg_replace('/^core-/', '', $block);
 
             add_filter('render_block', function ($blockContent, $block) use ($classInstance, $name) {
@@ -151,9 +157,6 @@ class BlockCollector
             }
         }
 
-        // Core parses block.json (or reads it from a registered metadata collection).
-        // Values passed here take precedence over block.json: the name keeps the
-        // framework's folder-based naming and the class handles rendering.
         $blockType = register_block_type_from_metadata($blockPath, [
             'name' => $name,
             'render_callback' => [$classInstance, 'render']
@@ -162,26 +165,5 @@ class BlockCollector
         if ($blockType) {
             $this->blocks[] = $name;
         }
-    }
-
-    /**
-     * Registers a block metadata collection (`blocks-manifest.php`) if one exists,
-     * so core reads block metadata from a single PHP file instead of decoding each block.json.
-     * Generate it with `wp-scripts build-blocks-manifest --input=<blocks dir> --output=<manifest>`.
-     * @see BlockCollector::registerBlocks
-     */
-    protected function registerMetadataCollection(): void
-    {
-        if (!function_exists('wp_register_block_metadata_collection')) {
-            return;
-        }
-
-        $manifest = $this->config->blocksManifest ?: $this->config->distDir . 'blocks-manifest.php';
-        $manifestPath = $this->config->dirPath . $manifest;
-        if (!is_readable($manifestPath)) {
-            return;
-        }
-
-        wp_register_block_metadata_collection(untrailingslashit($this->blockDirPath), $manifestPath);
     }
 }
