@@ -12,7 +12,7 @@
 
 | Name | Type | Description |
 |------|------|-------------|
-| twigView | `\KWIO\GutenbergBlocks\View\TwigView` | Holds instance of current view.  |
+| twigView | `\KWIO\GutenbergBlocks\View\TwigView` | Holds an instance of the current view.  |
 
 ## Methods
 ### __construct 

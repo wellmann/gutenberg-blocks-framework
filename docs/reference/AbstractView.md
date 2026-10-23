@@ -13,17 +13,17 @@
 
 | Name | Type | Description |
 |------|------|-------------|
-| defaultView | `string` | Holds value of default view file name.  |
+| defaultView | `string` | Holds value of the default view file name.  |
 | baseClass | `string` | Holds base classname of current block  (e.g. `block-my-example`).  |
-| cachePath | `string\|null` | Holds absolute path to a custom cache directory for twig or blade views.  |
+| cachePath | `string\|null` | Holds an absolute path to a custom cache directory for twig or blade views.  |
 | namespace | `string` | The theme or plugin name.  |
 | data | `array` | Holds attributes saved in the editor plus any other variables added in the block class.  |
-| file | `string\|null` | Holds absolute path to view file.  |
+| file | `string\|null` | Holds the absolute path to the view file.  |
 | wrapperDiv | `string` | Sets the view files wrapper div element and attributes.  |
 
 ## Methods
 ### renderWithView 
-Extract data variables for use in view file.
+Extract data variables for use in the view file.
 
 
 
@@ -53,7 +53,7 @@ AbstractView::setData(array data): \KWIO\GutenbergBlocks\View\ViewInterface
 
 **Returns:** `\KWIO\GutenbergBlocks\View\ViewInterface` 
 ### setFile 
-Sets view file to populate with data.
+Sets a view file to populate with data.
 
 
 
@@ -101,7 +101,7 @@ AbstractView::render(): string
 
 **Returns:** `string` Rendered view.
 ### locateView 
-Allows block view to be overridden in child theme.
+Allows block view to be overridden in a child theme.
 
 
 
@@ -119,7 +119,7 @@ AbstractView::locateView(string filePath): string
 
 **Returns:** `string` Located view file.
 ### buildTagAttrString <span class="label label-red">private</span>
-Converts key-value pairs to string of HTML attributes.
+Converts key-value pairs to a string of HTML attributes.
 
 
 

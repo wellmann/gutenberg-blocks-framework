@@ -12,7 +12,7 @@ Class to initialize the framework.
 
 | Name | Type | Description |
 |------|------|-------------|
-| config | `\KWIO\GutenbergBlocks\Config` | Holds the configurated options.  |
+| config | `\KWIO\GutenbergBlocks\Config` | Holds the configured options.  |
 | categories | `array` | Holds any defined custom categories.  |
 
 ## Methods
@@ -72,7 +72,7 @@ Loader::setBlocksManifest(string manifest): \KWIO\GutenbergBlocks\Loader
 
 **Returns:** `\KWIO\GutenbergBlocks\Loader` 
 ### setBlockNamespace 
-Customize the namepace of the blocks.
+Customize the namespace of the blocks.
 
 Defaults to plugin or theme name.
 
@@ -180,7 +180,7 @@ Loader::setViewCachePath(string path): \KWIO\GutenbergBlocks\Loader
 
 **Returns:** `\KWIO\GutenbergBlocks\Loader` 
 ### setViewClass 
-Implement a custom template engine or choose one of the follwing already implemented engines:
+Implement a custom template engine or choose one of the following already implemented engines:
 
 - `KWIO\GutenbergBlocks\View\PhpView` (default)
 - `KWIO\GutenbergBlocks\View\TwigView` (requires `twig/twig`)

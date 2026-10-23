@@ -14,6 +14,7 @@ Collects the blocks residing in the blocks directory.
 |------|------|-------------|
 | blocks | `array` | Holds all successfully registered blocks.  |
 | blockSrcDirPath | `string` | Holds the path to the blocks src directory.  |
+| blockDistDirPath | `string` | Holds the path to the blocks dist directory.  |
 | config | `\KWIO\GutenbergBlocks\Config` | Holds the configured options.  |
 | restrictedBlocks | `array` | Holds blocks that are restricted to specific post types.  |
 
@@ -37,7 +38,7 @@ BlockCollector::__construct(\KWIO\GutenbergBlocks\Config config)
 
 
 ### filterBlocks 
-Removes blocks from block selector if they are not eligible for display on current post type.
+Removes blocks from block selector if they are not eligible for display on the current post type.
 
 
 

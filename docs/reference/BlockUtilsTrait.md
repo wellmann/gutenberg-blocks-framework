@@ -1,6 +1,6 @@
 # BlockUtilsTrait
 
-Set of utilitiy functions to be used inside the block class.
+Set of utility functions to be used inside the block class.
 
 
 
@@ -13,7 +13,7 @@ Set of utilitiy functions to be used inside the block class.
 ### addClass 
 Adds class to the block wrapper element.
 
-Use `%s` as a placholder for the base class.
+Use `%s` as a placeholder for the base class.
 
 ```php
 BlockUtilsTrait::addClass(string class): void
@@ -47,24 +47,6 @@ BlockUtilsTrait::addData(string key, mixed value): void
 
 
 **Returns:** `void` 
-### addInlineCss 
-Adds inline CSS only when block is rendered.
-
-
-
-```php
-BlockUtilsTrait::addInlineCss(string cssFile): void
-```
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| cssFile | `string` | Must be relative to the dist dir. |
-
-
-**Returns:** `void` 
 ### addJsonData 
 Adds JSON data via script tag after the opening block wrapper tag.
 
@@ -83,32 +65,13 @@ BlockUtilsTrait::addJsonData(mixed jsonOrArray): void
 
 
 **Returns:** `void` 
-### addJs 
-Enqueues JS file only when block is rendered.
-
-Most useful to enqueue a third party dependency of a rarely used block.
-
-```php
-BlockUtilsTrait::addJs(string jsFile, string dependentHandle = ''): void
-```
-
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| jsFile | `string` | Must be relative to the dist dir. |
-| dependentHandle | `string` | Handle of the script that needs this script loaded. |
-
-
-**Returns:** `void` 
 ### addPatternCss 
 Adds pattern-specific CSS only when rendered.
 
 
 
 ```php
-BlockUtilsTrait::addPatternCss(string cssFile, string className): void
+BlockUtilsTrait::addPatternCss(string cssFile): void
 ```
 
 
@@ -116,8 +79,7 @@ BlockUtilsTrait::addPatternCss(string cssFile, string className): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| cssFile | `string` | Must be relative to the dist dir. |
-| className | `string` | Class name of the pattern. |
+| cssFile | `string` | Must be relative to the dist dir and must match the pattern&#039;s class name. |
 
 
 **Returns:** `void` 
@@ -127,7 +89,7 @@ Adds block-specific CSS only when rendered.
 
 
 ```php
-BlockUtilsTrait::addCss(string cssFile, string|null handle = null): void
+BlockUtilsTrait::addCss(string cssFile, callable|null condition = null): void
 ```
 
 
@@ -135,8 +97,46 @@ BlockUtilsTrait::addCss(string cssFile, string|null handle = null): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| cssFile | `string` |  |
-| handle | `string\|null` |  |
+| cssFile | `string` | Must be relative to the dist dir. |
+| condition | `callable\|null` | Condition to check before adding the style. |
+
+
+**Returns:** `void` 
+### addPatterJs 
+Adds pattern-specific JS only when rendered.
+
+
+
+```php
+BlockUtilsTrait::addPatterJs(string jsFile): void
+```
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| jsFile | `string` | Must be relative to the dist dir and must match the pattern&#039;s class name. |
+
+
+**Returns:** `void` 
+### addJs 
+Adds block-specific JS only when rendered.
+
+
+
+```php
+BlockUtilsTrait::addJs(string jsFile, string dependentHandle = '', callable|null condition = null): void
+```
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| jsFile | `string` | Must be relative to the dist dir. |
+| dependentHandle | `string` | Handle of the script that requires this script. |
+| condition | `callable\|null` | Condition to check before adding the script. |
 
 
 **Returns:** `void` 

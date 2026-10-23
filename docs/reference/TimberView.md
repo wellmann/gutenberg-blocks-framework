@@ -13,11 +13,11 @@
 
 | Name | Type | Description |
 |------|------|-------------|
-| defaultView | `string` | Holds value of default view file name.  |
+| defaultView | `string` | Holds value of the default view file name.  |
 
 ## Methods
 ### renderWithView 
-Extract data variables for use in view file.
+Extract data variables for use in the view file.
 
 
 

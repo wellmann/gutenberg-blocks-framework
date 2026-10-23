@@ -1,6 +1,6 @@
 # ViewUtilsTrait
 
-Set of utilitiy functions to be used inside the view file.
+Set of utility functions to be used inside the view file.
 
 
 
@@ -37,7 +37,7 @@ ViewUtilsTrait::bem(string element = '', array modifiers = [], bool jsPrefix = f
 
 **Returns:** `string` BEM classname.
 ### isEditor 
-Checks if view is rendered in the block editor via `@wordpress/server-side-render`.
+Checks if the view is rendered in the block editor via `@wordpress/server-side-render`.
 
 
 
@@ -61,9 +61,9 @@ ViewUtilsTrait::getPost(): \WP_Post
 
 **Returns:** `\WP_Post` 
 ### getRenderCount 
-Returns render count for current view.
+Returns render count for the current view.
 
-If you have the same block multiple times on a page this function allows you to generate a unique class name or id.
+If you have the same block multiple times on a page, this function allows you to generate a unique class name or id.
 
 ```php
 ViewUtilsTrait::getRenderCount(): int
@@ -73,7 +73,7 @@ ViewUtilsTrait::getRenderCount(): int
 
 **Returns:** `int` Render count for current view.
 ### renderBlock 
-Renders blocks loaded by this framework without specifing the namespace.
+Renders blocks loaded by this framework without specifying the namespace.
 
 
 

@@ -41,7 +41,7 @@ ViewInterface::setData(array data): \KWIO\GutenbergBlocks\View\ViewInterface
 
 **Returns:** `\KWIO\GutenbergBlocks\View\ViewInterface` 
 ### setFile 
-Sets view file to populate with data.
+Sets a view file to populate with data.
 
 
 

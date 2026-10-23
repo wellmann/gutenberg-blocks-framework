@@ -19,7 +19,7 @@ Holds the configured options.
 | dirPath | `string` | The filesystem directory path for the theme or plugin __FILE__ passed in.  |
 | dirUrl | `string` | The URL directory path for the theme or plugin __FILE__ passed in.  |
 | distDir | `string` | The path to the block assets dist folder.  |
-| isTheme | `bool` | If library is used in plugin or theme.  |
+| isTheme | `bool` | If the library is used in a plugin or theme.  |
 | namespace | `string` | The theme or plugin name.  |
 | translationsPath | `string` | The path of the directory of your translation file (e.g. kwio-de_DE.json).  |
 | viewCachePath | `string\|null` | Absolute path to a custom cache directory for twig or blade views.  |

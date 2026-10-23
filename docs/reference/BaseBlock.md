@@ -12,19 +12,19 @@ Default class for every custom block.
 
 | Name | Type | Description |
 |------|------|-------------|
-| dirPath | `string` | Holds path to current block.  |
+| dirPath | `string` | Holds the path to the current block.  |
 | baseClass | `string` | Holds base classname of current block  (e.g. `block-my-example`).  |
 | name | `string` | Holds name (e.g. `kwio/my-example`.) of current block.  |
 | slug | `string` | Holds slug (e.g. `my-example`.) of current block.  |
-| config | `\KWIO\GutenbergBlocks\Config` | Holds the configurated options.  |
+| config | `\KWIO\GutenbergBlocks\Config` | The configured options.  |
 | tagAttr | `array` | Holds the HTML attributes that will be rendered on the block wrapper element. Is reset on every render. |
 | data | `array` | Holds attributes saved in the editor plus any other variables added in the block class.  |
 | renderCount | `int` | Holds how often the current block is rendered on the page.  |
-| viewClass | `string` | Holds current view implementaion.  |
+| viewClass | `string` | Holds the current view implementation.  |
 
 ## Methods
 ### __construct 
-Creates instance of current block type once per request.
+Creates an instance of the current block type once per request.
 
 
 
@@ -44,7 +44,7 @@ BaseBlock::__construct(string slug, string dirPath, \KWIO\GutenbergBlocks\Config
 
 
 ### getRenderCount 
-Returns render count for current block type.
+Returns render count for the current block type.
 
 
 
@@ -98,8 +98,8 @@ BaseBlock::setView(string|null file, array data = [], string wrapperTagName = 'd
 
 **Returns:** `string` Rendered HTML output of current block.
 ### extractAttr <span class="label label-red">private</span>
-Extract key–value pair from data passed to the blocks view
-and optionally rename it for use as HTML attribute.
+Extract a key – value pair from data passed to the blocks view
+and optionally rename it for use as an HTML attribute.
 
 
 
