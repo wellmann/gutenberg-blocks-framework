@@ -117,7 +117,7 @@ trait BlockUtilsTrait
             return;
         }
 
-        $this->addCss($cssFile,"$this->config->namespace-$this->baseClass-$className");
+        $this->addCss($cssFile,"{$this->config->namespace}-{$this->slug}-$className");
     }
 
     /**
@@ -134,11 +134,12 @@ trait BlockUtilsTrait
         }
 
         $name = str_starts_with($this->slug, 'core-') ? 'core/' . preg_replace('/^core-/', '', $this->slug) : $this->name;
-        $handle = $handle ?? "$this->config->namespace-$this->baseClass-$cssFile";
+        $filename = basename($cssFilePath, '.css');
+        $handle = $handle ?? "{$this->config->namespace}-{$this->slug}-$filename";
 
         wp_enqueue_block_style($name, [
             'handle' => $handle,
-            'src' => $this->config->dirUrl . $this->config->distDir . $cssFile,
+            'src' => $this->config->dirUrl . $this->config->distDir . $filename,
             'path' => $cssFilePath,
             'ver' => filemtime($cssFilePath),
         ]);
