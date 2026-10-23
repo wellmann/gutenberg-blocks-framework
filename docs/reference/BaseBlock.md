@@ -38,7 +38,7 @@ BaseBlock::__construct(string slug, string dirPath, \KWIO\GutenbergBlocks\Config
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | slug | `string` | Block slug without namespace (e.g. `my-example`). |
-| dirPath | `string` | Path to current block. |
+| dirPath | `string` | Path to block dir. |
 | config | `\KWIO\GutenbergBlocks\Config` | Configurated options. |
 
 

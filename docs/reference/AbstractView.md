@@ -19,6 +19,7 @@
 | namespace | `string` | The theme or plugin name.  |
 | data | `array` | Holds attributes saved in the editor plus any other variables added in the block class.  |
 | file | `string\|null` | Holds absolute path to view file.  |
+| renderCount | `int` | Holds the number of times the block has been rendered.  |
 | wrapperDiv | `string` | Sets the view files wrapper div element and attributes.  |
 
 ## Methods

@@ -13,7 +13,7 @@ Collects the blocks residing in the blocks directory.
 | Name | Type | Description |
 |------|------|-------------|
 | blocks | `array` | Holds all successfully registered blocks.  |
-| blockDirPath | `string` | Holds the path to the blocks directory.  |
+| blockSrcDirPath | `string` | Holds the path to the blocks src directory.  |
 | config | `\KWIO\GutenbergBlocks\Config` | Holds the configured options.  |
 | restrictedBlocks | `array` | Holds blocks that are restricted to specific post types.  |
 

@@ -102,3 +102,41 @@ BlockUtilsTrait::addJs(string jsFile, string dependentHandle = ''): void
 
 
 **Returns:** `void` 
+### addPatternCss 
+Adds pattern-specific CSS only when rendered.
+
+
+
+```php
+BlockUtilsTrait::addPatternCss(string cssFile, string className): void
+```
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| cssFile | `string` | Must be relative to the dist dir. |
+| className | `string` | Class name of the pattern. |
+
+
+**Returns:** `void` 
+### addCss 
+Adds block-specific CSS only when rendered.
+
+
+
+```php
+BlockUtilsTrait::addCss(string cssFile, string|null handle = null): void
+```
+
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| cssFile | `string` |  |
+| handle | `string\|null` |  |
+
+
+**Returns:** `void` 
