@@ -36,30 +36,6 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Adds inline CSS only when the block is rendered.
-     *
-     * @param string $cssFile Must be relative to the dist dir.
-     */
-    protected function addInlineCss(string $cssFile): void
-    {
-        if (wp_style_is($this->baseClass)) {
-            return;
-        }
-
-        $cssFilePath = $this->config->dirPath . $this->config->distDir . $cssFile;
-        if (!is_readable($cssFilePath)) {
-            return;
-        }
-
-        $criticalCss = file_get_contents($cssFilePath);
-        $criticalCss = str_replace('../../../../', content_url('/'), $criticalCss);
-
-        wp_register_style($this->baseClass, false);
-        wp_enqueue_style($this->baseClass);
-        wp_add_inline_style($this->baseClass, trim($criticalCss));
-    }
-
-    /**
      * Adds JSON data via script tag after the opening block wrapper tag.
      *
      * @param mixed $jsonOrArray JSON data to add.
@@ -74,40 +50,99 @@ trait BlockUtilsTrait
     /**
      * Adds pattern-specific CSS only when rendered.
      *
-     * @param string $cssFile Must be relative to the dist dir.
-     * @param string $className Class name of the pattern.
+     * @param string $cssFile Must be relative to the dist dir and must match the pattern's class name.
      */
-    protected function addPatternCss(string $cssFile, string $className): void
+    protected function addPatternCss(string $cssFile): void
     {
-        if (!in_array($className, $this->tagAttr['class'] ?? [], true)) {
-            return;
-        }
+        $className = basename($cssFile, '.css');
 
-        $this->addCss($cssFile,"{$this->config->namespace}-{$this->slug}-$className");
+        $this->addCss(
+            $cssFile,
+            fn () => in_array($className, $this->tagAttr['class'] ?? [], true)
+        );
     }
 
     /**
      * Adds block-specific CSS only when rendered.
      *
-     * @param string $cssFile
-     * @param string|null $handle
+     * @param string $cssFile Must be relative to the dist dir.
+     * @param callable|null $condition Condition to check before adding the style.
      */
-    protected function addCss(string $cssFile, ?string $handle = null): void
+    protected function addCss(string $cssFile, ?callable $condition = null): void
     {
         $cssFilePath = $this->config->dirPath . $this->config->distDir . $cssFile;
         if (!is_readable($cssFilePath)) {
             return;
         }
 
+        if ($condition && !call_user_func($condition)) {
+            return;
+        }
+
         $name = str_starts_with($this->slug, 'core-') ? 'core/' . preg_replace('/^core-/', '', $this->slug) : $this->name;
-        $filename = basename($cssFilePath, '.css');
-        $handle = $handle ?? "{$this->config->namespace}-{$this->slug}-$filename";
 
         wp_enqueue_block_style($name, [
-            'handle' => $handle,
-            'src' => $this->config->dirUrl . $this->config->distDir . $filename,
+            'handle' => "{$this->config->namespace}-{$this->slug}-" . basename($cssFilePath, '.css'),
+            'src' => $this->config->dirUrl . $this->config->distDir . $cssFile,
             'path' => $cssFilePath,
             'ver' => filemtime($cssFilePath),
         ]);
+    }
+
+    /**
+     * Adds pattern-specific JS only when rendered.
+     *
+     * @param string $jsFile Must be relative to the dist dir and must match the pattern's class name.
+     */
+    protected function addPatterJs(string $jsFile): void
+    {
+        $className = basename($jsFile, '.js');
+
+        $this->addJs(
+            $jsFile,
+            '',
+            fn () => in_array($className, $this->tagAttr['class'] ?? [], true)
+        );
+    }
+
+    /**
+     * Adds block-specific JS only when rendered.
+     *
+     * @param string $jsFile Must be relative to the dist dir.
+     * @param string $dependentHandle Handle of the script that requires this script.
+     * @param callable|null $condition Condition to check before adding the script.
+     */
+    protected function addJs(string $jsFile, string $dependentHandle = '', ?callable $condition = null): void
+    {
+        $jsFilePath = $this->config->dirPath . $this->config->distDir . $jsFile;
+        if (!is_readable($jsFilePath)) {
+            return;
+        }
+
+        if (!empty($condition) && !call_user_func($condition)) {
+            return;
+        }
+
+        $handle = "{$this->config->namespace}-{$this->slug}-" . basename($jsFilePath, '.js');
+
+        if (!empty($dependentHandle)) {
+            $dependent = $GLOBALS['wp_scripts']->query($dependentHandle, 'registered');
+            if (!$dependent) {
+                return;
+            }
+
+            $dependent->deps[] = $handle;
+        }
+
+        wp_enqueue_script(
+            $handle,
+            $this->config->dirUrl . $this->config->distDir . $jsFile,
+            [],
+            filemtime($jsFilePath),
+            [
+                'strategy' => 'defer',
+                'in_footer' => true,
+            ]
+        );
     }
 }
