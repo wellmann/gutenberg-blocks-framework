@@ -49,13 +49,6 @@ abstract class AbstractView implements ViewInterface
     protected ?string $file;
 
     /**
-     * Holds the number of times the block has been rendered.
-     *
-     * @var int
-     */
-    protected int $renderCount = 0;
-
-    /**
      * Sets the view files wrapper div element and attributes.
      *
      * @var string
