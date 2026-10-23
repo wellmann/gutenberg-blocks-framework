@@ -14,7 +14,7 @@ use KWIO\GutenbergBlocks\View\ViewInterface;
 class Loader
 {
     /**
-     * Holds the configurated options.
+     * Holds the configured options.
      *
      * @var Config
      */
@@ -73,7 +73,7 @@ class Loader
     }
 
     /**
-     * Customize the namepace of the blocks.
+     * Customize the namespace of the blocks.
      * Defaults to plugin or theme name.
      *
      * @param callable $callback Function which recieves current namespace as parameter and returns new namespace.
@@ -153,7 +153,7 @@ class Loader
     }
 
     /**
-     * Implement a custom template engine or choose one of the follwing already implemented engines:
+     * Implement a custom template engine or choose one of the following already implemented engines:
      *
      * - `KWIO\GutenbergBlocks\View\PhpView` (default)
      * - `KWIO\GutenbergBlocks\View\TwigView` (requires `twig/twig`)

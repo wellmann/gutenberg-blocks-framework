@@ -60,7 +60,7 @@ class BlockCollector
     }
 
     /**
-     * Removes blocks from block selector if they are not eligible for display on current post type.
+     * Removes blocks from block selector if they are not eligible for display on the current post type.
      * @see Loader::int
      *
      * @param bool|array $allowedBlockTypes  Array of block type slugs, or boolean to enable/disable all. Default true (all registered block types supported).

@@ -23,7 +23,7 @@ interface ViewInterface
     public function setData(array $data): ViewInterface;
 
     /**
-     * Sets view file to populate with data.
+     * Sets a view file to populate with data.
      *
      * @param string $file Absolute path to view file.
      *

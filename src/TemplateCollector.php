@@ -15,7 +15,7 @@ class TemplateCollector
     private const TEMPLATE_FOLDER = 'post-type-templates';
 
     /**
-     * Holds the configurated options.
+     * Holds the configured options.
      *
      * @var Config
      */
@@ -42,7 +42,7 @@ class TemplateCollector
     }
 
     /**
-     * Registers a single template based on current post type.
+     * Registers a single template based on the current post type.
      *
      * @param string $template Template file for directory name.
      */
@@ -78,7 +78,7 @@ class TemplateCollector
     }
 
     /**
-     * Adds the namespace if block is part of current namespace.
+     * Adds the namespace if the block is part of the current namespace.
      *
      * @param array $template Array of nested blocks.
      *

@@ -14,7 +14,7 @@ class BaseBlock
     use BlockUtilsTrait;
 
     /**
-     * Holds path to current block.
+     * Holds the path to the current block.
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class BaseBlock
     protected string $slug;
 
     /**
-     * Holds the configurated options.
+     * The configured options.
      *
      * @var Config
      */
@@ -71,7 +71,7 @@ class BaseBlock
     private int $renderCount = 0;
 
     /**
-     * Holds current view implementaion.
+     * Holds the current view implementation.
      * @see AbstractView
      *
      * @var string
@@ -79,7 +79,7 @@ class BaseBlock
     private string $viewClass;
 
     /**
-     * Creates instance of current block type once per request.
+     * Creates an instance of the current block type once per request.
      *
      * @param string $slug Block slug without namespace (e.g. `my-example`).
      * @param string $dirPath Path to block dir.
@@ -96,7 +96,7 @@ class BaseBlock
     }
 
     /**
-     * Returns render count for current block type.
+     * Returns render count for the current block type.
      *
      * @return integer Render count for current block.
      */
@@ -172,8 +172,8 @@ class BaseBlock
     }
 
     /**
-     * Extract key–value pair from data passed to the blocks view
-     * and optionally rename it for use as HTML attribute.
+     * Extract a key – value pair from data passed to the blocks view
+     * and optionally rename it for use as an HTML attribute.
      *
      * @param string $attr Attribute name to extract.
      * @param string $newAttr New attribute name to extract value into.

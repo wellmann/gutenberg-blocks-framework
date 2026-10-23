@@ -7,7 +7,7 @@ namespace KWIO\GutenbergBlocks\View;
 abstract class AbstractView implements ViewInterface
 {
     /**
-     * Holds value of default view file name.
+     * Holds value of the default view file name.
      *
      * @var string
      */
@@ -21,7 +21,7 @@ abstract class AbstractView implements ViewInterface
     protected string $baseClass;
 
     /**
-     * Holds absolute path to a custom cache directory for twig or blade views.
+     * Holds an absolute path to a custom cache directory for twig or blade views.
      *
      * @var string|null
      */
@@ -42,7 +42,7 @@ abstract class AbstractView implements ViewInterface
     protected array $data;
 
     /**
-     * Holds absolute path to view file.
+     * Holds the absolute path to the view file.
      *
      * @var string|null
      */
@@ -56,7 +56,7 @@ abstract class AbstractView implements ViewInterface
     private string $wrapperDiv;
 
     /**
-     * Extract data variables for use in view file.
+     * Extract data variables for use in the view file.
      *
      * @return string Rendered view fil with wrapper elment.
      */
@@ -123,7 +123,7 @@ abstract class AbstractView implements ViewInterface
     }
 
     /**
-     * Allows block view to be overridden in child theme.
+     * Allows block view to be overridden in a child theme.
      *
      * @param string $filePath Absolute path to view file.
      *
@@ -146,7 +146,7 @@ abstract class AbstractView implements ViewInterface
     }
 
     /**
-     * Converts key-value pairs to string of HTML attributes.
+     * Converts key-value pairs to a string of HTML attributes.
      * @see AbstractView::setData
      *
      * @param array $array Array of attributes.

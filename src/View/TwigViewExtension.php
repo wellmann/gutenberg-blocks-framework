@@ -10,7 +10,7 @@ use Twig\TwigFunction;
 class TwigViewExtension extends AbstractExtension
 {
     /**
-     * Holds instance of current view.
+     * Holds an instance of the current view.
      *
      * @var TwigView
      */

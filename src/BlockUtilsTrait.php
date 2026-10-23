@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace KWIO\GutenbergBlocks;
 
 /**
- * Set of utilitiy functions to be used inside the block class.
+ * Set of utility functions to be used inside the block class.
  */
 trait BlockUtilsTrait
 {
     /**
      * Adds class to the block wrapper element.
-     * Use `%s` as a placholder for the base class.
+     * Use `%s` as a placeholder for the base class.
      *
      * @param string $class Classname to add.
      */
@@ -36,7 +36,7 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Adds inline CSS only when block is rendered.
+     * Adds inline CSS only when the block is rendered.
      *
      * @param string $cssFile Must be relative to the dist dir.
      */
@@ -72,7 +72,7 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Enqueues JS file only when block is rendered.
+     * Enqueues JS file only when the block is rendered.
      * Most useful to enqueue a third party dependency of a rarely used block.
      *
      * @param string $jsFile Must be relative to the dist dir.

@@ -67,7 +67,7 @@ class Config
     public string $distDir = '';
 
     /**
-     * If library is used in plugin or theme.
+     * If the library is used in a plugin or theme.
      * @see Loader::__construct
      *
      * @var boolean

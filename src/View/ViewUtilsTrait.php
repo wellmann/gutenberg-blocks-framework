@@ -8,7 +8,7 @@ use KWIO\GutenbergBlocks\BaseBlock;
 use WP_Post;
 
 /**
- * Set of utilitiy functions to be used inside the view file.
+ * Set of utility functions to be used inside the view file.
  */
 trait ViewUtilsTrait
 {
@@ -44,7 +44,7 @@ trait ViewUtilsTrait
     }
 
     /**
-     * Checks if view is rendered in the block editor via `@wordpress/server-side-render`.
+     * Checks if the view is rendered in the block editor via `@wordpress/server-side-render`.
      *
      * @return boolean
      */
@@ -66,8 +66,8 @@ trait ViewUtilsTrait
     }
 
     /**
-     * Returns render count for current view.
-     * If you have the same block multiple times on a page this function allows you to generate a unique class name or id.
+     * Returns render count for the current view.
+     * If you have the same block multiple times on a page, this function allows you to generate a unique class name or id.
      *
      * @return integer Render count for current view.
      */
@@ -77,7 +77,7 @@ trait ViewUtilsTrait
     }
 
     /**
-     * Renders blocks loaded by this framework without specifing the namespace.
+     * Renders blocks loaded by this framework without specifying the namespace.
      *
      * @param string $blockSlugOrClassName Block name without namespace or block class name.
      * @param array $attrs Block attributes.
