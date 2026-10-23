@@ -42,7 +42,7 @@ trait BlockUtilsTrait
      */
     protected function addInlineCss(string $cssFile): void
     {
-        if(wp_style_is($this->baseClass)) {
+        if (wp_style_is($this->baseClass)) {
             return;
         }
 
@@ -103,5 +103,44 @@ trait BlockUtilsTrait
             substr(md5((string)filemtime($jsFilePath)), 0, 12),
             true
         );
+    }
+
+    /**
+     * Adds pattern-specific CSS only when rendered.
+     *
+     * @param string $cssFile Must be relative to the dist dir.
+     * @param string $className Class name of the pattern.
+     */
+    protected function addPatternCss(string $cssFile, string $className): void
+    {
+        if (!in_array($className, $this->tagAttr['class'] ?? [], true)) {
+            return;
+        }
+
+        $this->addCss($cssFile,"$this->config->namespace-$this->baseClass-$className");
+    }
+
+    /**
+     * Adds block-specific CSS only when rendered.
+     *
+     * @param string $cssFile
+     * @param string|null $handle
+     */
+    protected function addCss(string $cssFile, ?string $handle = null): void
+    {
+        $cssFilePath = $this->config->dirPath . $this->config->distDir . $cssFile;
+        if (!is_readable($cssFilePath)) {
+            return;
+        }
+
+        $name = str_starts_with($this->slug, 'core-') ? 'core/' . preg_replace('/^core-/', '', $this->slug) : $this->name;
+        $handle = $handle ?? "$this->config->namespace-$this->baseClass-$cssFile";
+
+        wp_enqueue_block_style($name, [
+            'handle' => $handle,
+            'src' => $this->config->dirUrl . $this->config->distDir . $cssFile,
+            'path' => $cssFilePath,
+            'ver' => filemtime($cssFilePath),
+        ]);
     }
 }
