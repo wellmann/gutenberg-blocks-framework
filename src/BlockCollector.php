@@ -29,6 +29,13 @@ class BlockCollector
     private string $blockSrcDirPath;
 
     /**
+     * Holds the path to the blocks dist directory.
+     *
+     * @var string
+     */
+    private string $blockDistDirPath;
+
+    /**
      * Holds the configured options.
      *
      * @var Config
@@ -48,6 +55,7 @@ class BlockCollector
     public function __construct(Config $config)
     {
         $this->blockSrcDirPath = $config->dirPath . $config->blockDir;
+        $this->blockDistDirPath = $config->dirPath . $config->distDir;
         $this->config = $config;
     }
 
@@ -93,7 +101,7 @@ class BlockCollector
         $manifestFile = $this->config->blocksManifest ?: $this->config->distDir . 'blocks-manifest.php';
         $manifestPath = $this->config->dirPath . $manifestFile;
         if (is_readable($manifestPath) && function_exists('wp_register_block_metadata_collection')) {
-            wp_register_block_metadata_collection($this->config->distDir, $manifestPath);
+            wp_register_block_metadata_collection($this->blockDistDirPath, $manifestPath);
         }
 
         $blocks = glob($this->blockSrcDirPath . '*', GLOB_ONLYDIR);
@@ -117,7 +125,7 @@ class BlockCollector
     {
         $blockClassName = str_replace('-', '', ucwords($block, '-'));
         $blockFullClassName = BaseBlock::class;
-        $blockPath = trailingslashit($this->config->distDir . $block);
+        $blockPath = trailingslashit($this->blockDistDirPath . $block);
 
         // Check if block has a dedicated PHP class.
         if (file_exists($blockPath . $blockClassName . '.php')) {
@@ -125,7 +133,7 @@ class BlockCollector
             $blockFullClassName = $this->config->classNamespace . '\\' . $blockClassName;
         }
 
-        $classInstance = new $blockFullClassName($block, $this->config->distDir, $this->config);
+        $classInstance = new $blockFullClassName($block, $this->blockDistDirPath, $this->config);
         if (!$classInstance instanceof BaseBlock) {
             throw new Exception($blockFullClassName . ' must be an instance of ' . BaseBlock::class);
         }
