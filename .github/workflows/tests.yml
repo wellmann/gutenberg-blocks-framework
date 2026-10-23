@@ -8,9 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: php-actions/composer@v6
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php_version: "8.4"
+          php-version: "8.4"
+          extensions: xdebug
+          coverage: xdebug
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
       - name: PHPUnit Tests
         run: php vendor/bin/phpunit --coverage-text
         env:
