@@ -64,7 +64,7 @@ trait BlockUtilsTrait
      *
      * @param mixed $jsonOrArray JSON data to add.
      */
-    protected function addJsonData($jsonOrArray): void
+    protected function addJsonData(mixed $jsonOrArray): void
     {
         $json = is_scalar($jsonOrArray) ? $jsonOrArray : json_encode($jsonOrArray);
 

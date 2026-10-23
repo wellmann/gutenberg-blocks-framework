@@ -156,7 +156,7 @@ class BaseBlock
      *
      * @return string Rendered HTML output of current block.
      */
-    protected function setView(?string $file, array $data = [], $wrapperTagName = 'div'): string
+    protected function setView(?string $file, array $data = [], string $wrapperTagName = 'div'): string
     {
         $viewClassInstance = new $this->viewClass();
         return $viewClassInstance

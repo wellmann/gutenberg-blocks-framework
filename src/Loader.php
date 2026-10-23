@@ -33,7 +33,7 @@ class Loader
     public function __construct(string $file)
     {
         $this->config = new Config();
-        $this->config->isTheme = strpos($file, '/themes/') !== false;
+        $this->config->isTheme = str_contains($file, '/themes/');
         $this->config->dirPath = plugin_dir_path($file);
         $this->config->dirUrl = $this->config->isTheme ? trailingslashit(get_stylesheet_directory_uri()) : plugin_dir_url($file);
         $this->config->distDir = 'dist/';
@@ -163,6 +163,7 @@ class Loader
      * @param string $viewClass String of a class extending `AbstractView`.
      *
      * @return Loader
+     * @throws Exception
      */
     public function setViewClass(string $viewClass): Loader
     {

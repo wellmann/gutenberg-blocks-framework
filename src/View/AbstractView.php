@@ -106,7 +106,7 @@ abstract class AbstractView implements ViewInterface
             return '';
         }
 
-        $isCoreBlock = strpos($this->baseClass, 'block-core-') === 0;
+        $isCoreBlock = str_starts_with($this->baseClass, 'block-core-');
 
         if (!file_exists($this->file)) {
             if (!empty($this->data['content'])) {
@@ -132,7 +132,7 @@ abstract class AbstractView implements ViewInterface
     protected function locateView(string $filePath): string
     {
         // If blocks are located in the theme make the view file overridable in child theme.
-        if (strpos($this->file, '/themes/') !== false) {
+        if (str_contains($this->file, '/themes/')) {
             $relativeFilePath = str_replace([STYLESHEETPATH, TEMPLATEPATH], '', $filePath);
 
             if (file_exists(STYLESHEETPATH . '/' . $relativeFilePath)) {
