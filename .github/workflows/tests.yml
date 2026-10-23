@@ -12,13 +12,6 @@ jobs:
         with:
           php_version: "8.4"
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@v4
+        run: php vendor/bin/phpunit --coverage-text
         env:
           XDEBUG_MODE: coverage
-        with:
-          php_version: "8.4"
-          php_extensions: xdebug
-          vendored_phpunit_path: vendor/bin/phpunit
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          args: --coverage-text
