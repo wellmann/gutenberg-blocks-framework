@@ -66,7 +66,7 @@ BlockUtilsTrait::addJsonData(mixed jsonOrArray): void
 
 **Returns:** `void` 
 ### addCssForClass 
-Adds CSS only when rendered and the block wrapper has a class matching the filename (without extension). This can target pattern, block style, or variation classes.
+Adds CSS only when the rendered block has a class matching the file name.
 
 
 
@@ -79,7 +79,7 @@ BlockUtilsTrait::addCssForClass(string cssFile): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| cssFile | `string` | Must be relative to the dist dir and match a block class. |
+| cssFile | `string` | Must be relative to the dist dir; its basename (without extension) must match a block class. |
 
 
 **Returns:** `void` 
@@ -103,7 +103,7 @@ BlockUtilsTrait::addCss(string cssFile, callable|null condition = null): void
 
 **Returns:** `void` 
 ### addJsForClass 
-Adds JS only when rendered and the block wrapper has a class matching the filename (without extension). This can target pattern, block style, or variation classes.
+Adds JS only when the rendered block has a class matching the file name.
 
 
 
@@ -116,7 +116,7 @@ BlockUtilsTrait::addJsForClass(string jsFile): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| jsFile | `string` | Must be relative to the dist dir and match a block class. |
+| jsFile | `string` | Must be relative to the dist dir; its basename (without extension) must match a block class. |
 
 
 **Returns:** `void` 
