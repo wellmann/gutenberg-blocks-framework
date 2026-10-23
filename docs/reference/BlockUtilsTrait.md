@@ -65,13 +65,13 @@ BlockUtilsTrait::addJsonData(mixed jsonOrArray): void
 
 
 **Returns:** `void` 
-### addPatternCss 
-Adds pattern-specific CSS only when rendered.
+### addCssForClass 
+Adds CSS only when rendered and the block wrapper has a class matching the filename (without extension). This can target pattern, block style, or variation classes.
 
 
 
 ```php
-BlockUtilsTrait::addPatternCss(string cssFile): void
+BlockUtilsTrait::addCssForClass(string cssFile): void
 ```
 
 
@@ -79,7 +79,7 @@ BlockUtilsTrait::addPatternCss(string cssFile): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| cssFile | `string` | Must be relative to the dist dir and must match the pattern&#039;s class name. |
+| cssFile | `string` | Must be relative to the dist dir and match a block class. |
 
 
 **Returns:** `void` 
@@ -102,13 +102,13 @@ BlockUtilsTrait::addCss(string cssFile, callable|null condition = null): void
 
 
 **Returns:** `void` 
-### addPatterJs 
-Adds pattern-specific JS only when rendered.
+### addJsForClass 
+Adds JS only when rendered and the block wrapper has a class matching the filename (without extension). This can target pattern, block style, or variation classes.
 
 
 
 ```php
-BlockUtilsTrait::addPatterJs(string jsFile): void
+BlockUtilsTrait::addJsForClass(string jsFile): void
 ```
 
 
@@ -116,7 +116,7 @@ BlockUtilsTrait::addPatterJs(string jsFile): void
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| jsFile | `string` | Must be relative to the dist dir and must match the pattern&#039;s class name. |
+| jsFile | `string` | Must be relative to the dist dir and match a block class. |
 
 
 **Returns:** `void` 

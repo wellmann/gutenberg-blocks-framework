@@ -48,11 +48,11 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Adds pattern-specific CSS only when rendered.
+     * Adds CSS only when the rendered block has a class matching the file name.
      *
-     * @param string $cssFile Must be relative to the dist dir and must match the pattern's class name.
+     * @param string $cssFile Must be relative to the dist dir; its basename (without extension) must match a block class.
      */
-    protected function addPatternCss(string $cssFile): void
+    protected function addCssForClass(string $cssFile): void
     {
         $className = basename($cssFile, '.css');
 
@@ -90,11 +90,11 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Adds pattern-specific JS only when rendered.
+     * Adds JS only when the rendered block has a class matching the file name.
      *
-     * @param string $jsFile Must be relative to the dist dir and must match the pattern's class name.
+     * @param string $jsFile Must be relative to the dist dir; its basename (without extension) must match a block class.
      */
-    protected function addPatterJs(string $jsFile): void
+    protected function addJsForClass(string $jsFile): void
     {
         $className = basename($jsFile, '.js');
 
