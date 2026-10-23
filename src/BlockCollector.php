@@ -22,11 +22,11 @@ class BlockCollector
     private array $blocks = [];
 
     /**
-     * Holds the path to the blocks directory.
+     * Holds the path to the blocks src directory.
      *
      * @var string
      */
-    private string $blockDirPath;
+    private string $blockSrcDirPath;
 
     /**
      * Holds the configured options.
@@ -47,7 +47,7 @@ class BlockCollector
      */
     public function __construct(Config $config)
     {
-        $this->blockDirPath = $config->dirPath . $config->blockDir;
+        $this->blockSrcDirPath = $config->dirPath . $config->blockDir;
         $this->config = $config;
     }
 
@@ -93,10 +93,10 @@ class BlockCollector
         $manifestFile = $this->config->blocksManifest ?: $this->config->distDir . 'blocks-manifest.php';
         $manifestPath = $this->config->dirPath . $manifestFile;
         if (is_readable($manifestPath) && function_exists('wp_register_block_metadata_collection')) {
-            wp_register_block_metadata_collection($this->blockDirPath, $manifestPath);
+            wp_register_block_metadata_collection($this->config->distDir, $manifestPath);
         }
 
-        $blocks = glob($this->blockDirPath . '*', GLOB_ONLYDIR);
+        $blocks = glob($this->blockSrcDirPath . '*', GLOB_ONLYDIR);
         foreach ($blocks as $block) {
             $block = basename($block);
             if (!str_starts_with($block, '_')) {
@@ -117,7 +117,7 @@ class BlockCollector
     {
         $blockClassName = str_replace('-', '', ucwords($block, '-'));
         $blockFullClassName = BaseBlock::class;
-        $blockPath = trailingslashit($this->blockDirPath . $block);
+        $blockPath = trailingslashit($this->config->distDir . $block);
 
         // Check if block has a dedicated PHP class.
         if (file_exists($blockPath . $blockClassName . '.php')) {
@@ -125,7 +125,7 @@ class BlockCollector
             $blockFullClassName = $this->config->classNamespace . '\\' . $blockClassName;
         }
 
-        $classInstance = new $blockFullClassName($block, $this->blockDirPath, $this->config);
+        $classInstance = new $blockFullClassName($block, $this->config->distDir, $this->config);
         if (!$classInstance instanceof BaseBlock) {
             throw new Exception($blockFullClassName . ' must be an instance of ' . BaseBlock::class);
         }

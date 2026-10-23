@@ -82,7 +82,7 @@ class BaseBlock
      * Creates instance of current block type once per request.
      *
      * @param string $slug Block slug without namespace (e.g. `my-example`).
-     * @param string $dirPath Path to current block.
+     * @param string $dirPath Path to block dir.
      * @param Config $config Configurated options.
      */
     public function __construct(string $slug, string $dirPath, Config $config)
