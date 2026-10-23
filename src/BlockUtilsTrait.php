@@ -72,40 +72,6 @@ trait BlockUtilsTrait
     }
 
     /**
-     * Enqueues JS file only when the block is rendered.
-     * Most useful to enqueue a third party dependency of a rarely used block.
-     *
-     * @param string $jsFile Must be relative to the dist dir.
-     * @param string $dependentHandle Handle of the script that needs this script loaded.
-     */
-    protected function addJs(string $jsFile, string $dependentHandle = ''): void
-    {
-        $jsFilePath = $this->config->dirPath . $this->config->distDir . $jsFile;
-        if (!is_readable($jsFilePath)) {
-            return;
-        }
-
-        $handle = basename($jsFile, '.js');
-
-        if (!empty($dependentHandle)) {
-            $dependent = $GLOBALS['wp_scripts']->query($dependentHandle, 'registered');
-            if (!$dependent) {
-                return;
-            }
-
-            $dependent->deps[] = $handle;
-        }
-
-        wp_enqueue_script(
-            $handle,
-            $this->config->dirUrl . $this->config->distDir . $jsFile,
-            [],
-            substr(md5((string)filemtime($jsFilePath)), 0, 12),
-            true
-        );
-    }
-
-    /**
      * Adds pattern-specific CSS only when rendered.
      *
      * @param string $cssFile Must be relative to the dist dir.
