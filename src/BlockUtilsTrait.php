@@ -79,14 +79,11 @@ trait BlockUtilsTrait
             return;
         }
 
-        $name = str_starts_with($this->slug, 'core-') ? 'core/' . preg_replace('/^core-/', '', $this->slug) : $this->name;
+        $handle = "{$this->config->namespace}-{$this->slug}-" . basename($cssFilePath, '.css');
 
-        wp_enqueue_block_style($name, [
-            'handle' => "{$this->config->namespace}-{$this->slug}-" . basename($cssFilePath, '.css'),
-            'src' => $this->config->dirUrl . $this->config->distDir . $cssFile,
-            'path' => $cssFilePath,
-            'ver' => filemtime($cssFilePath),
-        ]);
+        wp_register_style($handle, $this->config->dirUrl . $this->config->distDir . $cssFile, [], filemtime($cssFilePath));
+        wp_style_add_data($handle, 'path', $cssFilePath);
+        wp_enqueue_style($handle);
     }
 
     /**
