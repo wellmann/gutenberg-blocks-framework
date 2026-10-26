@@ -191,7 +191,14 @@ class BaseBlock
         }
 
         $value = $this->data[$attr];
-        $this->tagAttr[$newAttr][] = $attr === 'align' &&  in_array($value, ['full', 'wide']) ? 'align' . $value : $value;
+        if ($attr === 'align') {
+            $this->tagAttr[$newAttr][] = in_array($value, ['full', 'wide']) ? 'align' . $value : $value;
+        } elseif ($newAttr === 'class' && is_string($value)) {
+            $classes = preg_split('/\s+/', trim($value), -1, PREG_SPLIT_NO_EMPTY);
+            $this->tagAttr[$newAttr] = array_merge($this->tagAttr[$newAttr] ?? [], $classes);
+        } else {
+            $this->tagAttr[$newAttr][] = $value;
+        }
         unset($this->data[$attr]);
 
         return $value;
